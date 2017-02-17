@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SGU-176 Flow construction 有上下界的最小流 - 沐阳 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./SGU-176上下界的最小流_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./SGU-176上下界的最小流_files/bundle-InsideDotNet.css">
+<link type="text/css" rel="stylesheet" href="./SGU-176上下界的最小流_files/86271.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./SGU-176上下界的最小流_files/bundle-InsideDotNet-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Lyush/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Lyush/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Lyush/wlwmanifest.xml">
+<script type="text/javascript" src="./SGU-176上下界的最小流_files/encoder.js"></script><script src="./SGU-176上下界的最小流_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Lyush', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./SGU-176上下界的最小流_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<div style="display:none"><img src="./SGU-176上下界的最小流_files/top.gif" alt="谨以此模板祝贺【博客园开发者征途】系列图书《你必须知道的.net》出版发行"></div>
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/Lyush/"><img id="blogLogo" src="./SGU-176上下界的最小流_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Lyush/">沐阳</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+    <li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+    <li><a id="MyLinks1_SpaceLink" class="menu" href="http://ing.cnblogs.com/">闪存</a></li>
+    <li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/Lyush/">首页</a></li>
+    <li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+    <li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%B2%90%E9%98%B3">联系</a></li>
+    <li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+    <li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/Lyush/rss">订阅</a>
+        <a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/Lyush/rss"><img src="./SGU-176上下界的最小流_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+		<div class="clear"></div>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔- 650&nbsp;
+文章- 10&nbsp;
+评论- 65&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html">SGU-176 Flow construction 有上下界的最小流</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>这里参看了大牛的解题思路，学习了很多。原来上下界流的求法是这么的灵活，尤其我是用的临界表存储的边，删除更新很不方便。</p>
+<p><a href="http://www.shuizilong.com/house/archives/sgu-176-flow-construction/">http://www.shuizilong.com/house/archives/sgu-176-flow-construction/</a></p>
+<p><a href="http://hi.baidu.com/lxc_0601/blog/item/39e4e2ecd3be0b2f62d09f95.html">http://hi.baidu.com/lxc_0601/blog/item/39e4e2ecd3be0b2f62d09f95.html</a></p>
+<p>这里要进行说明的求解一个有上下界的网络流的步骤：</p>
+<p>1.首先进行构图，对于那么对流量没有限制的边，我们直接将容量赋值为原始的容量，而对于有流量要求的边，我们将容量减去下界并将其等价与无下界的边。最后就是添加一个附加汇点和一个附加源点，从附加源点连向每个顶点的容量为以该点所有流入的下界流量总和，每个顶点流向附加汇点是该点流出的下界流量总和。</p>
+<p>2.我们要添加一条从汇点到源点流量为INF的边，这条边的意义在于，能够使得源点会汇点满足成为流量平衡条件的普通节点。</p>
+<p>3.我们在以附加源点和附加汇点求一次最大流，如果所有的到附加汇点的边都满载，那么说明这个网络是存在满足所有下界的可行流的。因为去除了下界容量的图具备这个能力。但是此时的可行流（从汇点流向源点的流量）并不一定是最小流，因为满足情况的可行流是不唯一的。</p>
+<p>4.紧接着，我们在原图上从汇点向源点求一次最大流（此时要删除掉那条从汇点到源点的INF的边），此时便是一个缩流的过程，旨在试探图中是否还存在流量去替代汇点到源点的流量。这里计算出来的结果可能比我们已得到的可行流还要大，意思是说从汇点到源点有的是空间，因此也就不必连接那条INF的边了，整个网络的流量可以为0，网络中存在环流。</p>
+<p>由于这里免不了会进行删边的操作，因此我们直接找到那条边，把流量赋值为0就可以了。</p>
+<p>代码如下：31MS</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./SGU-176上下界的最小流_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include &lt;cstring&gt;<span style="color: #000000;">
+#include </span>&lt;cstdio&gt;<span style="color: #000000;">
+#include </span>&lt;cstdio&gt;<span style="color: #000000;">
+#include </span>&lt;algorithm&gt;<span style="color: #000000;">
+#include </span>&lt;queue&gt;
+<span style="color: #0000ff;">#define</span> INF 0x3fffffff
+<span style="color: #0000ff;">#define</span> RE(x) ((x)^1)
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+
+</span><span style="color: #0000ff;">int</span> N, M, head[<span style="color: #800080;">150</span>], dis[<span style="color: #800080;">150</span><span style="color: #000000;">], idx, sum;
+
+</span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> vsource = <span style="color: #800080;">110</span>, vsink = <span style="color: #800080;">111</span><span style="color: #000000;">;
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> source, sink; 
+ 
+queue</span>&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">q;
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> Point
+{
+    </span><span style="color: #0000ff;">int</span> <span style="color: #0000ff;">in</span>, <span style="color: #0000ff;">out</span><span style="color: #000000;">; 
+}p[</span><span style="color: #800080;">105</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> Edge
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> v, cap, next, rec;
+}e[</span><span style="color: #800080;">20000</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> 
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> x, y, b, c;
+}info[</span><span style="color: #800080;">10015</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">void</span> insert(<span style="color: #0000ff;">int</span> f, <span style="color: #0000ff;">int</span> t, <span style="color: #0000ff;">int</span> c, <span style="color: #0000ff;">int</span><span style="color: #000000;"> rec)
+{
+    </span>++<span style="color: #000000;">idx; 
+    e[idx].v </span>= t, e[idx].cap =<span style="color: #000000;"> c;
+    e[idx].rec </span>=<span style="color: #000000;"> rec;
+    e[idx].next </span>= head[f], head[f] =<span style="color: #000000;"> idx;
+}
+
+</span><span style="color: #0000ff;">void</span><span style="color: #000000;"> init()
+{
+    idx </span>= -<span style="color: #800080;">1</span><span style="color: #000000;">;
+    memset(head, </span><span style="color: #800080;">0xff</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;"> (head));
+}
+
+</span><span style="color: #0000ff;">bool</span> spfa(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span><span style="color: #000000;"> sk)
+{
+    memset(dis, </span><span style="color: #800080;">0xff</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;"> (dis));
+    dis[u] </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    q.push(u);
+    </span><span style="color: #0000ff;">while</span> (!<span style="color: #000000;">q.empty()) {
+        u </span>=<span style="color: #000000;"> q.front();
+        q.pop();
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = head[u]; i != -<span style="color: #800080;">1</span>; i =<span style="color: #000000;"> e[i].next) {
+            </span><span style="color: #0000ff;">if</span> (dis[e[i].v] == -<span style="color: #800080;">1</span> &amp;&amp; e[i].cap &gt; <span style="color: #800080;">0</span><span style="color: #000000;">) {
+                dis[e[i].v] </span>= dis[u] + <span style="color: #800080;">1</span><span style="color: #000000;">;
+                q.push(e[i].v);
+            }
+        }
+    }
+    </span><span style="color: #0000ff;">return</span> dis[sk] != -<span style="color: #800080;">1</span><span style="color: #000000;">;
+}
+
+</span><span style="color: #0000ff;">int</span> dfs(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span> sk, <span style="color: #0000ff;">int</span><span style="color: #000000;"> flow)
+{
+    </span><span style="color: #0000ff;">if</span> (u ==<span style="color: #000000;"> sk) {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> flow;
+    }
+    </span><span style="color: #0000ff;">int</span> tf = <span style="color: #800080;">0</span><span style="color: #000000;">, sf;
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = head[u]; i != -<span style="color: #800080;">1</span>; i =<span style="color: #000000;"> e[i].next)
+    {
+        </span><span style="color: #0000ff;">if</span> (dis[u]+<span style="color: #800080;">1</span> == dis[e[i].v] &amp;&amp; e[i].cap &gt; <span style="color: #800080;">0</span> &amp;&amp; (sf = dfs(e[i].v, sk, min( flow-<span style="color: #000000;">tf, e[i].cap )))) {
+            e[i].cap </span>-=<span style="color: #000000;"> sf; 
+            e[RE(i)].cap </span>+=<span style="color: #000000;"> sf;
+            tf </span>+=<span style="color: #000000;"> sf;
+            </span><span style="color: #0000ff;">if</span> (tf ==<span style="color: #000000;"> flow) {
+                </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> tf;
+            }
+        }
+    }
+    </span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">tf) {
+        dis[u] </span>= -<span style="color: #800080;">1</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> tf;
+}
+
+</span><span style="color: #0000ff;">int</span> Dinic(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span> sk, <span style="color: #0000ff;">int</span><span style="color: #000000;"> flow)
+{
+    </span><span style="color: #0000ff;">int</span> ans = <span style="color: #800080;">0</span><span style="color: #000000;">; 
+    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (spfa(u, sk)) {
+        ans </span>+=<span style="color: #000000;"> dfs(u, sk, flow);
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ans;
+}
+
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+5 6
+1 2 1 0
+2 5 1 0
+1 4 2 1
+4 5 4 0
+1 3 3 0
+3 4 2 1
+
+4
+0 0 2 4 2 2
+
+5 5 
+1 2 1 0
+2 3 2 1
+3 4 2 1
+4 2 2 1
+3 5 1 0
+
+0
+0 2 2 2 0
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+{ 
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> ans1, ans2, ans;
+    init();
+    scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d %d</span><span style="color: #800000;">"</span>, &amp;N, &amp;<span style="color: #000000;">M);
+    </span><span style="color: #0000ff;">if</span> (N == <span style="color: #800080;">0</span><span style="color: #000000;">) {
+        puts(</span><span style="color: #800000;">"</span><span style="color: #800000;">Impossible</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+    source </span>= <span style="color: #800080;">1</span>, sink =<span style="color: #000000;"> N;
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= M; ++<span style="color: #000000;">i) {
+        scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d %d %d %d</span><span style="color: #800000;">"</span>, &amp;info[i].x, &amp;info[i].y, &amp;info[i].b, &amp;<span style="color: #000000;">info[i].c);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (info[i].c) {
+            sum </span>+=<span style="color: #000000;"> info[i].b;
+            p[info[i].x].</span><span style="color: #0000ff;">out</span> +=<span style="color: #000000;"> info[i].b;
+            p[info[i].y].</span><span style="color: #0000ff;">in</span> +=<span style="color: #000000;"> info[i].b;
+            insert(info[i].x, info[i].y, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+            insert(info[i].y, info[i].x, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        }
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            insert(info[i].x, info[i].y, info[i].b, info[i].b);
+            insert(info[i].y, info[i].x, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        }
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 接下来遍历所有节点，添加附加源点</span>
+    <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= N; ++<span style="color: #000000;">i) {
+        insert(vsource, i, p[i].</span><span style="color: #0000ff;">in</span>, p[i].<span style="color: #0000ff;">in</span><span style="color: #000000;">);
+        insert(i, vsource, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        insert(i, vsink, p[i].</span><span style="color: #0000ff;">out</span>, p[i].<span style="color: #0000ff;">out</span><span style="color: #000000;">);
+        insert(vsink, i, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+    }
+    insert(sink, source, INF, INF);
+    insert(source, sink, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+    
+    </span><span style="color: #0000ff;">if</span> (Dinic(vsource, vsink, sum) !=<span style="color: #000000;"> sum) {
+        puts(</span><span style="color: #800000;">"</span><span style="color: #800000;">Impossible</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+    
+    ans1 </span>=<span style="color: #000000;"> e[RE(head[sink])].cap;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 这里得到的是一个原网络的可行流，并非最小或者最大流</span>
+<span style="color: #000000;">    
+    e[head[sink]].cap </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    e[RE(head[sink])].cap </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    
+    ans2 </span>=<span style="color: #000000;"> Dinic(sink, source, INF);
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 寻找缩流</span>
+    ans = ans1 -<span style="color: #000000;"> ans2;
+    </span><span style="color: #0000ff;">if</span> (ans &lt; <span style="color: #800080;">0</span>) {  <span style="color: #008000;">//</span><span style="color: #008000;"> 如果愿网络在不加汇点到源点的INF边足以提供多余可行流的流量
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 那么最小流就可以等于零，内部成环</span>
+        e[head[sink]].cap = <span style="color: #800080;">0</span><span style="color: #000000;">;
+        e[RE(head[sink])].cap </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+        insert(vsource, source, </span>-ans, -<span style="color: #000000;">ans);
+        Dinic(vsource, sink, INF);
+        ans </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, ans);
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= M; ++<span style="color: #000000;">i) {
+        printf(i </span>== <span style="color: #800080;">1</span> ? <span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span> : <span style="color: #800000;">"</span><span style="color: #800000;"> %d</span><span style="color: #800000;">"</span>, e[(i-<span style="color: #800080;">1</span>)*<span style="color: #800080;">2</span>+<span style="color: #800080;">1</span>].cap+info[i].b*<span style="color: #000000;">info[i].c);
+    }
+    puts(</span><span style="color: #800000;">""</span><span style="color: #000000;">);
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./SGU-176上下界的最小流_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="color: #000000;">&nbsp;二分法枚举法：140MS</span></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./SGU-176上下界的最小流_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include &lt;cstring&gt;<span style="color: #000000;">
+#include </span>&lt;cstdio&gt;<span style="color: #000000;">
+#include </span>&lt;cstdio&gt;<span style="color: #000000;">
+#include </span>&lt;algorithm&gt;
+<span style="color: #0000ff;">#define</span> INF 0x3fffffff
+<span style="color: #0000ff;">#define</span> RE(x) ((x)^1)
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+
+</span><span style="color: #0000ff;">int</span> N, M, head[<span style="color: #800080;">150</span>], dis[<span style="color: #800080;">150</span><span style="color: #000000;">], idx, sum;
+
+</span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> vsource = <span style="color: #800080;">110</span>, vsink = <span style="color: #800080;">111</span><span style="color: #000000;">;
+</span><span style="color: #0000ff;">int</span> source, sink, que[<span style="color: #800080;">150</span><span style="color: #000000;">], front; 
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> Point
+{
+    </span><span style="color: #0000ff;">int</span> <span style="color: #0000ff;">in</span>, <span style="color: #0000ff;">out</span><span style="color: #000000;">; 
+}p[</span><span style="color: #800080;">105</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> Edge
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> v, cap, next, rec;
+}e[</span><span style="color: #800080;">20000</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> 
+{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> x, y, b, c;
+}info[</span><span style="color: #800080;">10015</span><span style="color: #000000;">];
+
+</span><span style="color: #0000ff;">void</span> insert(<span style="color: #0000ff;">int</span> f, <span style="color: #0000ff;">int</span> t, <span style="color: #0000ff;">int</span> c, <span style="color: #0000ff;">int</span><span style="color: #000000;"> rec)
+{
+    </span>++<span style="color: #000000;">idx; 
+    e[idx].v </span>= t, e[idx].cap =<span style="color: #000000;"> c;
+    e[idx].rec </span>=<span style="color: #000000;"> rec;
+    e[idx].next </span>= head[f], head[f] =<span style="color: #000000;"> idx;
+}
+
+</span><span style="color: #0000ff;">void</span><span style="color: #000000;"> init()
+{
+    idx </span>= -<span style="color: #800080;">1</span><span style="color: #000000;">;
+    memset(head, </span><span style="color: #800080;">0xff</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;"> (head));
+}
+
+</span><span style="color: #0000ff;">bool</span> spfa(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span><span style="color: #000000;"> sk)
+{
+    memset(dis, </span><span style="color: #800080;">0xff</span>, <span style="color: #0000ff;">sizeof</span><span style="color: #000000;"> (dis));
+    dis[u] </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    front </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+    que[front</span>++] =<span style="color: #000000;"> u;
+    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (front) {
+        u </span>= que[--<span style="color: #000000;">front];
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = head[u]; i != -<span style="color: #800080;">1</span>; i =<span style="color: #000000;"> e[i].next) {
+            </span><span style="color: #0000ff;">if</span> (dis[e[i].v] == -<span style="color: #800080;">1</span> &amp;&amp; e[i].cap &gt; <span style="color: #800080;">0</span><span style="color: #000000;">) {
+                dis[e[i].v] </span>= dis[u] + <span style="color: #800080;">1</span><span style="color: #000000;">;
+                que[front</span>++] =<span style="color: #000000;"> e[i].v;
+            }
+        }
+    }
+    </span><span style="color: #0000ff;">return</span> dis[sk] != -<span style="color: #800080;">1</span><span style="color: #000000;">;
+}
+
+</span><span style="color: #0000ff;">int</span> dfs(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span> sk, <span style="color: #0000ff;">int</span><span style="color: #000000;"> flow)
+{
+    </span><span style="color: #0000ff;">if</span> (u ==<span style="color: #000000;"> sk) {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> flow;
+    }
+    </span><span style="color: #0000ff;">int</span> tf = <span style="color: #800080;">0</span><span style="color: #000000;">, sf;
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = head[u]; i != -<span style="color: #800080;">1</span>; i =<span style="color: #000000;"> e[i].next)
+    {
+        </span><span style="color: #0000ff;">if</span> (dis[u]+<span style="color: #800080;">1</span> == dis[e[i].v] &amp;&amp; e[i].cap &gt; <span style="color: #800080;">0</span> &amp;&amp; (sf = dfs(e[i].v, sk, min( flow-<span style="color: #000000;">tf, e[i].cap )))) {
+            e[i].cap </span>-= sf, e[RE(i)].cap +=<span style="color: #000000;"> sf;
+            tf </span>+=<span style="color: #000000;"> sf;
+            </span><span style="color: #0000ff;">if</span> (tf ==<span style="color: #000000;"> flow) {
+                </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> tf;
+            }
+        }
+    }
+    </span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">tf) {
+        dis[u] </span>= -<span style="color: #800080;">1</span><span style="color: #000000;">;
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> tf;
+}
+
+</span><span style="color: #0000ff;">int</span> Dinic(<span style="color: #0000ff;">int</span> u, <span style="color: #0000ff;">int</span> sk, <span style="color: #0000ff;">int</span><span style="color: #000000;"> flow)
+{
+    </span><span style="color: #0000ff;">int</span> ans = <span style="color: #800080;">0</span><span style="color: #000000;">; 
+    </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (spfa(u, sk)) {
+        ans </span>+=<span style="color: #000000;"> dfs(u, sk, flow);
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ans;
+}
+
+</span><span style="color: #0000ff;">int</span> bsearch(<span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span><span style="color: #000000;"> r)
+{
+    </span><span style="color: #0000ff;">int</span> mid, ans = -<span style="color: #800080;">1</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">while</span> (l &lt;=<span style="color: #000000;"> r) {
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">    printf("mid = %d\n", mid);
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">    printf("l=%d, r=%d\n", l, r);</span>
+        mid = (l+r) &gt;&gt; <span style="color: #800080;">1</span><span style="color: #000000;">;
+        e[head[sink]].cap </span>=<span style="color: #000000;"> mid;
+        e[RE(head[sink])].cap </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span> (Dinic(vsource, vsink, INF) ==<span style="color: #000000;"> sum) {
+            r </span>= mid-<span style="color: #800080;">1</span><span style="color: #000000;">;
+            ans </span>=<span style="color: #000000;"> mid;
+        }
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            l </span>= mid+<span style="color: #800080;">1</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt;= idx; ++<span style="color: #000000;">i) {
+            e[i].cap </span>=<span style="color: #000000;"> e[i].rec;
+        }
+    }
+    </span><span style="color: #0000ff;">if</span> (ans != -<span style="color: #800080;">1</span><span style="color: #000000;">) {
+        e[head[sink]].cap </span>=<span style="color: #000000;"> ans;
+        e[RE(head[sink])].cap </span>= <span style="color: #800080;">0</span><span style="color: #000000;">;
+        Dinic(vsource, vsink, INF);
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ans;
+}
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+5 6
+1 2 1 0
+2 5 1 0
+1 4 2 1
+4 5 4 0
+1 3 3 0
+3 4 2 1
+
+5 5 
+1 2 1 0
+2 3 2 1
+3 4 2 1
+4 2 2 1
+3 5 1 0
+
+</span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+{ 
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> ans1, ans2;
+    init();
+    scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d %d</span><span style="color: #800000;">"</span>, &amp;N, &amp;<span style="color: #000000;">M);
+    </span><span style="color: #0000ff;">if</span> (N == <span style="color: #800080;">0</span><span style="color: #000000;">) {
+        puts(</span><span style="color: #800000;">"</span><span style="color: #800000;">Impossible</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+    source </span>= <span style="color: #800080;">1</span>, sink =<span style="color: #000000;"> N;
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= M; ++<span style="color: #000000;">i) {
+        scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d %d %d %d</span><span style="color: #800000;">"</span>, &amp;info[i].x, &amp;info[i].y, &amp;info[i].b, &amp;<span style="color: #000000;">info[i].c);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (info[i].c) {
+            p[info[i].x].</span><span style="color: #0000ff;">out</span> +=<span style="color: #000000;"> info[i].b;
+            p[info[i].y].</span><span style="color: #0000ff;">in</span> +=<span style="color: #000000;"> info[i].b;
+            insert(info[i].x, info[i].y, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+            insert(info[i].y, info[i].x, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        }
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            insert(info[i].x, info[i].y, info[i].b, info[i].b);
+            insert(info[i].y, info[i].x, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        }
+    }
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 接下来遍历所有节点，添加附加源点</span>
+    <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= N; ++<span style="color: #000000;">i) {
+        sum </span>+= p[i].<span style="color: #0000ff;">in</span><span style="color: #000000;">;
+        insert(vsource, i, p[i].</span><span style="color: #0000ff;">in</span>, p[i].<span style="color: #0000ff;">in</span><span style="color: #000000;">);
+        insert(i, vsource, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        insert(i, vsink, p[i].</span><span style="color: #0000ff;">out</span>, p[i].<span style="color: #0000ff;">out</span><span style="color: #000000;">);
+        insert(vsink, i, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+    }
+    insert(sink, source, INF, INF);
+    insert(source, sink, </span><span style="color: #800080;">0</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+    ans1 </span>= bsearch(<span style="color: #800080;">0</span>, <span style="color: #800080;">10000000</span><span style="color: #000000;">);
+    </span><span style="color: #0000ff;">if</span> (ans1 == -<span style="color: #800080;">1</span><span style="color: #000000;">) {
+        puts(</span><span style="color: #800000;">"</span><span style="color: #800000;">Impossible</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+    }
+    printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, ans1);
+    </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= M; ++<span style="color: #000000;">i) {
+        printf(i </span>== <span style="color: #800080;">1</span> ? <span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span> : <span style="color: #800000;">"</span><span style="color: #800000;"> %d</span><span style="color: #800000;">"</span>, e[(i-<span style="color: #800080;">1</span>)*<span style="color: #800080;">2</span>+<span style="color: #800080;">1</span>].cap+info[i].b*<span style="color: #000000;">info[i].c);
+    }
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./SGU-176上下界的最小流_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/Lyush/category/314791.html" target="_blank">最大流&amp;二分匹配</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2581498,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;d7201971-7445-e011-ac81-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./SGU-176上下界的最小流_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./SGU-176上下界的最小流_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Lyush/" target="_blank"><img src="./SGU-176上下界的最小流_files/u278549.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Lyush/">沐阳</a><br>
+            <a href="http://home.cnblogs.com/u/Lyush/followees">关注 - 6</a><br>
+            <a href="http://home.cnblogs.com/u/Lyush/followers">粉丝 - 195</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;d7201971-7445-e011-ac81-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2581498,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(2581498,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/07/2580683.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/Lyush/archive/2012/07/07/2580683.html" title="发布于2012-07-07 16:09">SGU-438 The Glorious Karlutka River =) 最大流（动态流问题）</a><br><a href="http://www.cnblogs.com/Lyush/archive/2012/07/10/2583893.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/Lyush/archive/2012/07/10/2583893.html" title="发布于2012-07-10 00:17">POJ-1035 Spell checker 暴力</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-07-08 14:00</span> <a href="http://www.cnblogs.com/Lyush/">沐阳</a> 阅读(<span id="post_view_count">1291</span>) 评论(<span id="post_comment_count">1</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2581498" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html#" onclick="AddToWz(2581498);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=86271,cb_entryId=2581498,cb_blogApp=currentBlogApp,cb_blogUserGuid='d7201971-7445-e011-ac81-842b2b196315',cb_entryCreatedDate='2012/7/8 14:00:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<div class="feedback_area_title">发表评论</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html#3118054" class="layer">#1楼</a><a name="3118054" id="comment_anchor_3118054"></a><span id="comment-maxId" style="display:none;">3118054</span><span id="comment-maxDate" style="display:none;">2015/1/28 21:23:20</span> <span class="comment_date">2015-01-28 21:23</span> | <a id="a_comment_author_3118054" href="http://www.cnblogs.com/xindubawukong/" target="_blank">xindubawukong</a> <a href="http://msg.cnblogs.com/send/xindubawukong" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3118054" class="blog_comment_body">能告诉我一下第一个方法中ans1为什么不等于dinic(vsource,vsink)吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3118054,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3118054,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank">【推荐】自开发 零实施的BPM</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="https://cn.udacity.com/course/deep-learning-nanodegree-foundation--nd101/?utm_source=cnblogB3&amp;utm_medium=referral&amp;utm_campaign=nd101launch" target="_blank"><img width="300" height="250" src="./SGU-176上下界的最小流_files/24442-20170120162217812-818299692.jpg" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/562092/" target="_blank">AT&amp;T今年将在美国两座城市部署5G网络 实现1Gbps网速</a><br> ·  <a href="http://news.cnblogs.com/n/562091/" target="_blank">汽车这一年，无人车不再遥不可及，新造车运动砸下千亿真金白银</a><br> ·  <a href="http://news.cnblogs.com/n/562090/" target="_blank">SpaceX完成了回收火箭的静态点火测试</a><br> ·  <a href="http://news.cnblogs.com/n/562089/" target="_blank">Windows 10 Cloud可能是微软应对Chrome OS的新招</a><br> ·  <a href="http://news.cnblogs.com/n/562088/" target="_blank">GoPro无人机Karma召回后再次开卖 恐已难与大疆匹敌</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./SGU-176上下界的最小流_files/24442-20170118152220281-363324784.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/554260/" target="_blank">「代码家」的学习过程和学习经验分享</a><br> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/Lyush/">沐阳</a><br>园龄：<a href="http://home.cnblogs.com/u/Lyush/" title="入园时间：2011-03-03">5年11个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/Lyush/followers/">195</a><br>关注：<a href="http://home.cnblogs.com/u/Lyush/followees/">6</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;d7201971-7445-e011-ac81-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/06/01&#39;);return false;">&lt;</a></td><td align="center">2012年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2012/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/01.html"><u>1</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/02.html"><u>2</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/03.html"><u>3</u></a></td><td align="center">4</td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/05.html"><u>5</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/06.html"><u>6</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/07.html"><u>7</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/08.html"><u>8</u></a></td><td align="center">9</td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/10.html"><u>10</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/11.html"><u>11</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/12.html"><u>12</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/13.html"><u>13</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/14.html"><u>14</u></a></td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/16.html"><u>16</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/17.html"><u>17</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/18.html"><u>18</u></a></td><td align="center">19</td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/20.html"><u>20</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/21.html"><u>21</u></a></td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/24.html"><u>24</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/25.html"><u>25</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/26.html"><u>26</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/27.html"><u>27</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/28.html"><u>28</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/29.html"><u>29</u></a></td><td align="center"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/30.html"><u>30</u></a></td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/Lyush/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/Lyush/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/Lyush/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/Lyush/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/Lyush/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/Lyush/archive/2012/07/08/2581498.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/Lyush/tag/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>(11)</li><li><a href="http://www.cnblogs.com/Lyush/tag/C%2B%2B%20Primer%20Plus/">C++ Primer Plus</a>(5)</li><li><a href="http://www.cnblogs.com/Lyush/tag/ubuntu/">ubuntu</a>(5)</li><li><a href="http://www.cnblogs.com/Lyush/tag/2013ACM%E5%A4%9A%E6%A0%A1%E8%81%94%E5%90%88/">2013ACM多校联合</a>(3)</li><li><a href="http://www.cnblogs.com/Lyush/tag/%E7%99%BE%E5%BA%A6%E4%B9%8B%E6%98%9F/">百度之星</a>(2)</li><li><a href="http://www.cnblogs.com/Lyush/tag/HCPC2013%E6%A0%A1%E8%B5%9B%E8%AE%AD%E7%BB%83%E8%B5%9B/">HCPC2013校赛训练赛</a>(2)</li><li><a href="http://www.cnblogs.com/Lyush/tag/%E8%B4%AA%E5%BF%83/">贪心</a>(2)</li><li><a href="http://www.cnblogs.com/Lyush/tag/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">状态压缩</a>(2)</li><li><a href="http://www.cnblogs.com/Lyush/tag/%E7%BB%84%E5%90%88%E6%95%B0/">组合数</a>(1)</li><li><a href="http://www.cnblogs.com/Lyush/tag/%E4%BC%98%E5%8C%96/">优化</a>(1)</li><li><a href="http://www.cnblogs.com/Lyush/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(702)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/Lyush/category/312820.html">BFS-广度优先搜索(23)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/Lyush/category/299687.html">DFS-深度优先搜索(23)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/Lyush/category/301712.html">Hash-散列(19)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/Lyush/category/311934.html">KMP-AC自动机(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/Lyush/category/388801.html">Splay树(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/Lyush/category/312740.html">STL(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/Lyush/category/515717.html">Ubuntu(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/Lyush/category/298995.html">并查集(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/Lyush/category/314520.html">差分约束(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/Lyush/category/291376.html">大数(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/Lyush/category/315899.html">递推(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/Lyush/category/318897.html">动态规划(100)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/Lyush/category/444439.html">好文收藏(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/Lyush/category/299965.html">湖南工业大学第一届ACM程序设计大赛(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/Lyush/category/331850.html">几何(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/Lyush/category/310403.html">记忆化搜索(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/Lyush/category/475718.html">矩阵相关(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/Lyush/category/415056.html">枚举(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/Lyush/category/299819.html">模拟题(40)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/Lyush/category/299430.html">母函数(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/Lyush/category/309113.html">其他(72)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/Lyush/category/300421.html">入门题(23)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/Lyush/category/300617.html">筛选(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/Lyush/category/292987.html">树状数组&amp;&amp; 线段树(50)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/Lyush/category/309174.html">数论(50)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/Lyush/category/474080.html">数学分析(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/Lyush/category/296882.html">贪心(18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/Lyush/category/443749.html">图论相关(38)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/Lyush/category/310278.html">拓扑排序(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/Lyush/category/321560.html">状态压缩(21)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/Lyush/category/302534.html">字典树(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/Lyush/category/309069.html">组合数(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/Lyush/category/314791.html">最大流&amp;二分匹配(48)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/Lyush/category/300701.html">最短路(30)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(650)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/Lyush/archive/2014/11.html">2014年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/Lyush/archive/2014/07.html">2014年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/Lyush/archive/2014/05.html">2014年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/Lyush/archive/2014/01.html">2014年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/Lyush/archive/2013/12.html">2013年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/Lyush/archive/2013/11.html">2013年11月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/Lyush/archive/2013/10.html">2013年10月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/Lyush/archive/2013/09.html">2013年9月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/Lyush/archive/2013/08.html">2013年8月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/Lyush/archive/2013/07.html">2013年7月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/Lyush/archive/2013/06.html">2013年6月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/Lyush/archive/2013/05.html">2013年5月 (33)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/Lyush/archive/2013/04.html">2013年4月 (41)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/Lyush/archive/2013/03.html">2013年3月 (41)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/Lyush/archive/2013/02.html">2013年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/Lyush/archive/2013/01.html">2013年1月 (40)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/Lyush/archive/2012/12.html">2012年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/Lyush/archive/2012/11.html">2012年11月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/Lyush/archive/2012/10.html">2012年10月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/Lyush/archive/2012/09.html">2012年9月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/Lyush/archive/2012/08.html">2012年8月 (61)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/Lyush/archive/2012/07.html">2012年7月 (75)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/Lyush/archive/2012/06.html">2012年6月 (19)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/Lyush/archive/2012/05.html">2012年5月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/Lyush/archive/2012/04.html">2012年4月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/Lyush/archive/2012/03.html">2012年3月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/Lyush/archive/2012/02.html">2012年2月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/Lyush/archive/2011/12.html">2011年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/Lyush/archive/2011/11.html">2011年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/Lyush/archive/2011/10.html">2011年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/Lyush/archive/2011/09.html">2011年9月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/Lyush/archive/2011/08.html">2011年8月 (62)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/Lyush/archive/2011/07.html">2011年7月 (35)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/Lyush/archive/2011/05.html">2011年5月 (23)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/Lyush/archive/2011/04.html">2011年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/Lyush/archive/2011/03.html">2011年3月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册<span style="font-size:11px;font-weight:normal">(6)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/Lyush/gallery/445612.html" rel="nofollow">知识图片(6)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList都是大虾">
+<h3 class="catListTitle">牛人</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_3_Link_0" href="http://www.cnblogs.com/tangcong" rel="nofollow">“学长”的博客</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_1" href="http://www.cnblogs.com/Lvsi" rel="nofollow" target="_blank">Lvsi</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_2" href="http://www.baiyun.me/" rel="nofollow" target="_blank">MiYu</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_3" href="http://www.dengwz.com/" rel="nofollow">PHP</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_4" href="http://www.cnblogs.com/jian1573" rel="nofollow">波波</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_5" href="http://yefeng1627.lofter.com/" rel="nofollow">钦此</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_6" href="http://www.cnblogs.com/bo-tao/" rel="nofollow" target="_blank">吴滔</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_7" href="http://www.darkswordzone.com/" rel="nofollow">一介草民</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Lyush/articles/3219196.html#3586577">1. Re:快速傅里叶变换(FFT)的原理及公式</a></li>
+        <li class="recent_comment_body">略乱，大体思想正确。</li>
+        <li class="recent_comment_author">--bearworks</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Lyush/archive/2012/07/26/2609271.html#3502838">2. Re:POJ-1830 开关问题 高斯消元</a></li>
+        <li class="recent_comment_body">为什么是 M.a[b][a] = 1; 而不是 M.a[a][b] = 1; 呢？？？</li>
+        <li class="recent_comment_author">--Ritchie丶</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Lyush/p/3281546.html#3490548">3. Re:【后缀自动机】</a></li>
+        <li class="recent_comment_body">SPOJ-1812 Longest Common Substring II<br>输入：<br>baacaaa<br>acbac<br>cbbcaacca<br>答案应该是2吧，你的是1.</li>
+        <li class="recent_comment_author">--idy002</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Lyush/p/4114971.html#3478776">4. Re:ubuntu 14.04 java开发环境搭建 jdk 以及 inteliJ IDEA安装</a></li>
+        <li class="recent_comment_body">多谢！</li>
+        <li class="recent_comment_author">--Mr.Cypress</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Lyush/archive/2011/07/22/2113678.html#3475849">5. Re:POJ-1061 青蛙的约会 扩展GCD</a></li>
+        <li class="recent_comment_body">@词藻b=l,不会小于0...</li>
+        <li class="recent_comment_author">--coken</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/Lyush/p/4114971.html">1. ubuntu 14.04 java开发环境搭建 jdk 以及 inteliJ IDEA安装(17576)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2013/04/22/3036659.html">2. Fleury（弗罗莱）算法求欧拉路径(8206)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2012/08/23/2652951.html">3. JDOJ-最小面积子矩阵 暴力（排斥二分）(6774)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2011/09/04/2165927.html">4. HDU-1005 Number Sequence(6383)</a></li><li><a href="http://www.cnblogs.com/Lyush/p/3281546.html">5. 【后缀自动机】(4826)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/Lyush/archive/2013/01/11/2856294.html">1. POJ-1664 放苹果 动态规划思想解组合数学(6)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2012/08/21/2649856.html">2. HUD-4389 X mod f(x)  离线打表(5)</a></li><li><a href="http://www.cnblogs.com/Lyush/p/3281546.html">3. 【后缀自动机】(3)</a></li><li><a href="http://www.cnblogs.com/Lyush/p/3278631.html">4. 2013 Multi-University Training Contest 10(3)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2013/05/29/3106976.html">5. HDU-4455 Substrings 动态规划(3)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/Lyush/p/3233573.html">1. 【后缀数组】(3)</a></li><li><a href="http://www.cnblogs.com/Lyush/p/3219605.html">2. 【FFT-快速傅立叶变换】(2)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2013/04/22/3036659.html">3. Fleury（弗罗莱）算法求欧拉路径(2)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2011/09/04/2165927.html">4. HDU-1005 Number Sequence(2)</a></li><li><a href="http://www.cnblogs.com/Lyush/archive/2012/09/11/2679948.html">5. HDU-4279 Number 欧拉函数，因子分解综合(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 沐阳 谨以此模板祝贺【博客园开发者征途】系列图书之《你必须知道的.NET》出版发行
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

@@ -1,0 +1,1482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0053)http://blog.csdn.net/huzecong/article/details/8631748 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+
+    <script src="./带下界的网络流和费用流_files/hm.js"></script><script type="text/javascript" src="./带下界的网络流和费用流_files/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./带下界的网络流和费用流_files/repoAddr2.js"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/huzecong/article/details/8631748#">
+
+    <title>带下界的网络流和费用流 - Kanari's World
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="最近安装Debian操作系统，但遇到一个重大的困惑，那就是为什么Debian菜单里面有一个Fcitx的选项，但是为什么就是无法调出前端来实现输入，这是个大问题，于是就研究，研究了好久，试了很多方法，最终给解决了，记之，便于查询。     在网络上找到，Fcitx输入法的前端是需要UI动态库支持，您会发现在Fcitx的安装目录中并没有该文件，这应该是官方打包的时候就已经遗漏的问题，解决方法就是安">
+    <script src="./带下界的网络流和费用流_files/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="./带下界的网络流和费用流_files/jquery-version.js"></script>
+    <script type="text/javascript" src="./带下界的网络流和费用流_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./带下界的网络流和费用流_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./带下界的网络流和费用流_files/tracking(1).js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./带下界的网络流和费用流_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/huzecong/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./带下界的网络流和费用流_files/default.css">
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="./带下界的网络流和费用流_files/share.js"></script><link rel="stylesheet" type="text/css" href="./带下界的网络流和费用流_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link href="./带下界的网络流和费用流_files/bdsstyle.css" rel="stylesheet" type="text/css"><script src="./带下界的网络流和费用流_files/wxLogin.js"></script><link rel="stylesheet" type="text/css" href="./带下界的网络流和费用流_files/style(1).css"><link type="text/css" rel="stylesheet" href="./带下界的网络流和费用流_files/style(2).css"><script src="http://ads.csdn.net/get_ads.php?ip=null&amp;zones=149%7C205%7C71%7C72%7C190&amp;iframe=false%7Cfalse%7Cfalse%7Cfalse%7Cfalse&amp;prefix=revive-0-&amp;loc=http%3A%2F%2Fblog.csdn.net%2Fhuzecong%2Farticle%2Fdetails%2F8631748&amp;function%20(val)%20{%20%20%20%20for%20(var%20i%20=%200;%20i%20%3C%20this.length;%20i++)%20{%20%20%20%20%20%20%20%20if%20(this[i]%20===%20val)%20{%20%20%20%20%20%20%20%20%20%20%20%20return%20true;%20%20%20%20%20%20%20%20}%20%20%20%20}%20%20%20%20return%20false;}&amp;referer=https%3A%2F%2Fwww.google.com.sg%2F" type="text/javascript"></script><script src="./带下界的网络流和费用流_files/logger.js"></script><link rel="stylesheet" href="./带下界的网络流和费用流_files/share_style0_16.css"></head>
+<body><iframe frameborder="0" style="display: none;" src="./带下界的网络流和费用流_files/saved_resource.html"></iframe><div id="MathJax_Message" style="display: none;"></div>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-0"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./带下界的网络流和费用流_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./带下界的网络流和费用流_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./带下界的网络流和费用流_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./带下界的网络流和费用流_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./带下界的网络流和费用流_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./带下界的网络流和费用流_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./带下界的网络流和费用流_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/huzecong">Kanari's World</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/huzecong?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./带下界的网络流和费用流_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/huzecong?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./带下界的网络流和费用流_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/huzecong/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./带下界的网络流和费用流_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "huzecong";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/huzecong";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://geek.csdn.net/news/detail/134790" target="_blank">
+<font color="blue">CSDN学院招募微信小程序讲师啦
+
+
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/274" target="_blank">
+<font color="red">程序员简历优化指南！ 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/PK.html" target="_blank">
+<font color="blue">【观点】移动原生App开发 PK HTML 5开发
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://bss.csdn.net/m/product/aliyun_essay/index" target="_blank">
+<font color="red">云端应用征文大赛，秀绝招，赢无人机！
+</font></a>
+
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="./带下界的网络流和费用流_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./带下界的网络流和费用流_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./带下界的网络流和费用流_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/main.js"></script>
+<link rel="stylesheet" href="./带下界的网络流和费用流_files/markdown_views.css">
+<link rel="stylesheet" href="./带下界的网络流和费用流_files/category.css">
+<script type="text/javascript" src="./带下界的网络流和费用流_files/MathJax.js"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e5%b8%a6%e4%b8%8b%e7%95%8c%e7%9a%84%e7%bd%91%e7%bb%9c%e6%b5%81%e5%92%8c%e8%b4%b9%e7%94%a8%e6%b5%81&u=http://blog.csdn.net/huzecong/article/details/8631748"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/huzecong/article/details/8631748">
+        带下界的网络流和费用流            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/%e7%bd%91%e7%bb%9c%e6%b5%81" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">网络流</a><a href="http://www.csdn.net/tag/%e8%b4%b9%e7%94%a8%e6%b5%81" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">费用流</a><a href="http://www.csdn.net/tag/TopCoder" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">TopCoder</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2013-03-03 22:18</span>
+            <span class="link_view" title="阅读次数">1479人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(1)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e5%b8%a6%e4%b8%8b%e7%95%8c%e7%9a%84%e7%bd%91%e7%bb%9c%e6%b5%81%e5%92%8c%e8%b4%b9%e7%94%a8%e6%b5%81&#39;,&#39;8631748&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#report" onclick="javascript:report(8631748,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./带下界的网络流和费用流_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;1191934&#39;,&#39;huzecong&#39;,&#39;top&#39;,&#39;8631748&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">OI<em>（35）</em></span>
+                      <img class="arrow-down" src="./带下界的网络流和费用流_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./带下界的网络流和费用流_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/huzecong/article/category/1191934" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1191934">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script type="text/javascript" src="./带下界的网络流和费用流_files/category.js"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p><span style="font-size:14px">所谓带下界的网络流和费用流，就是对于网络流和费用流模型的一些边，除了有容量之外，还有流量下界的限制，即这条边至少要流过下界这么多的流量。</span></p>
+<p><span style="font-size:14px">在下文中，用x-&gt;y:[l,r]表示网络流模型中一条x连向y，容量为r，下界为l的边；用x-&gt;y:[l,r],c表示费用流模型中一条x连向y，容量为r，下界为l，费用为c的边。如果没有下界，则把[l,r]改为w。无穷大为INFI。源和汇分别为S和T。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px">1、带下界的可行流</span></p>
+<p><span style="font-size:14px">这方面的论文好像有不少，做法大致有两种。一种是基于二分的，这种我还不清楚，有兴趣的自己去搜搜看吧……另一种就是重新构图的方法。</span></p>
+<p><span style="font-size:14px">新建超级源S_和超级汇T_（本想叫S'和T'的，但发现看不清……）。连边：T-&gt;S:INFI。对于每条有下界的边x-&gt;y:[l,r]，连边：S_-&gt;y:l、x-&gt;T_:l、x-&gt;y:r-l。求从S_到T_的最大流，如果S_的每条出边都满流，那么就存在可行流。</span></p>
+<p><span style="font-size:14px">下面我们来说明这个构图方法的正确性。这个构图的思路是，强制让所有下界满流。如果我们直接让所有有下界的边的流量都达到了下界，这时候流量平衡条件会被破坏，那么我们就需要“补”一些流量。假设整个模型中只有一条边x-&gt;y:[l,r]有下界，那么我们让它的流量达到下界，此时y会多出l的流量需要流走，而x会有l的流量需要流入。注意我们是无法直接让这条边的流量达到下界的，那么我们就建超级源和超级汇来提供这些流量。所以就有S_-&gt;y:l、x-&gt;T_:l。但是这样y还是没法流到x，所以再连T-&gt;S:INFI，这样原来的源和汇就变成了满足流量平衡的普通节点。<br>
+</span></p>
+<p><span style="font-size:14px">我们可以这么理解：如果一条边x-&gt;y:[l,r]的下界可以被满足，那么从y到汇一定存在增广路可以流掉这l的流量，同样从源到x也一定存在这样的增广路。那么按照这个方法构图就可以求出是否存在这种增广路。</span></p>
+<p><span style="font-size:14px">而为了保证下界不会被退流，原来x-&gt;y:[l,r]的边就被改成了x-&gt;y:r-l。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px">2、最大可行流</span></p>
+<p><span style="font-size:14px">无论是求最大还是最小可行流，都是在求完可行流的残量网络上操作的。网络流模型的最大可行流即残量网络上原来的源到汇的最大流。</span></p>
+<p><span style="font-size:14px">我们先不管T-&gt;S的边退回的流量。这样残量网络就是一个满足所有下界的网络，而且下界不会退流。那么在这个网络上求最大流得到的一定是除开下界产生的流量的的最大可行流。</span></p>
+<p><span style="font-size:14px">那么下界的流量呢？事实上就是沿T-&gt;S流的流量，也就是T-&gt;S被退回的流量。如果可行流的流量没有经过T-&gt;S的边，那么就一定是流到了某个直接和T_相连的点，就直接流到T_了。在最初的模型中，也即从源出发的流量在流到汇之前经过了这两条边，也就只会计算一次流量。所以下界产生的流量实际上也就是T-&gt;S的流量。</span></p>
+<p><span style="font-size:14px">这个方法是可以构造方案的。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px">3、最小可行流</span></p>
+<p><span style="font-size:14px">网络流模型的最小可行流即T-&gt;S边的流量，减去，删去T-&gt;S的边后，从T到S的最大流。</span></p>
+<p><span style="font-size:14px">为什么最小可行流不直接是T-&gt;S的流量？因为图中可能会存在从S到T再回到S的循环流。我们可以用管道的模型来比喻。一根管道的流量即每单位时间通过的水量，最大流也即源点每单位时间要供出去的水量。而对于一个循环流，我们只需在最开始的时候向源点供一点水，这点水就可以一直在循环的管道中流，而不需每单位时间都供水，所以这部分虽然有流量，但却是不应被计入最大流的部分。</span></p>
+<p><span style="font-size:14px">这么说来好像平时求的一般向的最大流也不是最大流？事实上一般建出的网络流模型是不会存在循环流的，一般来说只有故意卡循环流的题目才会需要这样处理……</span></p>
+<p><span style="font-size:14px">还要注意的一点是，T到S的最大流有可能比T-&gt;S的流量还要大，一减就变成负的流量了。而最大流是不能为负的。那么我们就再从S到T求一次最大流，但是注意只给S供应 &nbsp; 恰好 &nbsp; T到S的最大流比T-&gt;S的流量 &nbsp; 多出的流量（注意断句）。就相当于我们把源点视为一个普通的节点（不然就变成最大可行流了嘛……）。</span></p>
+<p><span style="font-size:14px">这个方法也是可以构造方案的。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px">4、最小费用最大可行流</span></p>
+<p><span style="font-size:14px">其实费用流在处理上和网络流是有一点。建模也是按照网络流的方法建（新建的边费用都为0，x-&gt;y:r-l的边费用为原费用），最小费用最大可行流就按照最大可行流的方法求，把求最大流改为求最小费用最大流就行了。</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px"><br>
+</span></p>
+<p><span style="font-size:14px">题目：</span></p>
+<p><span style="font-size:14px">SGU173。给定网络，求能否使某些边满流，并求此时的最小可行流，并输出方案。</span></p>
+<p><span style="font-size:14px">直接按照上面说的方法做就好了。代码：</span></p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 497px; top: 2267px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="comment">//SGU176;&nbsp;Flow&nbsp;construction;&nbsp;Flow&nbsp;Network&nbsp;with&nbsp;Lower&nbsp;Bounds</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;cstdio&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;cstdlib&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;algorithm&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#define&nbsp;N&nbsp;300</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#define&nbsp;M&nbsp;20000</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#define&nbsp;INFI&nbsp;12345678</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;edge&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;next,&nbsp;node,&nbsp;w;&nbsp;&nbsp;</span></span></li><li class=""><span>}e[M&nbsp;&lt;&lt;&nbsp;1&nbsp;|&nbsp;1];&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;inedge&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;x,&nbsp;y,&nbsp;w,&nbsp;c;&nbsp;&nbsp;</span></span></li><li class=""><span>}ie[M&nbsp;+&nbsp;1];&nbsp;&nbsp;</span></li><li class="alt"><span><span class="datatypes">int</span><span>&nbsp;head[N&nbsp;+&nbsp;1],&nbsp;tot&nbsp;=&nbsp;1;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;n,&nbsp;m,&nbsp;x,&nbsp;y,&nbsp;w,&nbsp;c,&nbsp;S,&nbsp;T,&nbsp;S_,&nbsp;T_,&nbsp;ans,&nbsp;d[N&nbsp;+&nbsp;1],&nbsp;q[N&nbsp;+&nbsp;1],&nbsp;flow[M&nbsp;+&nbsp;1],&nbsp;sum&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="datatypes">int</span><span>&nbsp;in[N&nbsp;+&nbsp;1],&nbsp;out[N&nbsp;+&nbsp;1];&nbsp;&nbsp;</span></span></li><li class=""><span><span class="datatypes">bool</span><span>&nbsp;ok&nbsp;=&nbsp;</span><span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">inline</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;addedge(</span><span class="datatypes">int</span><span>&nbsp;a,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;b,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;w)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;e[++tot].next&nbsp;=&nbsp;head[a];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;head[a]&nbsp;=&nbsp;tot,&nbsp;e[tot].node&nbsp;=&nbsp;b,&nbsp;e[tot].w&nbsp;=&nbsp;w;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;e[++tot].next&nbsp;=&nbsp;head[b];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;head[b]&nbsp;=&nbsp;tot,&nbsp;e[tot].node&nbsp;=&nbsp;a,&nbsp;e[tot].w&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="datatypes">bool</span><span>&nbsp;bfs(</span><span class="datatypes">int</span><span>&nbsp;S,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;T)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;h&nbsp;=&nbsp;0,&nbsp;t&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;N;&nbsp;++i)&nbsp;d[i]&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;d[S]&nbsp;=&nbsp;1,&nbsp;q[t++]&nbsp;=&nbsp;S;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(h&nbsp;&lt;&nbsp;t)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;cur&nbsp;=&nbsp;q[h++];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;head[cur];&nbsp;i;&nbsp;i&nbsp;=&nbsp;e[i].next)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!e[i].w)&nbsp;</span><span class="keyword">continue</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;node&nbsp;=&nbsp;e[i].node;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(d[node])&nbsp;</span><span class="keyword">continue</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d[node]&nbsp;=&nbsp;d[cur]&nbsp;+&nbsp;1;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q[t++]&nbsp;=&nbsp;node;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;d[T];&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;dfs(</span><span class="datatypes">int</span><span>&nbsp;x,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;inflow,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;T)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(x&nbsp;==&nbsp;T&nbsp;||&nbsp;!inflow)&nbsp;</span><span class="keyword">return</span><span>&nbsp;inflow;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;ret&nbsp;=&nbsp;inflow,&nbsp;flow;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;head[x];&nbsp;i;&nbsp;i&nbsp;=&nbsp;e[i].next)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;node&nbsp;=&nbsp;e[i].node;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(d[node]&nbsp;!=&nbsp;d[x]&nbsp;+&nbsp;1)&nbsp;</span><span class="keyword">continue</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flow&nbsp;=&nbsp;dfs(node,&nbsp;std::min(e[i].w,&nbsp;ret),&nbsp;T);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!flow)&nbsp;</span><span class="keyword">continue</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e[i].w&nbsp;-=&nbsp;flow,&nbsp;e[i&nbsp;^&nbsp;1].w&nbsp;+=&nbsp;flow;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret&nbsp;-=&nbsp;flow;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!ret)&nbsp;</span><span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(ret&nbsp;==&nbsp;inflow)&nbsp;d[x]&nbsp;=&nbsp;-1;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;inflow&nbsp;-&nbsp;ret;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">inline</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;maxFlow(</span><span class="datatypes">int</span><span>&nbsp;S,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;T)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;ret&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(bfs(S,&nbsp;T))&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret&nbsp;+=&nbsp;dfs(S,&nbsp;INFI,&nbsp;T);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;ret;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;main()&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#ifdef&nbsp;KANARI</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;freopen(<span class="string">"input.txt"</span><span>,&nbsp;</span><span class="string">"r"</span><span>,&nbsp;stdin);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;freopen(<span class="string">"output.txt"</span><span>,&nbsp;</span><span class="string">"w"</span><span>,&nbsp;stdout);&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;scanf(<span class="string">"%d%d"</span><span>,&nbsp;&amp;n,&nbsp;&amp;m);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;=&nbsp;1,&nbsp;T&nbsp;=&nbsp;n,&nbsp;S_&nbsp;=&nbsp;n&nbsp;+&nbsp;1,&nbsp;T_&nbsp;=&nbsp;n&nbsp;+&nbsp;2;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;m;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf(<span class="string">"%d%d%d%d"</span><span>,&nbsp;&amp;x,&nbsp;&amp;y,&nbsp;&amp;w,&nbsp;&amp;c);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(c)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(x,&nbsp;y,&nbsp;0);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum&nbsp;+=&nbsp;w,&nbsp;in[y]&nbsp;+=&nbsp;w,&nbsp;out[x]&nbsp;+=&nbsp;w;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;addedge(x,&nbsp;y,&nbsp;w);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ie[i].x&nbsp;=&nbsp;x,&nbsp;ie[i].y&nbsp;=&nbsp;y,&nbsp;ie[i].w&nbsp;=&nbsp;w,&nbsp;ie[i].c&nbsp;=&nbsp;c;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(S_,&nbsp;i,&nbsp;in[i]);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(i,&nbsp;T_,&nbsp;out[i]);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;addedge(T,&nbsp;S,&nbsp;INFI);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!n)&nbsp;ok&nbsp;=&nbsp;</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(sum&nbsp;!=&nbsp;maxFlow(S_,&nbsp;T_))&nbsp;ok&nbsp;=&nbsp;</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;ans&nbsp;=&nbsp;e[head[T]&nbsp;^&nbsp;1].w;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;e[head[T]].w&nbsp;=&nbsp;e[head[T]&nbsp;^&nbsp;1].w&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;ans&nbsp;-=&nbsp;maxFlow(T,&nbsp;S);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(ans&nbsp;&lt;&nbsp;0)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e[head[T]].w&nbsp;=&nbsp;e[head[T]&nbsp;^&nbsp;1].w&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(S_,&nbsp;S,&nbsp;-ans);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxFlow(S_,&nbsp;T);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ans&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;m;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flow[i]&nbsp;=&nbsp;e[i&nbsp;*&nbsp;2&nbsp;^&nbsp;1].w&nbsp;+&nbsp;ie[i].w&nbsp;*&nbsp;ie[i].c;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!ok)&nbsp;printf(</span><span class="string">"Impossible\n"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"%d\n"</span><span>,&nbsp;ans);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;&nbsp;m;&nbsp;++i)&nbsp;printf(</span><span class="string">"%d&nbsp;"</span><span>,&nbsp;flow[i]);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"%d\n"</span><span>,&nbsp;flow[m]);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./带下界的网络流和费用流_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">//SGU176; Flow construction; Flow Network with Lower Bounds
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;algorithm&gt;
+#define N 300
+#define M 20000
+#define INFI 12345678
+
+struct edge
+{
+	int next, node, w;
+}e[M &lt;&lt; 1 | 1];
+struct inedge
+{
+	int x, y, w, c;
+}ie[M + 1];
+int head[N + 1], tot = 1;
+int n, m, x, y, w, c, S, T, S_, T_, ans, d[N + 1], q[N + 1], flow[M + 1], sum = 0;
+int in[N + 1], out[N + 1];
+bool ok = true;
+
+inline void addedge(int a, int b, int w)
+{
+	e[++tot].next = head[a];
+	head[a] = tot, e[tot].node = b, e[tot].w = w;
+	e[++tot].next = head[b];
+	head[b] = tot, e[tot].node = a, e[tot].w = 0;
+}
+
+bool bfs(int S, int T)
+{
+	int h = 0, t = 0;
+	for (int i = 1; i &lt;= N; ++i) d[i] = 0;
+	d[S] = 1, q[t++] = S;
+	while (h &lt; t)
+	{
+		int cur = q[h++];
+		for (int i = head[cur]; i; i = e[i].next)
+		{
+			if (!e[i].w) continue;
+			int node = e[i].node;
+			if (d[node]) continue;
+			d[node] = d[cur] + 1;
+			q[t++] = node;
+		}
+	}
+	return d[T];
+}
+
+int dfs(int x, int inflow, int T)
+{
+	if (x == T || !inflow) return inflow;
+	int ret = inflow, flow;
+	for (int i = head[x]; i; i = e[i].next)
+	{
+		int node = e[i].node;
+		if (d[node] != d[x] + 1) continue;
+		flow = dfs(node, std::min(e[i].w, ret), T);
+		if (!flow) continue;
+		e[i].w -= flow, e[i ^ 1].w += flow;
+		ret -= flow;
+		if (!ret) break;
+	}
+	if (ret == inflow) d[x] = -1;
+	return inflow - ret;
+}
+
+inline int maxFlow(int S, int T)
+{
+	int ret = 0;
+	while (bfs(S, T))
+		ret += dfs(S, INFI, T);
+	return ret;
+}
+
+int main()
+{
+#ifdef KANARI
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+	scanf("%d%d", &amp;n, &amp;m);
+	S = 1, T = n, S_ = n + 1, T_ = n + 2;
+	for (int i = 1; i &lt;= m; ++i)
+	{
+		scanf("%d%d%d%d", &amp;x, &amp;y, &amp;w, &amp;c);
+		if (c)
+		{
+			addedge(x, y, 0);
+			sum += w, in[y] += w, out[x] += w;
+		}
+		else addedge(x, y, w);
+		ie[i].x = x, ie[i].y = y, ie[i].w = w, ie[i].c = c;
+	}
+	for (int i = 1; i &lt;= n; ++i)
+	{
+		addedge(S_, i, in[i]);
+		addedge(i, T_, out[i]);
+	}
+	addedge(T, S, INFI);
+	
+	if (!n) ok = false;
+	if (sum != maxFlow(S_, T_)) ok = false;
+	
+	ans = e[head[T] ^ 1].w;
+	e[head[T]].w = e[head[T] ^ 1].w = 0;
+	ans -= maxFlow(T, S);
+	
+	if (ans &lt; 0)
+	{
+		e[head[T]].w = e[head[T] ^ 1].w = 0;
+		addedge(S_, S, -ans);
+		maxFlow(S_, T);
+		ans = 0;
+	}
+	
+	for (int i = 1; i &lt;= m; ++i)
+		flow[i] = e[i * 2 ^ 1].w + ie[i].w * ie[i].c;
+	if (!ok) printf("Impossible\n");
+	else
+	{
+		printf("%d\n", ans);
+		for (int i = 1; i &lt; m; ++i) printf("%d ", flow[i]);
+		printf("%d\n", flow[m]);
+	}
+	return 0;
+}</pre><span style="font-size:14px"><br>
+TCO09 Championship Round D1L2</span>
+<p></p>
+<p></p>
+<div><span style="font-size:14px">给定序列A，记A的元素个数为N。</span></div>
+<div><span style="font-size:14px">称一次变换为：选定区间[i,j]，满足1≤i≤j≤N，对序列A在区间中的每个数减1，如果已经为0则不操作。这样一次变换的代价为j-i+1。</span></div>
+<div><span style="font-size:14px">对于给定序列A，最大变换次数K和最大代价和M，求：在使用不超过K次变换，总变换代价不超过M的前提下，A中最大元素的最小值是多少。</span></div>
+<div><span style="font-size:14px">N≤250。</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px">官网有一种二分答案+贪心判断的做法，但是我没看懂……于是就用了Petr的神费用流方法。</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px">首先二分答案，把问题转换成判定性问题。</span>
+<div><span style="font-size:14px">现在的问题是，能否在限制下使A中最大元素不超过一个值P。</span></div>
+<div><span style="font-size:14px">容易发现，变换的顺序并不影响最后的结果。</span></div>
+<div><span style="font-size:14px">对于A[i]，变换的最小代价应为max(A[i]-P,0)。那么我们令B[i]=max(A[i]-P,0)。</span></div>
+<div><span style="font-size:14px">那么限制条件实际上就是要确定不超过K条线段，使得数轴上i的位置被覆盖了至少B[i]次，且线段总长不超过M。</span></div>
+<div>
+<div><span style="font-size:14px"><br>
+</span></div>
+</div>
+<div><span style="font-size:14px">据此可以建立下面的网络流模型：</span></div>
+<div>
+<div><span style="font-size:14px">建立标号为1到N+1的点，以及S′和T′节点。</span></div>
+<div><span style="font-size:14px">从源向S′连一条容量为K的边、从T′向汇连一条容量为K、费用为0的边。</span></div>
+<div><span style="font-size:14px">从标号为i的点向标号为i+1的点连一条容量为∞、容量下界为a[i]-P、费用为1的边。</span></div>
+<div><span style="font-size:14px">从S′向1~N号节点、从2~N+1号节点向T′连一条容量为∞、费用为0的边。</span></div>
+<div><span style="font-size:14px">一次变换，即一条线段[i,j]，在网络中会是源→S'→i→i+1→…→j→T′→汇的一条增广路。</span></div>
+<div><span style="font-size:14px">如果最小费用最大可行流得到的费用不超过M，那么答案合法。</span></div>
+<span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px">按照上面的方法求最小费用最大可行流即可。</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px">代码：</span></div>
+<div><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 497px; top: 5364px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">class</span><span>&nbsp;ArrayTransformations&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#define&nbsp;N&nbsp;250</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;s;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;a[N&nbsp;+&nbsp;1],&nbsp;n,&nbsp;x;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#define&nbsp;EDGE&nbsp;10000</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#define&nbsp;NODE&nbsp;1000</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#define&nbsp;INFI&nbsp;123456789</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;edge&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;next,&nbsp;node,&nbsp;w,&nbsp;c;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}e[EDGE&nbsp;+&nbsp;1];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;head[NODE&nbsp;+&nbsp;1],&nbsp;tot;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;d[NODE&nbsp;+&nbsp;1],&nbsp;q[NODE&nbsp;+&nbsp;1],&nbsp;f[NODE&nbsp;+&nbsp;1],&nbsp;S,&nbsp;T,&nbsp;S_,&nbsp;T_,&nbsp;k,&nbsp;m,&nbsp;nodecnt;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">bool</span><span>&nbsp;inq[NODE&nbsp;+&nbsp;1];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">inline</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;addedge(</span><span class="datatypes">int</span><span>&nbsp;a,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;b,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;w,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;c,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;w2&nbsp;=&nbsp;0)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e[++tot].next&nbsp;=&nbsp;head[a];&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;head[a]&nbsp;=&nbsp;tot,&nbsp;e[tot].node&nbsp;=&nbsp;b,&nbsp;e[tot].w&nbsp;=&nbsp;w,&nbsp;e[tot].c&nbsp;=&nbsp;c;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e[++tot].next&nbsp;=&nbsp;head[b];&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;head[b]&nbsp;=&nbsp;tot,&nbsp;e[tot].node&nbsp;=&nbsp;a,&nbsp;e[tot].w&nbsp;=&nbsp;w2,&nbsp;e[tot].c&nbsp;=&nbsp;-c;&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("%d&nbsp;%d&nbsp;%d&nbsp;%d\n",&nbsp;a,&nbsp;b,&nbsp;w,&nbsp;c);</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">inline</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;inc(</span><span class="datatypes">int</span><span>&nbsp;&amp;x)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="keyword">return</span><span>&nbsp;x&nbsp;=&nbsp;x&nbsp;+&nbsp;1&nbsp;==&nbsp;NODE&nbsp;?&nbsp;0&nbsp;:&nbsp;x&nbsp;+&nbsp;1;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">bool</span><span>&nbsp;SPFA(</span><span class="datatypes">int</span><span>&nbsp;S,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;T)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;h&nbsp;=&nbsp;0,&nbsp;t&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;nodecnt;&nbsp;++i)&nbsp;d[i]&nbsp;=&nbsp;INFI,&nbsp;inq[i]&nbsp;=&nbsp;</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q[inc(t)]&nbsp;=&nbsp;S,&nbsp;inq[S]&nbsp;=&nbsp;<span class="keyword">true</span><span>,&nbsp;d[S]&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(h&nbsp;!=&nbsp;t)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;cur&nbsp;=&nbsp;q[inc(h)];&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inq[cur]&nbsp;=&nbsp;<span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;head[cur];&nbsp;i;&nbsp;i&nbsp;=&nbsp;e[i].next)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!e[i].w)&nbsp;</span><span class="keyword">continue</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;node&nbsp;=&nbsp;e[i].node;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(d[node]&nbsp;&gt;&nbsp;d[cur]&nbsp;+&nbsp;e[i].c)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d[node]&nbsp;=&nbsp;d[cur]&nbsp;+&nbsp;e[i].c;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f[node]&nbsp;=&nbsp;i;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!inq[node])&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inq[node]&nbsp;=&nbsp;<span class="keyword">true</span><span>,&nbsp;q[inc(t)]&nbsp;=&nbsp;node;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;d[T]&nbsp;!=&nbsp;INFI;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">inline</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;costFlow(</span><span class="datatypes">int</span><span>&nbsp;S,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;T)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;w,&nbsp;ret&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(SPFA(S,&nbsp;T))&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w&nbsp;=&nbsp;INFI;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;x&nbsp;=&nbsp;T;&nbsp;x&nbsp;!=&nbsp;S;&nbsp;x&nbsp;=&nbsp;e[f[x]&nbsp;^&nbsp;1].node)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;w&nbsp;=&nbsp;std::min(w,&nbsp;e[f[x]].w);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;x&nbsp;=&nbsp;T;&nbsp;x&nbsp;!=&nbsp;S;&nbsp;x&nbsp;=&nbsp;e[f[x]&nbsp;^&nbsp;1].node)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e[f[x]].w&nbsp;-=&nbsp;w,&nbsp;e[f[x]&nbsp;^&nbsp;1].w&nbsp;+=&nbsp;w;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret&nbsp;+=&nbsp;w&nbsp;*&nbsp;d[T];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;ret;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;in[NODE&nbsp;+&nbsp;1],&nbsp;out[NODE&nbsp;+&nbsp;1];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">inline</span><span>&nbsp;</span><span class="datatypes">bool</span><span>&nbsp;check(</span><span class="datatypes">int</span><span>&nbsp;x)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;cost&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(a[i]&nbsp;&gt;&nbsp;x)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost&nbsp;+=&nbsp;a[i]&nbsp;-&nbsp;x;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(a[i]&nbsp;-&nbsp;x&nbsp;&gt;&nbsp;k)&nbsp;</span><span class="keyword">return</span><span>&nbsp;</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(cost&nbsp;&gt;&nbsp;m)&nbsp;</span><span class="keyword">return</span><span>&nbsp;</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memset(head,&nbsp;0,&nbsp;<span class="keyword">sizeof</span><span>&nbsp;head);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tot&nbsp;=&nbsp;1;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;=&nbsp;0,&nbsp;T&nbsp;=&nbsp;n&nbsp;+&nbsp;2;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;SS&nbsp;=&nbsp;n&nbsp;+&nbsp;3,&nbsp;TT&nbsp;=&nbsp;n&nbsp;+&nbsp;4;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_&nbsp;=&nbsp;n&nbsp;+&nbsp;5,&nbsp;T_&nbsp;=&nbsp;n&nbsp;+&nbsp;6;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodecnt&nbsp;=&nbsp;n&nbsp;+&nbsp;7;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(S,&nbsp;SS,&nbsp;k,&nbsp;0);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(TT,&nbsp;T,&nbsp;k,&nbsp;0);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(SS,&nbsp;i,&nbsp;INFI,&nbsp;0);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;2;&nbsp;i&nbsp;&lt;=&nbsp;n&nbsp;+&nbsp;1;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(i,&nbsp;TT,&nbsp;INFI,&nbsp;0);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memset(in,&nbsp;0,&nbsp;<span class="keyword">sizeof</span><span>&nbsp;in),&nbsp;memset(out,&nbsp;0,&nbsp;</span><span class="keyword">sizeof</span><span>&nbsp;out);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(a[i]&nbsp;&gt;&nbsp;x)&nbsp;in[i&nbsp;+&nbsp;1]&nbsp;+=&nbsp;a[i]&nbsp;-&nbsp;x,&nbsp;out[i]&nbsp;+=&nbsp;a[i]&nbsp;-&nbsp;x;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(i,&nbsp;i&nbsp;+&nbsp;1,&nbsp;INFI,&nbsp;1);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n&nbsp;+&nbsp;1;&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(S_,&nbsp;i,&nbsp;in[i],&nbsp;0);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(i,&nbsp;T_,&nbsp;out[i],&nbsp;0);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addedge(T,&nbsp;S,&nbsp;INFI,&nbsp;0);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost&nbsp;+=&nbsp;costFlow(S_,&nbsp;T_);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;cost&nbsp;&lt;=&nbsp;m;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;minimalValue(vector&nbsp;&lt;string&gt;&nbsp;initialArray,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;K,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;M)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&nbsp;=&nbsp;K,&nbsp;m&nbsp;=&nbsp;M;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s&nbsp;=&nbsp;<span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;initialArray.size();&nbsp;++i)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s&nbsp;+=&nbsp;initialArray[i];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memset(a,&nbsp;0,&nbsp;<span class="keyword">sizeof</span><span>&nbsp;a);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stringstream&nbsp;ss(s);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(ss&nbsp;&gt;&gt;&nbsp;x)&nbsp;a[++n]&nbsp;=&nbsp;x;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;l&nbsp;=&nbsp;0,&nbsp;r&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;++i)&nbsp;r&nbsp;=&nbsp;max(r,&nbsp;a[i]);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(l&nbsp;&lt;&nbsp;r)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;mid&nbsp;=&nbsp;l&nbsp;+&nbsp;r&nbsp;&gt;&gt;&nbsp;1;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(check(mid))&nbsp;r&nbsp;=&nbsp;mid;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;l&nbsp;=&nbsp;mid&nbsp;+&nbsp;1;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;l;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./带下界的网络流和费用流_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">class ArrayTransformations
+{
+public:
+#define N 250
+	string s;
+	int a[N + 1], n, x;
+
+#define EDGE 10000
+#define NODE 1000
+#define INFI 123456789
+	struct edge
+	{
+		int next, node, w, c;
+	}e[EDGE + 1];
+	int head[NODE + 1], tot;
+	int d[NODE + 1], q[NODE + 1], f[NODE + 1], S, T, S_, T_, k, m, nodecnt;
+	bool inq[NODE + 1];
+
+	inline void addedge(int a, int b, int w, int c, int w2 = 0)
+	{
+		e[++tot].next = head[a];
+		head[a] = tot, e[tot].node = b, e[tot].w = w, e[tot].c = c;
+		e[++tot].next = head[b];
+		head[b] = tot, e[tot].node = a, e[tot].w = w2, e[tot].c = -c;
+//		printf("%d %d %d %d\n", a, b, w, c);
+	}
+
+	inline int inc(int &amp;x)
+	{ return x = x + 1 == NODE ? 0 : x + 1; }
+
+	bool SPFA(int S, int T)
+	{
+		int h = 0, t = 0;
+		for (int i = 0; i &lt; nodecnt; ++i) d[i] = INFI, inq[i] = false;
+		q[inc(t)] = S, inq[S] = true, d[S] = 0;
+		while (h != t)
+		{
+			int cur = q[inc(h)];
+			inq[cur] = false;
+			for (int i = head[cur]; i; i = e[i].next)
+			{
+				if (!e[i].w) continue;
+				int node = e[i].node;
+				if (d[node] &gt; d[cur] + e[i].c)
+				{
+					d[node] = d[cur] + e[i].c;
+					f[node] = i;
+					if (!inq[node])
+						inq[node] = true, q[inc(t)] = node;
+				}
+			}
+		}
+		return d[T] != INFI;
+	}
+
+	inline int costFlow(int S, int T)
+	{
+		int w, ret = 0;
+		while (SPFA(S, T))
+		{
+			w = INFI;
+			for (int x = T; x != S; x = e[f[x] ^ 1].node)
+				w = std::min(w, e[f[x]].w);
+			for (int x = T; x != S; x = e[f[x] ^ 1].node)
+				e[f[x]].w -= w, e[f[x] ^ 1].w += w;
+			ret += w * d[T];
+		}
+		return ret;
+	}
+
+	int in[NODE + 1], out[NODE + 1];
+
+	inline bool check(int x)
+	{
+		int cost = 0;
+		for (int i = 1; i &lt;= n; ++i)
+			if (a[i] &gt; x)
+			{
+				cost += a[i] - x;
+				if (a[i] - x &gt; k) return false;
+			}
+		if (cost &gt; m) return false;
+		memset(head, 0, sizeof head);
+		tot = 1;
+		S = 0, T = n + 2;
+		int SS = n + 3, TT = n + 4;
+		S_ = n + 5, T_ = n + 6;
+		nodecnt = n + 7;
+		addedge(S, SS, k, 0);
+		addedge(TT, T, k, 0);
+		for (int i = 1; i &lt;= n; ++i)
+			addedge(SS, i, INFI, 0);
+		for (int i = 2; i &lt;= n + 1; ++i)
+			addedge(i, TT, INFI, 0);
+		memset(in, 0, sizeof in), memset(out, 0, sizeof out);
+		for (int i = 1; i &lt;= n; ++i)
+		{
+			if (a[i] &gt; x) in[i + 1] += a[i] - x, out[i] += a[i] - x;
+			addedge(i, i + 1, INFI, 1);
+		}
+		for (int i = 1; i &lt;= n + 1; ++i)
+		{
+			addedge(S_, i, in[i], 0);
+			addedge(i, T_, out[i], 0);
+		}
+		addedge(T, S, INFI, 0);
+		cost += costFlow(S_, T_);
+		return cost &lt;= m;
+	}
+
+	int minimalValue(vector &lt;string&gt; initialArray, int K, int M)
+	{
+		k = K, m = M;
+		s = "";
+		for (int i = 0; i &lt; initialArray.size(); ++i)
+			s += initialArray[i];
+		memset(a, 0, sizeof a);
+		n = 0;
+		stringstream ss(s);
+		while (ss &gt;&gt; x) a[++n] = x;
+
+		int l = 0, r = 0;
+		for (int i = 1; i &lt;= n; ++i) r = max(r, a[i]);
+		while (l &lt; r)
+		{
+			int mid = l + r &gt;&gt; 1;
+			if (check(mid)) r = mid;
+			else l = mid + 1;
+		}
+		return l;
+	}
+}</pre><span style="font-size:14px"><br>
+<br>
+</span></div>
+</div>
+<p></p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1486018267581">
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./带下界的网络流和费用流_files/blog_detail.css">
+
+    
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./带下界的网络流和费用流_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" articleid="8631748">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/huzecong/article/details/8631526&#39;;">上一篇</span><a href="http://blog.csdn.net/huzecong/article/details/8631526" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">TCO13 Round 1B 题解</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/huzecong/article/details/8655184&#39;;">下一篇</span><a href="http://blog.csdn.net/huzecong/article/details/8655184" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">TopCoder SRM 473 题解</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article" style="">
+                <h4>我的同类文章</h4>
+                <div class="similar_c" style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1191934&#39;,&#39;huzecong&#39;,&#39;foot&#39;,&#39;8631748&#39;);">OI<em>（35）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141" style="max-height:195px;">
+                        <a href="http://blog.csdn.net/" style="display:none" target="_blank">http://blog.csdn.net</a>
+                        <ul class="similar_list fl"><li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/17587493" id="foot_aritcle_17587493undefined9331280648925748" target="_blank" title="CF211 Div 1 题解">CF211 Div 1 题解</a><span>2013-12-26</span><label><i>阅读</i><b>816</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/17310613" id="foot_aritcle_17310613undefined587006458653967" target="_blank" title="CF219 Div 1 题解">CF219 Div 1 题解</a><span>2013-12-14</span><label><i>阅读</i><b>591</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/15387049" id="foot_aritcle_15387049undefined35731072414142817" target="_blank" title="CF211 Div 2 题解">CF211 Div 2 题解</a><span>2013-11-11</span><label><i>阅读</i><b>616</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/12774273" id="foot_aritcle_12774273undefined7965377563917624" target="_blank" title="CF207 Div 2 题解">CF207 Div 2 题解</a><span>2013-10-16</span><label><i>阅读</i><b>582</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/12174359" id="foot_aritcle_12174359undefined023864781011029512" target="_blank" title="CF202 Div 1 题解">CF202 Div 1 题解</a><span>2013-09-29</span><label><i>阅读</i><b>982</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/11725179" id="foot_aritcle_11725179undefined8544368479174578" target="_blank" title="CF200 Div 1 题解">CF200 Div 1 题解</a><span>2013-09-16</span><label><i>阅读</i><b>564</b></label></li> </ul>
+
+                        <ul class="similar_list fr"><li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/17553335" id="foot_aritcle_17553335undefined6128798544679535" target="_blank" title="关于Tarjan算法求点双连通分量">关于Tarjan算法求点双连通分量</a><span>2013-12-25</span><label><i>阅读</i><b>992</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/16840471" id="foot_aritcle_16840471undefined42258186192542757" target="_blank" title="【扩散】【福利】NOIp2013提高组解题报告">【扩散】【福利】NOIp2013提高组解题报告</a><span>2013-11-20</span><label><i>阅读</i><b>1721</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/15378039" id="foot_aritcle_15378039undefined17271491865523192" target="_blank" title="CodeChef November Challenge 2013 题解">CodeChef November Challenge 2013 题解</a><span>2013-11-11</span><label><i>阅读</i><b>926</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/12307467" id="foot_aritcle_12307467undefined3555781550075199" target="_blank" title="CF204 Div 1 题解">CF204 Div 1 题解</a><span>2013-10-05</span><label><i>阅读</i><b>808</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/huzecong/article/details/11963745" id="foot_aritcle_11963745undefined8125397915941948" target="_blank" title="CF Gym 100227 I题 题解">CF Gym 100227 I题 题解</a><span>2013-09-24</span><label><i>阅读</i><b>945</b></label></li> </ul>
+                    <a href="http://blog.csdn.net/huzecong/article/category/1191934" class="MoreArticle">更多文章</a></div>
+                </div>
+            </div>    
+    <script type="text/javascript">
+        $(function () {
+            GetCategoryArticles('1191934', 'huzecong','foot','8631748');
+        });
+    </script>
+      
+</div>
+
+    <div>
+            <ins data-revive-zoneid="205" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-1"></ins> 
+     </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/huzecong/svc/GetSuggestContent/8631748",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./带下界的网络流和费用流_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: none;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./带下界的网络流和费用流_files/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "8631748",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2791" title="oracle入门到大神（备mysql、java基础、javaee必经之路）" strategy="v4:content" target="_blank">oracle入门到大神（备mysql、java基础、javaee必经之路）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1195" title="《C语言/C++学习指南》应用篇（线程与网络）" strategy="v4:content" target="_blank">《C语言/C++学习指南》应用篇（线程与网络）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2617" title="TCP/IP/UDP Socket通讯开发实战 适合iOS/Android/Linux" strategy="v4:content" target="_blank">TCP/IP/UDP Socket通讯开发实战 适合iOS/Android/Linux</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/3284" title="iOS9高级程序设计（顶级iOS开发视频课程-Objective-C版）" strategy="v4:content" target="_blank">iOS9高级程序设计（顶级iOS开发视频课程-Objective-C版）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/3161" title="I2C总线和触摸屏驱动移植实战-linux驱动开发第9部分" strategy="v4:content" target="_blank">I2C总线和触摸屏驱动移植实战-linux驱动开发第9部分</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/NLSQQ/article/details/51887009" title="有上下界的网络流" strategy="SearchAlgorithm" target="_blank">有上下界的网络流</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u011008379/article/details/38306477" title="有上下界的网络流" strategy="SearchAlgorithm" target="_blank">有上下界的网络流</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u013742332/article/details/47362349" title="HDU 4940 Destroy Transportation system上下界网络流" strategy="SearchAlgorithm" target="_blank">HDU 4940 Destroy Transportation system上下界网络流</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u011728372/article/details/11765473" title="有上下界的网络流问题" strategy="SearchAlgorithm" target="_blank">有上下界的网络流问题</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/a503932194/article/details/49385513" title="带上下界的网络流" strategy="SearchAlgorithm" target="_blank">带上下界的网络流</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = '带下界的网络流和费用流' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+<ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-2"></ins>    </div>  
+
+    <!-- 广告位开始 -->
+    <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-3"></ins>
+    <!-- 广告位结束 -->
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_3817157"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/Gromah" target="_blank">Gromah</a> <span class="ptime">2014-05-06 21:46发表</span>  <a href="http://blog.csdn.net/huzecong/article/details/8631748#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3817157" username="Gromah"> <a href="http://blog.csdn.net/huzecong/article/details/8631748#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/huzecong/article/details/8631748#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/Gromah" target="_blank"><img src="./带下界的网络流和费用流_files/3_gromah.jpg" width="40" height="40"></a></dd><dd class="comment_body">太神了。Orz</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fhuzecong%2Farticle%2Fdetails%2F8631748">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '8631748';
+    var commentscount = 1;
+    var islock = false
+</script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./带下界的网络流和费用流_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./带下界的网络流和费用流_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/huzecong/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./带下界的网络流和费用流_files/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/huzecong" target="_blank">
+    <img src="./带下界的网络流和费用流_files/1_huzecong.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/huzecong" class="user_name" target="_blank">huzecong</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=huzecong&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>54712次</span></li>
+    <li>积分：<span>925</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./带下界的网络流和费用流_files/blog3.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：925 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>36篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>27条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/huzecong/article/category/1191934" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">OI</a><span>(36)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/huzecong/article/month/2013/12">2013年12月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/11">2013年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/10">2013年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/09">2013年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/08">2013年08月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/huzecong/article/month/2013/07">2013年07月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/06">2013年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/05">2013年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/03">2013年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/02">2013年02月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2013/01">2013年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/huzecong/article/month/2012/07">2012年07月</a><span>(2)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8576908" title="曼哈顿距离最小生成树与莫队算法">曼哈顿距离最小生成树与莫队算法</a><span>(7297)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8514884" title="LCT小结">LCT小结</a><span>(2322)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9428535" title="NOI2013行纪">NOI2013行纪</a><span>(2146)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8583666" title="BZOJ2631 tree（伍一鸣）；以及标记下传的几点注意事项">BZOJ2631 tree（伍一鸣）；以及标记下传的几点注意事项</a><span>(2085)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9422843" title="在Mac下使用Lemon">在Mac下使用Lemon</a><span>(2035)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8487460" title="HNOI2006(BZOJ1191~1197)题解">HNOI2006(BZOJ1191~1197)题解</a><span>(1946)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9214307" title="2013THU集训Day1 楼房重建">2013THU集训Day1 楼房重建</a><span>(1842)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/7769988" title="NOI2011 阿狸的打字机（BZOJ2434） 题解">NOI2011 阿狸的打字机（BZOJ2434） 题解</a><span>(1802)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/16840471" title="【扩散】【福利】NOIp2013提高组解题报告">【扩散】【福利】NOIp2013提高组解题报告</a><span>(1721)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8478689" title="BZOJ1225 [HNOI2001]求正整数">BZOJ1225 [HNOI2001]求正整数</a><span>(1647)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9294535" title="写在NOI之前">写在NOI之前</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/7769988" title="NOI2011 阿狸的打字机（BZOJ2434） 题解">NOI2011 阿狸的打字机（BZOJ2434） 题解</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/17553335" title="关于Tarjan算法求点双连通分量">关于Tarjan算法求点双连通分量</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9214307" title="2013THU集训Day1 楼房重建">2013THU集训Day1 楼房重建</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9428535" title="NOI2013行纪">NOI2013行纪</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8576908" title="曼哈顿距离最小生成树与莫队算法">曼哈顿距离最小生成树与莫队算法</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/17587493" title="CF211 Div 1 题解">CF211 Div 1 题解</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/9002168" title="BZOJ 2322: [BeiJing2011]梦想封印">BZOJ 2322: [BeiJing2011]梦想封印</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/8631748" title="带下界的网络流和费用流">带下界的网络流和费用流</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/huzecong/article/details/17711265" title="准备搬家了">准备搬家了</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/laoyang360/article/details/53843771" target="_blank">* 而立之年——三线城市程序员的年终告白</a></li>
+<li><a href="http://blog.csdn.net/sdkfjksf/article/details/54380659" target="_blank">* Java集合框架中隐藏的设计套路</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54092364" target="_blank">* Python脚本下载今日头条视频(附加Android版本辅助下载器)</a></li>
+<li><a href="http://blog.csdn.net/caowenbin/article/details/54406716" target="_blank">* 人工智能的冷思考</a></li>
+<li><a href="http://blog.csdn.net/it_talk/article/details/54346566" target="_blank">* React Native 实战系列教程之热更新原理分析与实现</a></li>
+
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/7769988#comments">NOI2011 阿狸的打字机（BZOJ2434） 题解</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_36158534" class="user_name">qq_36158534</a>:
+赞~\(≧▽≦)/~
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9428535#comments">NOI2013行纪</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/holyromanempire" class="user_name">holyromanempire</a>:
+两年后来膜葱
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9294535#comments">写在NOI之前</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ChinaMoe" class="user_name">ChinaMoe</a>:
+历史在轮回
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9294535#comments">写在NOI之前</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Gromah" class="user_name">Gromah</a>:
+真是太神了。那个所谓 “小学弟” 是指 lxy 吗？。。。想想现在该轮到 lxy 这样子教育我们了。...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9294535#comments">NOI2013行纪</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Gromah" class="user_name">Gromah</a>:
+只能orz
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9002168#comments">BZOJ 2322: [BeiJing2011]梦想封印</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Gromah" class="user_name">Gromah</a>:
+orz
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9002168#comments">写在NOI之前</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u014560996" class="user_name">LargeDumpling</a>:
+我认真地看了一遍
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9214307#comments">2013THU集训Day1 楼房重建</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/huzecong" class="user_name">huzecong</a>:
+@Gromah:逗我啊(kb)这其实是我抄别人的我会说嘛
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9214307#comments">2013THU集训Day1 楼房重建</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Gromah" class="user_name">Gromah</a>:
+不得不跪烂啊。这就是大神您与学渣我之间的智力差别啊。。。真是被您的思路和代码给深深折服了。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/huzecong/article/details/9214307#comments">NOI2011 阿狸的打字机（BZOJ2434） 题解</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u013928593" class="user_name">Ric_shooter</a>:
+写的真好~
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="190" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-4"></ins> 
+                    <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./带下界的网络流和费用流_files/cnick.js"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./带下界的网络流和费用流_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/JavaScript1.js"></script><link rel="stylesheet" type="text/css" href="./带下界的网络流和费用流_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2016, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./带下界的网络流和费用流_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./带下界的网络流和费用流_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./带下界的网络流和费用流_files/notify.js"></script>
+
+    <script type="text/javascript" src="./带下界的网络流和费用流_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./带下界的网络流和费用流_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./带下界的网络流和费用流_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./带下界的网络流和费用流_files/msg.popup.js"></script>
+<script type="text/javascript" src="./带下界的网络流和费用流_files/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./带下界的网络流和费用流_files/toolbar.js"></script>
+     <!--new top-->
+   
+    <link href="./带下界的网络流和费用流_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./带下界的网络流和费用流_files/wmd.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./带下界的网络流和费用流_files/showdown.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./带下界的网络流和费用流_files/prettify.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./带下界的网络流和费用流_files/ask_float_block.js"></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./带下界的网络流和费用流_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="./带下界的网络流和费用流_files/blog_code.css">
+    <script type="text/javascript" src="./带下界的网络流和费用流_files/saveToCode.js"></script>
+      <script type="text/javascript" src="./带下界的网络流和费用流_files/main(1).js"></script>
+
+     <link rel="stylesheet" href="./带下界的网络流和费用流_files/fa.css">
+
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./带下界的网络流和费用流_files/saved_resource(3).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no">
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;   
+ </iframe></div><div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./带下界的网络流和费用流_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:323px"></a><a id="com-quick-collect" title="我要收藏" style="top:361px"></a><a id="com-d-top-a" style="top: 399px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/huzecong/article/details/8631748#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/huzecong/article/details/8631748#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/huzecong/article/details/8631748#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./带下界的网络流和费用流_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/huzecong/article/details/8631748#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/huzecong/article/details/8631748#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="带下界的网络流和费用流" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="带下界的网络流和费用流： http://blog.csdn.net/huzecong/article/details/8631748"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>网络流</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>费用流</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>TopCoder</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="网络流,费用流,TopCoder,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div></body></html>

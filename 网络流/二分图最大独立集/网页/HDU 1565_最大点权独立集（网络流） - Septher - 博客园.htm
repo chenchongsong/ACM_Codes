@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.cnblogs.com/luxiaoming/p/5146566.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/ca-pub-4210569241504288.js"></script><script type="text/javascript" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/encoder.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HDU 1565:最大点权独立集（网络流） - Septher - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/bundle-Banlieue13.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/bundle-Banlieue13-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/luxiaoming/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/luxiaoming/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/luxiaoming/wlwmanifest.xml">
+<script src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'luxiaoming', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/luxiaoming/"><img id="blogLogo" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/luxiaoming/">撸小明</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/luxiaoming/">首页</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Septher">联系</a></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/luxiaoming/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/luxiaoming/rss"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				<div id="blog_stats">
+<!--done-->
+随笔- 61&nbsp;
+文章- 0&nbsp;
+评论- 0&nbsp;
+</div>
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/luxiaoming/p/5146566.html">HDU 1565:最大点权独立集（网络流）</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>题目要求我们选尽量多的点，同时两两不相邻</p>
+<p>可以想到把棋盘按照国际象棋的棋盘样式染色，那同一种颜色的点之间肯定是不相邻的，同时我们也就把图转化为了一个二分图</p>
+<p>题目要求也就变成了求这个二分图里的最大点权独立集</p>
+<p>&nbsp;</p>
+<p>最大独立集：包含尽量多顶点的集合,其中任意两点不相邻，所谓的不相邻也就是两点没有连边</p>
+<p>最小点覆盖：选取最少的点数，使这些点和所有的边都有关联（把所有的边的覆盖）</p>
+<p>&nbsp;</p>
+<p><strong>最大点权独立集=总权值-最小点权覆盖集</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>其实不难理解，看看定义就知道了</strong></p>
+<p>假设现在已经求出了最小点覆盖，那把这些点去掉，剩下的点肯定是不相邻的，也就是说剩下的点可以构成一个独立集</p>
+<p>而我们现在求出的覆盖是最小的，所以自然得到的独立集也就是最大的了</p>
+<p>那问题就转化为了求最小点权覆盖集</p>
+<p>&nbsp;</p>
+<p>而二分图的最小点覆盖、最小点权覆盖集都可用网络流求解</p>
+<p>构图：</p>
+<p>超级源点与左边集合的每一点相连，若是求最小点覆盖，权值为1，若是求最小点权覆盖集，权值为该点的点权</p>
+<p>超级汇点与右边集合的每一点相连，权值同上</p>
+<p>然后将二分图原有的边加进图中，权值为无穷大</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;af776929-defe-4199-884c-62c675c82807&#39;)"><img id="code_img_closed_af776929-defe-4199-884c-62c675c82807" class="code_img_closed" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_af776929-defe-4199-884c-62c675c82807" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;af776929-defe-4199-884c-62c675c82807&#39;,event)" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_af776929-defe-4199-884c-62c675c82807" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include<span style="color: #800000;">"</span><span style="color: #800000;">cstdio</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">queue</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">cmath</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">stack</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">iostream</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">algorithm</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">cstring</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">queue</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">map</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">set</span><span style="color: #800000;">"</span><span style="color: #000000;">
+#include</span><span style="color: #800000;">"</span><span style="color: #800000;">vector</span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">#define</span> ll long long
+<span style="color: #0000ff;">#define</span> mems(a,b) memset(a,b,sizeof(a))
+<span style="color: #0000ff;">#define</span> ls pos&lt;&lt;1
+<span style="color: #0000ff;">#define</span> rs pos&lt;&lt;1|1
+
+<span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> MAXN = <span style="color: #800080;">500</span><span style="color: #000000;">;
+</span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> MAXE = <span style="color: #800080;">40500</span><span style="color: #000000;">;
+</span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> INF = <span style="color: #800080;">99999999</span><span style="color: #000000;">;
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> node{
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> s,e,next,cost,val;
+    node(){}
+    node(</span><span style="color: #0000ff;">int</span> a,<span style="color: #0000ff;">int</span> b,<span style="color: #0000ff;">int</span> c,<span style="color: #0000ff;">int</span><span style="color: #000000;"> d):s(a),e(b),next(c),val(d){}
+}edge[MAXE];
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> tot,ans,n;
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> first[MAXN],dep[MAXN],gap[MAXN];
+</span><span style="color: #0000ff;">int</span> mat[<span style="color: #800080;">50</span>][<span style="color: #800080;">50</span><span style="color: #000000;">];
+</span><span style="color: #0000ff;">int</span> dx[<span style="color: #800080;">4</span>]={<span style="color: #800080;">0</span>,<span style="color: #800080;">0</span>,-<span style="color: #800080;">1</span>,<span style="color: #800080;">1</span><span style="color: #000000;">};
+</span><span style="color: #0000ff;">int</span> dy[<span style="color: #800080;">4</span>]={<span style="color: #800080;">1</span>,-<span style="color: #800080;">1</span>,<span style="color: #800080;">0</span>,<span style="color: #800080;">0</span><span style="color: #000000;">};
+
+</span><span style="color: #0000ff;">void</span><span style="color: #000000;"> init(){
+    tot</span>=<span style="color: #800080;">0</span><span style="color: #000000;">;
+    mems(first,</span>-<span style="color: #800080;">1</span><span style="color: #000000;">);
+}
+
+</span><span style="color: #0000ff;">void</span> addedge(<span style="color: #0000ff;">int</span> u,<span style="color: #0000ff;">int</span> v,<span style="color: #0000ff;">int</span><span style="color: #000000;"> w){
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">cout&lt;&lt;u&lt;&lt;'\t'&lt;&lt;v&lt;&lt;'\t'&lt;&lt;w&lt;&lt;endl;</span>
+    edge[tot]=<span style="color: #000000;">node(u,v,first[u],w);
+    first[u]</span>=tot++<span style="color: #000000;">;
+    edge[tot]</span>=node(v,u,first[v],<span style="color: #800080;">0</span><span style="color: #000000;">);
+    first[v]</span>=tot++<span style="color: #000000;">;
+}
+
+</span><span style="color: #0000ff;">int</span> sap(<span style="color: #0000ff;">int</span> src,<span style="color: #0000ff;">int</span><span style="color: #000000;"> des){
+    memset(dep,</span><span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(dep));
+    memset(gap,</span><span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(gap));
+    gap[</span><span style="color: #800080;">0</span>]=des+<span style="color: #800080;">1</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">int</span> top=<span style="color: #800080;">0</span>,ans=<span style="color: #800080;">0</span>,u=<span style="color: #000000;">src,i;
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> cur[MAXN],s[MAXE];
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">s[top++]=src;</span>
+    <span style="color: #0000ff;">for</span>(i=<span style="color: #800080;">0</span>;i&lt;=des;i++<span style="color: #000000;">)
+        cur[i]</span>=<span style="color: #000000;">first[i];
+    </span><span style="color: #0000ff;">while</span>(<span style="color: #800080;">1</span><span style="color: #000000;">){
+        </span><span style="color: #0000ff;">if</span>(u==<span style="color: #000000;">des){
+            </span><span style="color: #0000ff;">int</span> minv=<span style="color: #000000;">INF,pos;
+            </span><span style="color: #0000ff;">for</span>(i=<span style="color: #800080;">0</span>;i&lt;top;i++<span style="color: #000000;">){
+                </span><span style="color: #0000ff;">if</span>(minv&gt;<span style="color: #000000;">edge[s[i]].val){
+                    minv</span>=<span style="color: #000000;">edge[s[i]].val;
+                    pos</span>=<span style="color: #000000;">i;
+                }
+            }
+            </span><span style="color: #0000ff;">for</span>(i=<span style="color: #800080;">0</span>;i&lt;top;i++<span style="color: #000000;">){
+                edge[s[i]].val</span>-=<span style="color: #000000;">minv;
+                edge[s[i]</span>^<span style="color: #800080;">1</span>].val+=<span style="color: #000000;">minv;
+            }
+            ans</span>+=<span style="color: #000000;">minv;
+            top</span>=<span style="color: #000000;">pos;
+            u</span>=<span style="color: #000000;">edge[s[pos]].s;
+        }
+        </span><span style="color: #0000ff;">for</span>(i=cur[u];i!=-<span style="color: #800080;">1</span>;i=<span style="color: #000000;">edge[i].next)
+            </span><span style="color: #0000ff;">if</span>(edge[i].val&amp;&amp;dep[u]==dep[edge[i].e]+<span style="color: #800080;">1</span><span style="color: #000000;">)
+                </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(i!=-<span style="color: #800080;">1</span><span style="color: #000000;">){
+            cur[u]</span>=<span style="color: #000000;">i;
+            s[top</span>++]=<span style="color: #000000;">i;
+            u</span>=<span style="color: #000000;">edge[i].e;
+        }
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;">{
+            </span><span style="color: #0000ff;">if</span>(--gap[dep[u]]==<span style="color: #800080;">0</span>) <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+            </span><span style="color: #0000ff;">int</span> mindep=des+<span style="color: #800080;">1</span><span style="color: #000000;">;
+            </span><span style="color: #0000ff;">for</span>(i=first[u];i!=-<span style="color: #800080;">1</span>;i=<span style="color: #000000;">edge[i].next){
+                </span><span style="color: #0000ff;">if</span>(!edge[i].val) <span style="color: #0000ff;">continue</span><span style="color: #000000;">;
+                </span><span style="color: #0000ff;">if</span>(mindep&gt;<span style="color: #000000;">dep[edge[i].e]){
+                    mindep</span>=<span style="color: #000000;">dep[edge[i].e];
+                    cur[u]</span>=<span style="color: #000000;">i;
+                }
+            }
+            dep[u]</span>=mindep+<span style="color: #800080;">1</span><span style="color: #000000;">;
+            gap[dep[u]]</span>++<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">if</span>(u!=src) u=edge[s[--<span style="color: #000000;">top]].s;
+        }
+    }
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ans;
+}
+
+</span><span style="color: #0000ff;">bool</span> ing(<span style="color: #0000ff;">int</span> x,<span style="color: #0000ff;">int</span><span style="color: #000000;"> y){
+    </span><span style="color: #0000ff;">if</span>(x&gt;=<span style="color: #800080;">0</span>&amp;&amp;x&lt;n&amp;&amp;y&gt;=<span style="color: #800080;">0</span>&amp;&amp;y&lt;n) <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+    </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+}
+
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main(){
+    </span><span style="color: #008000;">//</span><span style="color: #008000;">freopen("in.txt","r",stdin);</span>
+    <span style="color: #0000ff;">while</span>(~scanf(<span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span>,&amp;<span style="color: #000000;">n)){
+        init();
+        </span><span style="color: #0000ff;">int</span> tot=<span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>;i&lt;n;i++<span style="color: #000000;">)
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=<span style="color: #800080;">0</span>;j&lt;n;j++<span style="color: #000000;">){
+            scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span>,&amp;<span style="color: #000000;">mat[i][j]);
+            tot</span>+=<span style="color: #000000;">mat[i][j];
+        }
+        </span><span style="color: #0000ff;">int</span> src=<span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">int</span> des=n*n+<span style="color: #800080;">1</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>;i&lt;n;i++<span style="color: #000000;">)
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=<span style="color: #800080;">0</span>;j&lt;n;j++<span style="color: #000000;">){
+            </span><span style="color: #0000ff;">if</span>((i+j)%<span style="color: #800080;">2</span>==<span style="color: #800080;">0</span>) addedge(src,i*n+j+<span style="color: #800080;">1</span><span style="color: #000000;">,mat[i][j]);
+            </span><span style="color: #0000ff;">else</span> addedge(i*n+j+<span style="color: #800080;">1</span><span style="color: #000000;">,des,mat[i][j]);
+        }
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>;i&lt;n;i++<span style="color: #000000;">)
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=<span style="color: #800080;">0</span>;j&lt;n;j++<span style="color: #000000;">)
+        </span><span style="color: #0000ff;">if</span>((i+j)%<span style="color: #800080;">2</span>==<span style="color: #800080;">0</span><span style="color: #000000;">)
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> k=<span style="color: #800080;">0</span>;k&lt;<span style="color: #800080;">4</span>;k++<span style="color: #000000;">){
+            </span><span style="color: #0000ff;">int</span> x=i+<span style="color: #000000;">dx[k];
+            </span><span style="color: #0000ff;">int</span> y=j+<span style="color: #000000;">dy[k];
+            </span><span style="color: #0000ff;">if</span>(!ing(x,y)) <span style="color: #0000ff;">continue</span><span style="color: #000000;">;
+            addedge(i</span>*n+j+<span style="color: #800080;">1</span>,x*n+y+<span style="color: #800080;">1</span><span style="color: #000000;">,INF);
+        }
+        printf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%d\n</span><span style="color: #800000;">"</span>,tot-<span style="color: #000000;">sap(src,des));
+    }
+    </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<span class="cnblogs_code_collapse" style="display: none;">View Code</span></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5146566,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;1029769f-f0e1-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/luxiaoming/" target="_blank"><img src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/20151222210639.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/luxiaoming/">Septher</a><br>
+            <a href="http://home.cnblogs.com/u/luxiaoming/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/luxiaoming/followers">粉丝 - 0</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;1029769f-f0e1-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5146566,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(5146566,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/luxiaoming/p/5146499.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/luxiaoming/p/5146499.html" title="发布于2016-01-20 20:53">POJ 2112:floyd+网络流+二分</a><br><a href="http://www.cnblogs.com/luxiaoming/p/5149583.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/luxiaoming/p/5149583.html" title="发布于2016-01-21 21:00">codeforces 589F:贪心</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-01-20 21:08</span> <a href="http://www.cnblogs.com/luxiaoming/">Septher</a> 阅读(<span id="post_view_count">21</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5146566" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/luxiaoming/p/5146566.html#" onclick="AddToWz(5146566);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=232464,cb_entryId=5146566,cb_blogApp=currentBlogApp,cb_blogUserGuid='1029769f-f0e1-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2016/1/20 21:08:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/luxiaoming/p/5146566.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/luxiaoming/p/5146566.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank">【推荐】自开发 零实施的BPM</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block">     <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-4210569241504288" data-ad-slot="5457903683" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/saved_resource.html"></iframe></ins></ins></ins></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/562119/" target="_blank">惊喜！“玉兔号”月球车即将再次苏醒</a><br> ·  <a href="http://news.cnblogs.com/n/562118/" target="_blank">支付宝里种下的树长这样？网友亲见：不愿相信</a><br> ·  <a href="http://news.cnblogs.com/n/562117/" target="_blank">雷军为小米员工发开工红包：称2017加油干</a><br> ·  <a href="http://news.cnblogs.com/n/562116/" target="_blank">诺基亚承诺安卓手机使用最新最安全系统 并及时更新</a><br> ·  <a href="http://news.cnblogs.com/n/562115/" target="_blank">大数据与机器学习 2016年大事记</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./HDU 1565_最大点权独立集（网络流） - Septher - 博客园_files/24442-20170118152220281-363324784.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/554260/" target="_blank">「代码家」的学习过程和学习经验分享</a><br> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/luxiaoming/">Septher</a><br>园龄：<a href="http://home.cnblogs.com/u/luxiaoming/" title="入园时间：2015-04-13">1年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/luxiaoming/followers/">0</a><br>关注：<a href="http://home.cnblogs.com/u/luxiaoming/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;1029769f-f0e1-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/01/01&#39;);return false;">&lt;</a></td><td align="center">2017年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/03/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td class="CalTodayDay" align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr><tr><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td><td class="CalOtherMonthDay" align="center">11</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/luxiaoming/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/luxiaoming/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/luxiaoming/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/luxiaoming/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/luxiaoming/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/luxiaoming/p/5146566.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/luxiaoming/archive/2016/08.html">2016年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/luxiaoming/archive/2016/03.html">2016年3月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/luxiaoming/archive/2016/01.html">2016年1月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/luxiaoming/archive/2015/12.html">2015年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/luxiaoming/archive/2015/08.html">2015年8月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/luxiaoming/archive/2015/07.html">2015年7月 (10)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" style="display: none;">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"></div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/luxiaoming/p/5824297.html">1. 树形DP 学习总结(78)</a></li><li><a href="http://www.cnblogs.com/luxiaoming/p/5143405.html">2. codeforces 27E：搜索(67)</a></li><li><a href="http://www.cnblogs.com/luxiaoming/p/5270984.html">3. POJ 3415:后缀数组+单调栈优化(52)</a></li><li><a href="http://www.cnblogs.com/luxiaoming/p/5069477.html">4. codeforces 590C:(BFS)(49)</a></li><li><a href="http://www.cnblogs.com/luxiaoming/p/4705294.html">5. CodeForce 540C:(DFS)(44)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap" style="display: none;">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/luxiaoming/p/5129862.html">1. HDU 1890(splay tree 区间翻转)(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 Septher
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
