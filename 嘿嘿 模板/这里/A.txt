@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+int T;
+double p1[3][3], p2[3][3];
+int main(){
+    cin>>T;
+    while(T--){
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++)
+                cin>>p1[i][j];
+        }
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++)
+                cin>>p2[i][j];
+        }
+
+
+
+
+
+
+
+        double A=ux, B=uy, C=uz, D=ux*p2[0][0]+uy*p2[1][0]+uz*p2[2][0];
+        double t=(D-A*p1[0][0]-B*p1[0][1]-C*p1[0][2])/(A*(p1[1][0]-p1[0][0])+B*(p1[1][1]-p1[0][1])+C*(p1[1][2]-p1[0][2]));
+        if(t>0&&t<1){
+            cout<<"YES"<<endl;
+            continue;
+        }
+        t=(D-A*p1[1][0]-B*p1[1][1]-C*p1[1][2])/(A*(p1[2][0]-p1[1][0])+B*(p1[2][1]-p1[1][1])+C*(p1[2][2]-p1[1][2]));
+        if(t>0&&t<1){
+            cout<<"YES"<<endl;
+            continue;
+        }
+        t=(D-A*p1[2][0]-B*p1[2][1]-C*p1[2][2])/(A*(p1[0][0]-p1[2][0])+B*(p1[0][1]-p1[2][1])+C*(p1[0][2]-p1[2][2]));
+        if(t>0&&t<1){
+            cout<<"YES"<<endl;
+            continue;
+        }
+        cout<<"NO"<<endl;
+    }
+}
