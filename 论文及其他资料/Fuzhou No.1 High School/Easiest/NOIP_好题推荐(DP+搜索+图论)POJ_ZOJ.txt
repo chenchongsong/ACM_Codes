@@ -1,0 +1,331 @@
+1370        Gossiping        (数论->模线性方程有无解的判断)+(图论->DFS)
+1090        Chain        ->格雷码和二进制码的转换
+2182        Lost Cows        ->线段树/
+2426        Remainder        BFS
+1872        A Dicey Problem        BFS
+1324        Holedox Moving        BFS+压缩储存
+1088        滑雪        DFS/DP
+1015        Jury Compromise        DP
+1050        To the Max        DP
+1062        昂贵的聘礼        DP
+1065        Wooden Sticks        DP
+1074        Parallel Expectations        DP
+1093        Formatting Text        DP
+1112        Team Them Up!        DP
+1141        Brackets Sequence        DP
+1157        LITTLE SHOP OF FLOWERS        DP
+1160        Post Office        DP
+1163        The Triangle        DP
+1170        Shopping Offers        DP
+1179        Polygon        DP
+1180        Batch Scheduling        DP
+1191        棋盘分割        DP
+1293        Duty Free Shop        DP
+2184        Cow Exhibition        DP
+2193        Lenny's Lucky Lotto Lists        DP
+2292        Optimal Keypad        DP
+1432        Decoding Morse Sequences        DP
+1475        Pushing Boxes        DP
+1513        Scheduling Lectures        DP
+1633        Gladiators        DP
+1661        Help Jimmy        DP
+1692        Crossed Matchings        DP
+1712        Flying Stars        DP
+1717        Dominoes        DP
+1718        River Crossing        DP
+1732        Phone numbers        DP
+1745        Divisibility        DP
+1771        Elevator Stopping Plan        DP
+1776        Task Sequences        DP
+1874        Trade on Verweggistan        DP
+1887        Testing the CATCHER        DP
+1889        Package Pricing        DP
+1946        Cow Cycling        DP
+1187        陨石的秘密        DP（BalkanOI99 Par的拓展）
+1485        Fast Food        DP(似乎就是ioi2000的postoffice)
+2385        Apple Catching        DP(像NOI98“免费馅饼”)
+1064        Cable master        DP/二分查找
+1037        A decorative fence        DP/组合数学
+1936        All in All        DP?
+1505        Copying Books        DP+二分查找
+1631        Bridging signals        DP+二分查找
+1159        Palindrome        DP->LCS
+1458        Common Subsequence        DP->LCS
+1080        Human Gene Functions        DP->LCS变形
+2192        Zipper        DP->LCS变形
+1185        炮兵阵地        DP->数据压缩
+2430        Lazy Cows        DP->数据压缩
+
+============================================================================
+ 搜索、回溯、遍历 1022,1111,1118,1129,1190,1562,1564,1573,1655,2184,2225,2243,2312,2362,2378,2386,1010,1011,1018,1020,1054,1062,1256,1321,1363,1501,1650,1659,1664,1753,2078,208 3,2303,2310,2329 简单：1128, 1166, 1176, 1231, 1256, 1270, 1321, 1543, 1606, 1664, 1731, 1742, 1745, 1847, 1915, 1950, 2038, 2157, 2182, 2183, 2381, 2386, 2426, 不易：1024, 1054, 1117, 1167, 1708, 1746, 1775, 1878, 1903, 1966, 2046, 2197, 2349, 推荐：1011, 1190, 1191, 1416, 1579, 1632, 1639, 1659, 1680, 1683, 1691, 1709, 1714, 1753, 1771, 1826, 1855, 1856, 1890, 1924, 1935, 1948, 1979, 1980, 2170, 2288, 2331, 2339, 2340,1979（和迷宫类似） 1980（对剪枝要求较高）
+
+===============================================================================
+最短路问题
+此类问题类型不多，变形较少
+
+POJ 2449 Remmarguts' Date(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2449
+题意：经典问题：K短路
+解法：dijkstra+A*(rec)，方法很多
+相关：http://acm.pku.edu.cn/JudgeOnline/showcontest?contest_id=1144
+该题亦放在搜索推荐题中
+
+POJ 3013 - Big Christmas Tree(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3013
+题意：最简单最短路，但此题要过，需要较好的程序速度和，还要注意精度
+解法：Dijkstra
+
+POJ 3463 - Sightseeing(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3463
+题意：最短路和比最短路大1的路的数量
+解法：需要真正理解dijkstra
+
+POJ 3613 - Cow Relays(较难)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3613
+题意：求经过N条边的最短路
+解法：floyd + 倍增，贪心
+
+POJ 3621 - Sightseeing Cows(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3621
+题意：求一个环路，欢乐值 / 总路径最大
+解法：参数搜索 + 最短路(ms 原始的bellman tle, 用spfa才过)
+
+POJ 3635 - full tank?(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3635
+题意：最短路变形
+解法：广搜
+相关：http://hi.baidu.com/hnu_reason/blog/item/086e3dccfc8cb21600e9286b.html
+
+
+生成树问题
+基本的生成树就不放上来了
+
+POJ 1639 - Picnic Planning(较难)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=1639
+题意：顶点度数有限制的最小生成树
+解法：贪心 + prim/kruskal
+
+POJ 1679 - The Unique MST(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=1679
+题意：判断MST是否唯一
+解法：prim就行，不过还是易错的题
+
+POJ 2728 - Desert King(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2728
+题意：所谓最优比率生成树
+解法：参数搜索 + prim
+
+POJ 3164 - Command Network(难)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3164
+题意：最小树形图
+解法：刘朱算法，这个考到的可能性比较小吧？
+
+POJ 3522 - Slim Span(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3522
+题意：求一颗生成树，让最大边最小边差值最小
+解法：kruskal活用
+
+连通性，度数，拓扑问题
+此类问题主要牵扯到DFS，缩点等技巧
+
+POJ 1236 - Network of Schools(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=1236
+题意：问添加多少边可成为完全连通图
+解法：缩点，看度数
+
+POJ 1659 - Frogs' Neighborhood(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=1659
+题意：根据度序列构造图
+解法：贪心，详细证明参见havel定理
+
+POJ 2553 - The Bottom of a Graph(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2553
+POJ 2186 - Popular Cows(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2186
+题意：强连通分量缩点图出度为0的点
+
+POJ 2762 - Going from u to v or from v to u?(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2762
+题意：单向连通图判定
+解法：缩点 + dp找最长链
+
+POJ 2914 - Minimum Cut(难)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2914
+题意：无向图最小割
+解法：Stoer-Wagner算法，用网络流加枚举判定会挂
+
+POJ 2942 - Knights of the Round Table(难)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=2942
+题意：求双联通分量(或称块)中是否含奇圈
+解法：求出双连通分量后做黑白染色进行二分图图判定
+相关：http://hi.baidu.com/zfy0701/blog/item/57ada7ed104ce9d2b31cb104.html
+
+POJ 3177 - Redundant Paths(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3177
+POJ 3352 - Road Construction(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3352
+题意：添加多少条边可成为双向连通图
+解法：把割边分开的不同分量缩点构树，看入度
+建议对比下1236，有向图添加多少条边变成强连通图
+
+POJ 3249 - Test for Job(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3249
+解法：bfs / dfs + dp
+
+POJ 3592 - Instantaneous Transference(基础)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3592
+解法：缩点，最长路，少人做的水题，注意细节
+
+POJ 3687 - Labeling Balls(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3687
+解法：拓扑排序
+
+POJ 3694 - Network(中等)
+http://acm.pku.edu.cn/JudgeOnline/problem?id=3694
+解法：双连通分量+并查集
+
+
+===================================================================================
+
+752        Advertisement        贪心/图论->差分约束系统
+1201        Intervals        贪心/图论->最长路->差分约束系统
+1097        Roads Scholar        图论
+1161        Walls        图论
+1450        Gridland        图论(本来TSP问题是NP难的，但这个图比较特殊，由现成的构造方法)
+2197        Jill's Tour Paths        图论->
+2416        Return of the Jedi        图论->
+1639        Picnic Planning        图论->
+1695        Magazine Delivery        图论->
+1729        Jack and Jill        图论->
+1751        Highways        图论->
+1122        FDNY to the Rescue!        图论->Dijkstra
+1125        Stockbroker Grapevine        图论->Dijkstra
+1135        Domino Effect        图论->Dijkstra
+1394        Railroad        图论->Dijkstra
+1158        TRAFFIC LIGHTS        图论->Dijkstra变形
+2395        Out of Hay        图论->Dijkstra变形
+2253        Frogger        图论->Dijkstra变形(和1295是一样的)
+1734        Sightseeing trip        图论->Euler回路
+1466        Girls and Boys        图论->n/a
+1515        Street Directions        图论->把一个无向连通图改造成为有向强连通图
+1635        Subway tree systems        图论->不同表示法的二叉树判同
+1275        Cashier Employment        图论->差分约束系统->无负权回路的有向图的最长路->Bellman-Ford
+1274        The Perfect Stall        图论->二分图的最大匹配
+1325        Machine Schedule        图论->二分图的最大匹配
+2239        Selecting Courses        图论->二分图的最大匹配
+2195        Going Home        图论->二分图的最大权匹配
+2400        Supervisor, Supervisee        图论->二分图的最大权匹配?
+1637        Sightseeing tour        图论->欧拉回路
+1383        Labyrinth        图论->树的最长路
+1094        Sorting It All Out        图论->拓扑排序
+1486        Sorting Slides        图论->拓扑排序
+1149        PIGS        图论->网络流
+2289        Jamie's Contact Groups        图论->网络流?
+1192        最优连通子集        图论->无负权回路的有向图的最长路->BellmanFord
+1364        King        图论->无负权回路的有向图的最长路->BellmanFord
+1985        Cow Marathon        图论->有向无环图的最长路
+1087        A Plug for UNIX        图论->最大流
+1273        Drainage Ditches        图论->最大流
+1459        Power Network        图论->最大流
+1632        Vase collection        图论->最大完全图
+2049        Finding Nemo        图论->最短路
+1251        Jungle Roads        图论->最小生成树
+2421        Constructing Roads        图论->最小生成树
+
+==================================================================================
+ZOJ-ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ--ZOJ-
+
+======================================================================================
+
+这里收录了目前为止整理出来的解题报告，希望对有缘之人能有所帮助
+所有题目均按题号排序，给出了题号，题目所需算法类型，ZOJ题目链接，此空间解题报告链接
+一些经典的题目会在后面有额外批注
+zoj 1008 Gnome Tetravex（DFS+经典剪枝）
+zoj 1134 Strategic Game（树形DP入门）
+zoj 1227 Free Candies（DP，记忆化搜索，位运算）
+zoj 1231 Mysterious Mountain（二分答案+二分图最大匹配，陷阱很多）
+zoj 1249 Pushing Boxes（推箱子，双参数BFS+优先队列）
+zoj 1260 King（差分约束）
+zoj 1301 The New Villa（BFS+位运算）
+zoj 1310 Robot（BFS）
+zoj 1319 Black Box（优先队列）
+zoj 1354 Extended Lights Out（DFS+剪枝）
+zoj 1395 Door Man（欧拉图）
+zoj 1434 Frogger's For Dinner（青蛙过街模拟）
+zoj 1435 Deeper Blue（国际象棋暴力枚举）
+zoj 1479 Dweep（BFS+优先队列）
+zoj 1484 Minimum Inversion Number（逆序数）
+zoj 1508 Intervals（差分约束入门）
+zoj 1524 Supermarket（一维在线刷新DP）
+zoj 1556 Heroes Of Might And Magic（英雄无敌模拟+DP）
+zoj 1591 Winlinez（小游戏暴力模拟）
+zoj 1675 Push!!（推箱子，记忆化搜索）
+zoj 1894 Adventures in Moving - Part IV（经典DP）
+zoj 1919 Catenyms（欧拉图，dfs）
+zoj 1935 XYZZY（最长路+传递闭包）
+zoj 1960 Anagram Groups（字符串，排序）
+zoj 1985 Largest Rectangle in a Histogram（迭代搜索）
+zoj 1989 Who's the Boss（迭代搜索）
+zoj 2016 Play on Words（欧拉图+并查集）
+zoj 2039 The Dog Task（二分图最大匹配）
+zoj 2049 Advertisement（差分约束）
+zoj 2059 The Twin Towers（经典DP）
+zoj 2096 Door to Secret（双调DP）
+zoj 2235 The Peanuts（简单模拟）
+zoj 2279 Survival（状态压缩DP，经典入门题）
+zoj 2291 Maze（DFS）
+zoj 2292 Anti-bug before Chinese Valentine's Day（DFS+剪枝）
+zoj 2322 Auctions R Us（淘宝支付宝拍卖模拟）
+zoj 2411 Link Link Look（连连看，BFS）
+zoj 2472 Interesting Maze Game（纯模拟）
+zoj 2526 FatMouse and JavaBean II（最短路，dijkstra）
+zoj 2581 Tour（双调DP）
+zoj 2689 Halls（暴力二分匹配）
+zoj 2719 Two Pipelines（贪心，几何）
+zoj 2761 Help Lin to walk less（最短路，坐标提取）
+zoj 2770 Burn the Linked Camp（差分约束）
+zoj 2771 Get Out of the Glass（光线反射，DP）
+zoj 2778 Triangular N-Queens Problem（三角N皇后）
+zoj 2834 Maximize Game Time（超经典树形DP，校赛题）
+zoj 2881 Full Tank?（BFS+优先队列）
+zoj 2910 Soccer Tournament（恶心繁琐的模拟题）
+zoj 2921 Stock（股票，贪心）
+zoj 2923 Calculate Roads（最短路）
+zoj 2935 Here We Go(relians) Again（dijkstra，二维）
+zoj 2963 Treasure Hunter（图论综合题，推荐）
+zoj 3026 Twirling Robot （BFS+优先队列）
+zoj 3033 Board Games（SPFA经典入门题）
+zoj 3052 Unix Robots YM传说中的偶像（大自然题，bonus）
+zoj 3089 Tourist（双调DP）
+zoj 3090 Assemble（二分+贪心）
+zoj 3094 Escape from Enemy Territory（BFS+二分）
+zoj 3103 Cliff Climbing（SPFA，稍难）
+zoj 3111 Domino Art（二分匹配）
+zoj 3123 Subsequence（二分）
+zoj 3146 Babes in the Woods（SPFA入门题）
+zoj 3211 Dream City（经典DP）
+zoj 3214 Bussiness Rules Management System（STL，map，set）
+zoj 3220 Killing Streak（Dota模拟题）
+zoj 3221 Lich（Dota模拟题，Lich大招）
+zoj 3250 Chain Factor（纯模拟题，细节较多，容易TLE）
+zoj 3255 The Scylla（BFS+优先队列）
+zoj 3269 Zombies VS Plants（暴力DFS+回溯，很爽的大自然题）
+zoj 3270 Seat taking up is tough（占座模拟）
+zoj 3277 P2P File Sharing System（暴力模拟，需要细心和耐心）
+zoj 3286 Very Simple Counting（数论，筛选法）
+zoj 3290 Longest Subtrahend Sequence（水题）
+zoj 3291 Never End（BFS，比较麻烦）
+zoj 3295 War of 218（水题）
+zoj 3297 Cookie Choice II（贪心，活动窗体）
+zoj 3300 Mahjong（麻将，暴力DFS）
+zoj 3304 Prison Break（DFS，判连通）
+zoj 3305 Get Sauce（DFS+剪枝）
+zoj 3309 Search New Posts（STL，map）
+zoj 3310 Unrequited Love（环转化链，DP）
+zoj 3311 ZOJ Special AC String（水题，字符串找规律）
+zoj 3315 Runaway Robot（搜索，叠加图）
+zoj 3316 Game（一般图匹配，博弈）
+zoj 3317 Murder in Restaurant（水题）
+zoj 3318 Strange Country（dp+最短路）
+
+

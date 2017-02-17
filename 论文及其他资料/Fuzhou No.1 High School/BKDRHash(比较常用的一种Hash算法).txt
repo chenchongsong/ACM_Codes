@@ -1,0 +1,9 @@
+unsigned int bkdr_hash(const char *str)
+ {
+  unsigned int seed = 131; //131可以用各种神奇的数代替：31, 1313, 13131,等等……请自行体会Orz
+  unsigned int hash = 0;
+  unsigned char *p = (unsigned char *) str;
+  while (*p)
+   hash = hash*seed + (*p++);
+  return hash % NHASH;
+ }
