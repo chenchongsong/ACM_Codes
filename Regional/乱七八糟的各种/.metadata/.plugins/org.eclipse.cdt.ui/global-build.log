@@ -1,0 +1,204 @@
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+
+**** Build of configuration Debug for project A ****
+
+Nothing to build for project A
+11:09:16 **** Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+Finished building: ../src/ABC.cpp
+ 
+Building target: ABC
+Invoking: MacOS X C++ Linker
+g++  -o "ABC"  ./src/ABC.o   
+Finished building target: ABC
+ 
+11:10:09 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+11:10:45 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+11:11:25 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+Finished building: ../src/ABC.cpp
+ 
+Building target: ABC
+Invoking: MacOS X C++ Linker
+g++  -o "ABC"  ./src/ABC.o   
+Finished building target: ABC
+ 
+11:11:49 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+11:12:02 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:02:27 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+Finished building: ../src/ABC.cpp
+ 
+Building target: ABC
+Invoking: MacOS X C++ Linker
+g++  -o "ABC"  ./src/ABC.o   
+Finished building target: ABC
+ 
+20:02:59 **** Build of configuration Debug for project hahaha ****
+make all 
+Building file: ../src/hahaha.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/hahaha.d" -MT"src/hahaha.o" -o "src/hahaha.o" "../src/hahaha.cpp"
+Finished building: ../src/hahaha.cpp
+ 
+Building target: hahaha
+Invoking: MacOS X C++ Linker
+g++  -o "hahaha"  ./src/hahaha.o   
+Finished building target: hahaha
+ 
+20:03:07 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:03:50 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:04:43 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:05:16 **** Incremental Build of configuration Debug for project hahaha ****
+make all 
+make: Nothing to be done for `all'.
+20:07:22 **** Incremental Build of configuration Debug for project hahaha ****
+make all 
+make: Nothing to be done for `all'.
+20:07:26 **** Incremental Build of configuration Debug for project hahaha ****
+make all 
+make: Nothing to be done for `all'.
+20:12:47 **** Incremental Build of configuration Debug for project hahaha ****
+make all 
+make: Nothing to be done for `all'.
+20:12:58 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:13:08 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+../src/ABC.cpp:16:21: error: expected ';' after expression
+        scanf("%d%d",&a,&b)
+                           ^
+                           ;
+1 error generated.
+make: *** [src/ABC.o] Error 1
+20:13:26 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+../src/ABC.cpp:16:21: error: expected ';' after expression
+        scanf("%d%d",&a,&b)
+                           ^
+                           ;
+1 error generated.
+make: *** [src/ABC.o] Error 1
+20:13:35 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+../src/ABC.cpp:16:21: error: expected ';' after expression
+        scanf("%d%d",&a,&b)
+                           ^
+                           ;
+1 error generated.
+make: *** [src/ABC.o] Error 1
+20:13:36 **** Incremental Build of configuration Debug for project hahaha ****
+make all 
+make: Nothing to be done for `all'.
+20:13:45 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+Building file: ../src/ABC.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ABC.d" -MT"src/ABC.o" -o "src/ABC.o" "../src/ABC.cpp"
+Finished building: ../src/ABC.cpp
+ 
+Building target: ABC
+Invoking: MacOS X C++ Linker
+g++  -o "ABC"  ./src/ABC.o   
+Finished building target: ABC
+ 
+20:13:54 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:17:54 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+20:19:30 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
+21:57:15 **** Incremental Build of configuration Debug for project ABC ****
+make all 
+make: Nothing to be done for `all'.
