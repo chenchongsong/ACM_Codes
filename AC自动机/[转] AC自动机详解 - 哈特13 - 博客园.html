@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[转] AC自动机详解 - 哈特13 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=03KQeESEmpLfzDqUo0NiWUg5Zd5aRam3JHBZTK05Wug1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/Banlieue13/bundle-Banlieue13.css?v=-BwbBCgL4I6ev4eT0WChGlx86DuTjkHbdqzbBDeklxs1"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/Banlieue13/bundle-Banlieue13-mobile.css?v=S6L3-76G0H9mIKepIxH6Ty95aMRl4CBLVc8l5Z2qvCc1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/hate13/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/hate13/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/hate13/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'hate13', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=VojbxZmhS6OYu7vtmoh-qH-fKxvq6c_Pb2g8lij19701" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/hate13/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/hate13/">哈特13</a></h1>
+<h2>趁着还有梦想、将AC进行到底~~~by 452181625</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/hate13/">首页</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E5%93%88%E7%89%B913">联系</a></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/hate13/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/hate13/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a></li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				<div id="blog_stats">
+<!--done-->
+随笔- 227&nbsp;
+文章- 0&nbsp;
+评论- 14&nbsp;
+</div>
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/hate13/p/4348781.html">[转] AC自动机详解</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>转载自：http://hi.baidu.com/nialv7/item/ce1ce015d44a6ba7feded52d</p>
+<p>&nbsp;</p>
+<p><span style="font-family: Microsoft YaHei; font-size: 18pt;">AC自动机详解</span></p>
+<p>AC自动机是用来处理多串匹配问题的，即给你很多串，再给你一篇文章，让你在文章中找这些串是否出现过，在哪出现。也许你考虑过AC自动机名字的含义，我也有过同样的想法。你现在已经知道KMP了，他之所以叫做KMP，是因为这个算法是由Knuth、Morris、Pratt三个提出来的，取了这三个人的名字的头一个字母。那么AC自动机也是同样的，他是Aho-Corasick。所以不要再YY地认为AC自动机是AC(cept)自动机，虽然他确实能帮你AC一点题目。</p>
+<p>。。。扯远了。。。</p>
+<p>&nbsp;</p>
+<p>要学会AC自动机，我们必须知道什么是Trie，即字母树。如果你会了，请跳过这一段</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Trie是由字母组成的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先看张图：<span class="Apple-converted-space">&nbsp;</span></p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182154291735824.png" alt="" /></p>
+<p>&nbsp;</p>
+<p>这就是一棵Trie树。用绿色标出的点表示一个单词的末尾（为什么这样表示？看下去就知道了）。树上一条从root到绿色节点的路径上的字母，组成了一个&ldquo;单词&rdquo;。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 也许你看了这一段，就知道如何构建Trie了，那请跳过以下几段。*/</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 那么如何来构建一棵Trie呢？就让我从一棵空树开始，一步步来构建他。</p>
+<p>&nbsp;</p>
+<p>一开始，我们有一个root：</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182156056573966.png" alt="" /></p>
+<p>现在，插入第一个单词，she。这就相当于在树中插入一条链。过程很简单。插完以后，我们在最后一个字母&rsquo;e&rsquo;上加一个绿色标记，结果如图：</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182156324075072.jpg" alt="" /></p>
+<p>再来一个单词，shr(什么词？&hellip;..右位移啊)。由于root下已经有&rsquo;s&rsquo;了，我们就不重复插入了，同理，由于&rsquo;s&rsquo;下有&rsquo;h&rsquo;了，我们也略过他，直接在&rsquo;h&rsquo;下插入&rsquo;r&rsquo;，并把&rsquo;r&rsquo;标为绿色。结果如图：</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182157002516080.jpg" alt="" /></p>
+<p>按同样的方法，我们继续把余下的元素插进树中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 最后结果:</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182157294546900.jpg" alt="" /></p>
+<p>也就是这样:</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182158020795767.jpg" alt="" /></p>
+<p>好了，现在我们已经有一棵Trie了，但这还不够，我们还要在Trie上引入一个很强大的东西：失败指针或者说shift数组或者说Next函数 &hellip;..你爱怎么叫怎么叫吧，反正就是KMP的精华所在，这也是我为什么叫你看KMP的原因。</p>
+<p>KMP中我们用两个指针i和j分别表示，A[i-j+ 1..i]与B[1..j]完全相等。也就是说，i是不断增加的，随着i的增加j相应地变化，且j满足以A[i]结尾的长度为j的字符串正好匹配B串的前 j个字符，当A[i+1]&lt;&gt;B[j+1]，KMP的策略是调整j的位置（减小j值）使得A[i-j+1..i]与B[1..j]保持匹配且新的B[j+1]恰好与A[i+1]匹配（从而使得i和j能继续增加）。</p>
+<p>Trie树上的失败指针与此类似。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 假设有一个节点k，他的失败指针指向j。那么k,j满足这个性质：设root到j的距离为n，则从k之上的第n个节点到k所组成的长度为n的单词，与从root到j所组成的单词相同。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 比如图中she中的&rsquo;e&rsquo;的失败指针就应该指向her中的&rsquo;e&rsquo;。因为：</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182159047516515.jpg" alt="" /></p>
+<p>图中红框部分是完全一样的。</p>
+<p>那么我们要怎样构建这个东西呢？其实我们可以用一个简单的BFS搞定这一切。</p>
+<p>对于每个节点，我们可以这样处理：设这个节点上的字母为C，沿着他父亲的失败指针走，直到走到一个节点，他的儿子中也有字母为C的节点。然后把当前节点的失败指针指向那个字目也为C的儿子。如果一直走到了root都没找到，那就把失败指针指向root</p>
+<p>最开始，我们把root加入队列(root的失败指针显然指向自己)，这以后我们每处理一个点，就把它的所有儿子加入队列，直到搞完。</p>
+<p>至于为什么这样就搞的定，我们讲下去就知道了。</p>
+<p>好了，现在我们有了一棵带失败指针的Trie了，而我的文章也破千字了，接下来，我们就要讲AC自动机是怎么工作的了。</p>
+<p>AC自动机是个多串匹配，也就是说会有很多串让你查找，我们先把这些串弄成一棵Trie，再搞一下失败指针，然后我们就可以开始AC自动机了。</p>
+<p>一开始，Trie中有一个指针t1指向root，待匹配串(也就是&ldquo;文章&rdquo;)中有一个指针t2指向串头。</p>
+<p>接下来的操作和KMP很相似：如果t2指向的字母，是Trie树中，t1指向的节点的儿子，那么t2+1,t1改为那个儿子的编号，否则t1顺这当前节点的失败指针向上找，直到t2是t1的一个儿子，或者t1指向根。如果t1路过了一个绿色的点，那么以这个点结尾的单词就算出现过了。或者如果t1所在的点可以顺着失败指针走到一个绿色点，那么以那个绿点结尾的单词就算出现过了。</p>
+<p>我们现在回过来讲讲失败指针。实际上找失败指针的过程，是一个自我匹配的过程。</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182159341576864.jpg" alt="" /></p>
+<p>如图，现在假定我们确定了深度小于2(root深度为1)的所有点的失败指针，现在要确定e。这就相当于我们有了这样一颗Trie：</p>
+<p><img src="http://images.cnitblog.com/blog2015/683660/201503/182200052822473.jpg" alt="" /></p>
+<p>而文章为&rsquo;she&rsquo;，要查找&rsquo;e&rsquo;在哪里出现。我们接着匹配&rsquo;say&rsquo;，那&rsquo;y&rsquo;的失败指针就确定了。</p>
+<p>好好想想。前面讲的BFS其实就是自我匹配的过程，这也是和KMP很相似的。</p>
+<p>好了，就写到这吧，有不明白可以留言或发邮件给我(drdarkraven@gmail.com),或者在推上fo我(@sdraven)....</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2015-03-18 22:01</span> <a href='http://www.cnblogs.com/hate13/'>哈特13</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=4348781" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(4348781);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=201886,cb_entryId=4348781,cb_blogApp=currentBlogApp,cb_blogUserGuid='649c3572-b958-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2015/3/18 22:01:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2017 哈特13
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>

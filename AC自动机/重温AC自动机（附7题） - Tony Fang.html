@@ -1,0 +1,1153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="all"/>
+<meta name="author" content=""/>
+<meta name="description" content="重温AC自动机（附7题）-重温AC自动机（附7题）"/>
+<meta name="keywords" content=""/>
+<link rel="shortcut icon" type="image/x-icon" href="http://tonyfang.is-programmer.com/user_files/tonyfang/config/favicon.ico" />
+<link href="http://tonyfang.is-programmer.com/posts.rss" rel="alternate" title="Blog RSS" type="application/rss+xml" />
+<link href="http://tonyfang.is-programmer.com/comments.rss" rel="alternate" title="Comments RSS" type="application/rss+xml" />
+<link href="http://tonyfang.is-programmer.com/messages.rss" rel="alternate" title="Messages RSS" type="application/rss+xml" />
+<link href="http://tonyfang.is-programmer.com/site.rss" rel="alternate" title="is-Programmer.com RSS" type="application/rss+xml" />
+<link href="/stylesheets/common.css?1375031774" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/admin/smoothness/jquery-ui.css?1375031774" media="screen" rel="stylesheet" type="text/css" />
+<link href="/themes/user/scribbish/stylesheets/application.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+
+
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="FmnSYC50eDc1WecYdyp9dHC9omwTXdGGQkbmQk2hRI0=" name="csrf-token" />
+<script src="/javascripts/jquery-1.6.2.min.js?1375031774" type="text/javascript"></script>
+<title>重温AC自动机（附7题） - Tony Fang</title>
+<link href="/plugins/syntaxhighlighter/stylesheets/shCore.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+<link href="/plugins/syntaxhighlighter/stylesheets/shThemeRDark.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1563106-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<link href="/plugin.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="container">
+  <div id="header">
+    <h1><span><a href="/">Tony Fang</a></span></h1>
+    <h2>自己选择的路，跪着也要走完</h2>
+  </div>
+
+  <div id="page">
+    <div id="content">
+      
+<div id="article_wrap">
+  <div class="pre_next_post">
+	<div><a href="http://tonyfang.is-programmer.com/posts/207728.html" class="up" title="上一篇">重温后缀数组（附6题）</a></div> 
+        <div><a href="http://tonyfang.is-programmer.com/posts/207841.html" class="down" title="下一篇">初探AC自动机的fail树的应用（附2题）</a></div>
+  </div>
+
+  <h1>重温AC自动机（附7题）</h1>
+
+  <div id="article_header">
+    <strong> tonyfang</strong> 
+    posted @ 2016年12月13日 22:32
+     in <a href="/categories/19838/posts">随笔</a>
+	with tags 
+	<a href="/tag/c++">c++</a>  <a href="/tag/OI">OI</a>  
+    , 46 阅读
+        </div>
+
+  
+  
+  <div id="article_body">
+    <div id='article_content'><p>
+	<span style="font-family:georgia,serif;"><span style="font-size:20px;">最近在写一些字符串的题呀&hellip;&hellip;</span></span></p>
+<p>
+	<span style="font-family:georgia,serif;"><span style="font-size:20px;">头昏脑涨&hellip;&hellip;</span></span></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">关于AC自动机的应用，一种是模板；一种是关于fail的DP（经常加上矩阵）；另外就是关于fail树的问题（本篇不讨论，后续会新写文章介绍，本篇着重前两个内容）。</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">【模板】</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">HDU 2222</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">注意一个结尾可能有多个单词，用类似于边链表存储即可。</span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="hdu2222">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;string.h&gt;
+# include &lt;queue&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 600010;
+const int N = 26;
+int ch[M][N], fail[M], lst[M], cnt[M], sz=0;
+int isend[M];
+char str[M*2];
+
+inline void insert() {
+	int len = strlen(str), p=0;
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;a&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] ++;
+}
+
+queue&lt;int&gt; q;
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;26; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = lst[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top = q.front(); q.pop();
+		for (int c=0; c&lt;26; ++c) {
+			int p = ch[top][c];
+			if(!p) continue;
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = fail[v];
+			fail[p] = ch[v][c];
+			lst[p] = isend[fail[p]] ? fail[p] : lst[fail[p]];
+		}
+	}
+}
+
+inline void tadd(int x) {for (; x; x=lst[x]) cnt[x] ++;}
+
+inline void find() {
+	int p=0, len = strlen(str);
+	memset(cnt, 0, sizeof(cnt));
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;a&#39;;
+		while(p &amp;&amp; !ch[p][c]) p = fail[p];
+		p = ch[p][c];
+		if(isend[p]) tadd(p);
+		else if(lst[p]) tadd(lst[p]);
+	}
+}
+
+int n, ans, T;
+
+int main() {
+	scanf(&quot;%d&quot;, &amp;T);
+	while(T--) {
+		memset(ch, 0, sizeof(ch));
+		memset(lst, 0, sizeof(lst));
+		memset(isend, 0, sizeof(isend));
+		memset(fail, 0, sizeof(fail));
+		sz = ans = 0;
+		scanf(&quot;%d&quot;, &amp;n);
+		for (int i=1; i&lt;=n; ++i) {
+			scanf(&quot;%s&quot;, str);
+			insert();
+		}
+		getfail();
+		scanf(&quot;%s&quot;, str);
+		find();
+		for (int i=1; i&lt;=sz; ++i) 
+			if(isend[i] &amp;&amp; cnt[i]) ans+=isend[i];
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+</pre>
+<p>
+	<span style="font-family:tahoma,geneva,sans-serif;"><span style="font-family:georgia,serif;"><span style="font-size:20px;">BZOJ 3172</span></span></span></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj3172">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;string.h&gt;
+# include &lt;queue&gt;
+# include &lt;vector&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 1600010;
+const int N = 27;
+int ch[M][N], fail[M], lst[M], cnt[M], sz=0;
+int isend[M];
+char str[M];
+char t[M];
+vector&lt;int&gt; v[M];
+int ans[M];
+
+inline void insert(int j) {
+	int len = strlen(t), p=0;
+	for (int i=0; i&lt;len; ++i) {
+		int c = t[i] - &#39;a&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] ++;
+	v[p].push_back(j);
+}
+
+queue&lt;int&gt; q;
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;26; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = lst[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top = q.front(); q.pop();
+		for (int c=0; c&lt;26; ++c) {
+			int p = ch[top][c];
+			if(!p) {
+				ch[top][c] = ch[fail[top]][c];
+				continue;
+			}
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = fail[v];
+			fail[p] = ch[v][c];
+			lst[p] = isend[fail[p]] ? fail[p] : lst[fail[p]];
+		}
+	}
+}
+
+inline void tadd(int x) {for (; x; x=lst[x]) cnt[x] ++;}
+
+inline void find() {
+	int p=0, len = strlen(str);
+	memset(cnt, 0, sizeof(cnt));
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;a&#39;;
+		while(p &amp;&amp; !ch[p][c]) p = fail[p];
+		p = ch[p][c];
+		if(isend[p]) tadd(p);
+		else if(lst[p]) tadd(lst[p]);
+	}
+}
+
+int n, T;
+
+int main() {
+	sz = 0;
+	scanf(&quot;%d&quot;, &amp;n);
+	int cur = 0;
+	for (int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%s&quot;, t);
+		insert(i);
+		for (int j=0, jto=strlen(t); j&lt;jto; ++j)
+			str[cur++]=t[j];
+		str[cur++]=&#39;a&#39;+26;
+	}
+	getfail();
+	find();
+	for (int i=1; i&lt;=sz; ++i) 
+		if(isend[i]) {
+			for (int j=0, jto=v[i].size(); j&lt;jto; ++j)
+				ans[v[i][j]] = cnt[i];
+		}
+	for (int i=1; i&lt;=n; ++i)
+		printf(&quot;%d\n&quot;, ans[i]);
+	return 0;
+}
+</pre>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">【应用】</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">1. BZOJ 1009 GT考试</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">不能包含不吉利的串，就是在AC自动机上走若干次，求不包含的种类。</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">不能包含的要求：<strong>不能被转移到，不能转移其他（所以要两次判断）</strong></span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj1009">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;queue&gt;
+# include &lt;string.h&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 500010;
+const int N = 10;
+const int MM = 25;
+int n, m, mod;
+char str[MM];
+
+int ch[MM][N], sz=0, fail[MM];
+bool isend[M];
+queue&lt;int&gt; q;
+
+struct mat {
+	int n, m;
+	int a[MM][MM];
+	inline void init(int _n, int _m) {
+		n=_n, m=_m;
+		memset(a, 0, sizeof(a));
+	}
+};
+
+inline void insert() {
+	int p=0, len = strlen(str);
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;0&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] = 1;
+}
+
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;10; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top=q.front(); q.pop();
+		for (int c=0; c&lt;10; ++c) {
+			int p = ch[top][c];
+			if(!p) {
+				ch[top][c] = ch[fail[top]][c];
+				continue;
+			}
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = ch[v][c];
+			fail[p] = ch[v][c];
+			if(isend[fail[top]]) isend[top] = 1;
+		}
+	}
+}
+
+inline mat build() {
+	mat ret; ret.init(sz+1, sz+1);
+	for (int i=0; i&lt;=sz; ++i) {
+		if(isend[i]) continue;
+		for (int c=0; c&lt;10; ++c) {
+			if(isend[ch[i][c]]) continue;
+			ret.a[i+1][ch[i][c]+1] ++;
+		}
+	}
+	return ret;
+}
+
+inline mat mul(mat a, mat b) {
+	mat ret;
+	ret.init(a.n, b.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		for (int j=1; j&lt;=ret.m; ++j) 
+			for (int k=1; k&lt;=a.m; ++k) 
+				ret.a[i][j] = (ret.a[i][j] + a.a[i][k]*b.a[k][j]%mod)%mod;
+	return ret;
+}
+
+inline mat pwr(mat a, int b) {
+	mat ret;
+	ret.init(a.n, a.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		ret.a[i][i] = 1;
+	while(b) {
+		if(b&amp;1) ret = mul(ret, a);
+		a = mul(a, a);
+		b &gt;&gt;= 1;
+	}
+	return ret;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;mod);
+	scanf(&quot;%s&quot;, str);
+	insert();
+	getfail();
+	mat ans = pwr(build(), n);
+	int anss = 0;
+	for (int i=1; i&lt;=sz+1; ++i)
+		anss = (anss + ans.a[1][i]) % mod;
+	printf(&quot;%d\n&quot;, anss);
+	return 0;
+}
+</pre>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">2. BZOJ 1030 文本生成器</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">基本同1009，只是可以不用矩阵乘法加速。（也要两次判断）</span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj1030">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;string.h&gt;
+# include &lt;queue&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M3 = 6010, M = 60010;
+const int N = 26;
+const int mod = 10007;
+int ch[M][N], fail[M], sz=0;
+bool isend[M];
+char str[M*2];
+int f[M3][M3];
+
+inline void insert() {
+	int len = strlen(str), p=0;
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;A&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] = 1;
+}
+
+queue&lt;int&gt; q;
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;26; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top = q.front(); q.pop();
+		for (int c=0; c&lt;26; ++c) {
+			int p = ch[top][c];
+			if(!p) {
+			    ch[top][c]=ch[fail[top]][c];
+			    continue;
+			}
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = fail[v];
+			fail[p] = ch[v][c];
+			if(isend[fail[p]]) isend[p] = 1;
+		}
+	}
+}
+
+int n, m;
+
+int main() {
+	memset(isend, 0, sizeof(isend));
+	memset(ch, 0, sizeof(ch));
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for (int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%s&quot;, str);
+		insert();
+	}
+	getfail();
+	f[0][0] = 1;
+	for (int i=1; i&lt;=m; ++i) {
+		for (int j=0; j&lt;=sz; ++j) {
+			if(isend[j]) continue;
+			for (int k=0; k&lt;26; ++k) {
+                if(isend[ch[j][k]]) continue;
+				f[i][ch[j][k]] = (f[i][ch[j][k]] + f[i-1][j]) % mod;
+			}
+		}
+	}
+	int s = 0, tot = 1;
+	for (int i=0; i&lt;=sz; ++i) if(!isend[i]) s = (s+f[m][i]) % mod;
+	for (int i=1; i&lt;=m; ++i) tot = tot * 26 % mod;
+	tot -= s;
+	tot = (tot + mod) % mod;
+	printf(&quot;%d\n&quot;, tot);
+	return 0;
+}
+/*
+3 7
+AAB
+ACC
+B
+*/
+</pre>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">3. BZOJ 2553 禁忌</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">本题的特殊是求期望，看上去无法用AC自动机来做，实质上我们分解期望，发现每次都是乘一个1/alpha，这个是固定的，然后禁忌的段的数目的最大值可以贪心在AC自动机上走来实现，所以中体就是一个AC自动机的思想了。本题特殊之处在于，我们需要新开一维矩阵来实现统计答案（因为如果走到一个isend，答案应该加一，对应加1/alpha），答案那维的转移永远是1。其他照样做即可。<strong>本题end能转移出去，被转移到的时候要特判，所以只有一个判断。</strong></span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj2553">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;queue&gt;
+# include &lt;string.h&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 500010;
+const int N = 26;
+const int MM = 255;
+int n, m, alpha;
+char str[MM];
+
+int ch[MM][N], sz=0, fail[MM];
+bool isend[MM];
+queue&lt;int&gt; q;
+
+
+struct mat {
+	int n, m;
+	ld a[MM][MM];
+	inline void init(int _n, int _m) {
+		n=_n, m=_m;
+		memset(a, 0, sizeof(a));
+	}
+};
+
+inline void insert() {
+	int p=0, len = strlen(str);
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i] - &#39;a&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] = 1;
+}
+
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;alpha; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top=q.front(); q.pop();
+		for (int c=0; c&lt;alpha; ++c) {
+			int p = ch[top][c];
+			if(!p) {
+				ch[top][c] = ch[fail[top]][c];
+				continue;
+			}
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = ch[v][c];
+			fail[p] = ch[v][c];
+			if(isend[fail[top]]) isend[top] = 1;
+		}
+	}
+}
+
+inline mat build() {
+	mat ret; ret.init(sz+2, sz+2);
+	ld tmp = (ld)1.0/(ld)alpha;
+	for (int i=0; i&lt;=sz; ++i) {
+		for (int c=0; c&lt;alpha; ++c) {
+			if(isend[ch[i][c]]) {
+				ret.a[i+1][1] += tmp;
+				ret.a[i+1][sz+2] += tmp;
+				continue;
+			}
+			ret.a[i+1][ch[i][c]+1] += tmp;
+		}
+	}
+	ret.a[sz+2][sz+2]=1.0;
+	return ret;
+}
+
+inline mat mul(mat a, mat b) {
+	mat ret;
+	ret.init(a.n, b.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		for (int j=1; j&lt;=ret.m; ++j) 
+			for (int k=1; k&lt;=a.m; ++k) 
+				ret.a[i][j] = ret.a[i][j] + a.a[i][k]*b.a[k][j];
+	return ret;
+}
+
+inline mat pwr(mat a, int b) {
+	mat ret;
+	ret.init(a.n, a.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		ret.a[i][i] = 1;
+	while(b) {
+		if(b&amp;1) ret = mul(ret, a);
+		a = mul(a, a);
+		b &gt;&gt;= 1;
+	}
+	return ret;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;m, &amp;n, &amp;alpha);
+	while(m--) {
+		scanf(&quot;%s&quot;, str);
+		insert();
+	}
+	getfail();
+	mat ans = pwr(build(), n);
+	printf(&quot;%.10lf\n&quot;, (double)ans.a[1][sz+2]);
+	return 0;
+}
+</pre>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">4. BZOJ 1212 L语言</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">判断一个文章是否能被一个字库表示出来。</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">直接trie上dp即可，不需要AC自动机。</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">f[i]表示到第i个单词可行吗</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">找到最大的i使得f[i]=1即可。</span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj1212">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;string.h&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 1200010;
+
+int ch[M][26], sz=0;
+bool isend[M];
+char str[M];
+int f[M];
+int n, m;
+
+inline void insert() {
+	int len=strlen(str), p=0;
+	for (int i=0; i&lt;len; ++i) {
+		int c = str[i]-&#39;a&#39;;
+		if(!ch[p][c]) ch[p][c]=++sz;
+		p=ch[p][c];
+	}
+	isend[p]=1;
+}
+
+inline int solve(int x) {
+	int len=strlen(str+1);
+	f[0]=x;
+	int ret = 0;
+	for (int i=0; i&lt;=len; ++i) {
+		if(f[i] == x) ret = i;
+		else continue;
+		for (int p=0, j=i+1; j&lt;=len; ++j) {
+			p = ch[p][str[j]-&#39;a&#39;];
+			if(!p) break;
+			if(isend[p]) f[j] = x;
+		} 
+	}
+	return ret;
+}
+int main() {
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	for (int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%s&quot;, str);
+		insert();
+	}
+	for (int i=1; i&lt;=m; ++i) {
+		scanf(&quot;%s&quot;, str+1);
+		printf(&quot;%d\n&quot;, solve(i));
+	}
+
+	return 0;
+}
+</pre>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">5. BZOJ 1444 有趣的游戏</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">题面复杂，略去</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">还是关注如何判断，<strong>能转移到这个状态，然后不能转移出去（之后应该全是1），所以只要一个判断。</strong></span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">全是1的意义同第3题，就是不会再被其他改变的意思。（因为是求某人赢的概率）</span></font></p>
+<p>
+	<font face="georgia, serif"><span style="font-size: 20px;">还有就是要做足够多次的矩乘，我这里做了$2^{50}$次。</span></font></p>
+<pre class="brush: cpp; first-line: 1; collapse: true; tab-size: 4" title="bzoj1444">
+# include &lt;stdio.h&gt;
+# include &lt;algorithm&gt;
+# include &lt;queue&gt;
+# include &lt;string.h&gt;
+// # include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+const int M = 500010;
+const int N = 27;
+const int MM = 510;
+int n, m, TSN=0, l;
+char str[MM];
+
+int ch[MM][N], sz=0, fail[MM];
+bool isend[MM];
+ld pos[MM];
+int ps[MM];
+queue&lt;int&gt; q;
+
+
+struct mat {
+	int n, m;
+	ld a[MM][MM];
+	inline void init(int _n, int _m) {
+		n=_n, m=_m;
+		memset(a, 0, sizeof(a));
+	}
+};
+
+inline void insert() {
+	int p=0;
+	for (int i=0; i&lt;l; ++i) {
+		int c = str[i] - &#39;A&#39;;
+		if(!ch[p][c]) ch[p][c] = ++sz;
+		p = ch[p][c];
+	}
+	isend[p] = 1;
+	ps[++TSN] = p;
+}
+
+inline void getfail() {
+	while(!q.empty()) q.pop();
+	fail[0] = 0;
+	for (int c=0; c&lt;m; ++c) {
+		int p = ch[0][c];
+		if(p) {
+			fail[p] = 0;
+			q.push(p);
+		}
+	}
+	while(!q.empty()) {
+		int top=q.front(); q.pop();
+		for (int c=0; c&lt;m; ++c) {
+			int p = ch[top][c];
+			if(!p) {
+				ch[top][c] = ch[fail[top]][c];
+				continue;
+			}
+			q.push(p);
+			int v = fail[top];
+			while(v &amp;&amp; !ch[v][c]) v = ch[v][c];
+			fail[p] = ch[v][c];
+			if(isend[fail[top]]) isend[top] = 1;
+		}
+	}
+}
+
+inline mat build() {
+	mat ret; ret.init(sz+1, sz+1);
+	for (int i=0; i&lt;=sz; ++i) {
+		if(isend[i])
+			ret.a[i+1][i+1] = 1.0;
+		else for (int c=0; c&lt;m; ++c)
+			ret.a[i+1][ch[i][c]+1] += pos[c];
+	}
+	return ret;
+}
+
+inline mat mul(mat a, mat b) {
+	mat ret;
+	ret.init(a.n, b.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		for (int j=1; j&lt;=ret.m; ++j) 
+			for (int k=1; k&lt;=a.m; ++k) 
+				ret.a[i][j] = ret.a[i][j] + a.a[i][k]*b.a[k][j];
+	return ret;
+}
+
+inline mat pwr(mat a, int b) {
+	mat ret;
+	ret.init(a.n, a.m);
+	for (int i=1; i&lt;=ret.n; ++i)
+		ret.a[i][i] = 1;
+	while(b) {
+		if(b&amp;1) ret = mul(ret, a);
+		a = mul(a, a);
+		b &gt;&gt;= 1;
+	}
+	return ret;
+}
+
+int main() {
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;l, &amp;m);
+	for (int i=0; i&lt;m; ++i) {
+		int p, q; scanf(&quot;%d%d&quot;, &amp;p, &amp;q);
+		pos[i] = (ld)p/(ld)q;
+	}
+	for (int i=1; i&lt;=n; ++i) {
+		scanf(&quot;%s&quot;, str);
+		insert();
+	}
+	getfail();
+	mat ans=build();
+	for (int i=1; i&lt;=50; ++i) ans=mul(ans,ans);
+	for (int i=1; i&lt;=n; ++i) 
+		printf(&quot;%.2lf\n&quot;, (double)ans.a[1][ps[i]+1]);
+	return 0;
+}
+/*
+3 2 2
+1 2
+1 2
+AB
+BA
+AA
+*/
+</pre>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+</div>
+  </div>
+
+  
+
+  <div id="comments_wrap">
+      
+
+<div class="articlefooter">
+        <span class="comments">
+	<a href="/posts/207770.rss"><img alt="Small_feed" class="feed" src="/images/small_feed.png?1375031774" /></a>
+	评论 (0)
+    </span>
+</div>
+    <div id="comments">
+        
+ 
+    </div>
+
+
+
+<script src="/javascripts/ckeditor/ckeditor.js?1375031774" type="text/javascript"></script><br />
+<div id="post_comment">
+    <a href="#" id="cancel_reply_link" onclick="cancel_reply_to_id();event.returnValue = false;return false;" style="display:none;">[取消回复评论]</a>
+
+<form accept-charset="UTF-8" action="/posts/207770/comments" data-remote="true" id="rform_chito_comment" method="post" onsubmit="return false;"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="FmnSYC50eDc1WecYdyp9dHC9omwTXdGGQkbmQk2hRI0=" /></div>
+     <div id="comment_error" style="display: none;"></div>
+
+
+     
+    	 <label>昵称</label>
+         <input id="comment_writer" name="comment[writer]" size="10" type="text" value="" /> 
+         <a href="http://tonyfang.is-programmer.com/login?jump=http%3A%2F%2Ftonyfang.is-programmer.com%2Fposts%2F207770.html">登录</a> 
+         <label>E-mail:</label>
+         <input id="comment_email" name="comment[email]" size="30" type="text" value="" /> *
+         <br/>
+         <label>Web:</label>
+         <input id="comment_homepage" name="comment[homepage]" size="30" type="text" value="" />
+         <br/>
+         <label>Twitter:</label>
+         <input id="comment_twitter" name="comment[twitter]" size="12" type="text" value="" />
+         <br/>
+         <input id="comment_info" name="comment[info]" size="6" type="text" value="" class="comment_info_field" autocomplete="off" /> 
+         <input id="comment_value" name="comment[value]" type="hidden" value="some"/>
+
+     <div id="comment_editor">
+       <input id="comment_mode" name="comment[mode]" type="hidden" value="plain" />	
+       <input id="comment_reply_to" name="comment[reply_to]" type="hidden" value=""/>
+       <textarea class="pc" cols="40" id="comment_content" name="comment[content]" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('subm_chito_comment').click();return false};" rows="3">
+</textarea>
+       <input type="button" id="comment_editor_button" onclick='show_editor();' />
+     </div>
+         <label><input id="enable_notifier" name="enable_notifier" type="checkbox" value="1" />当有新评论通过 E-mail 通知我 </label>
+     <div id="comment_extra" >
+         <div id='show_simple_captcha'><!-- Copyright (c) 2007 [Sur http://expressica.com] -->
+
+<style type="text/CSS">
+  
+  #simple_captcha{padding: 5px 0 0 0 !important;}
+  #simple_captcha,
+  #simple_captcha div{display: table;}
+  #simple_captcha .simple_captcha_field,
+  #simple_captcha .simple_captcha_image{
+    margin: 0px 0px 2px 0px !important;
+    padding: 0px !important;
+  }
+  #simple_captcha .simple_captcha_image img{
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 110px !important;
+  }
+  #simple_captcha .simple_captcha_label{font-size: 12px;}
+  #simple_captcha .simple_captcha_field input{
+    width: 120px !important;
+    border: 1px solid #ccc;
+    background-color: #efefef;
+  }
+</style>
+
+<div id='simple_captcha'>
+  <div class='simple_captcha_image'>
+    <img src='http://tonyfang.is-programmer.com/simple_captcha/simple_captcha?distortion=high&image_style=simply_green&simple_captcha_key=0dfe131b81d949cb32b0c4ccda8d3cb69f3cbef5&time=1485143398' alt='loading captcha image...' />
+  </div>
+  
+  <div class='simple_captcha_field'>
+    <input id="captcha" name="captcha" type="text" />
+  </div>
+  
+  <div class='simple_captcha_label'>
+    (输入验证码)
+  </div>
+</div>
+</div>
+     </div>
+         <input autocomplete="off" data-disable-with="发送评论中……" id="subm_chito_comment" name="commit" type="submit" value="发送" />
+         <span id="crtl_enter_tip" style="color:#ccc;font-size:small;"> or Ctrl+Enter</span>
+</form>
+
+</div>
+ <script type="text/javascript">
+//<![CDATA[
+        $('#subm_chito_comment').click(function(){
+            $(this).attr("disabled",true);
+            $(this).val('发送评论中……');
+            update_field();
+            $('#comment_value').val('');
+            $.post('/posts/207770/comments', $('#rform_chito_comment').find('input').serialize() + '&' + $('#rform_chito_comment').find('textarea').serialize(), function(){
+                $('#subm_chito_comment').val('发送');
+                $('#subm_chito_comment').attr("disabled",false);
+            });
+
+            return false;
+        });
+
+//]]>
+</script>
+
+
+  </div>
+  <div class="page_clear"></div>
+
+</div>
+
+
+    </div>
+
+    <div id="sidebar">
+				    <h3>tonyfang</h3>
+					<div id="head">
+<img alt="Avatar" height="120" src="/user_files/tonyfang/config/avatar.png?1471905023" width="120" />
+    <div id="info"></div>
+</div>
+
+				    <h3>音乐</h3>
+					<embed src="http://www.xiami.com/widget/0_2083542,1770060224,1769629171,_235_346_FF8719_494949/multiPlayer.swf" type="application/x-shockwave-flash" width="235" height="346" wmode="opaque"></embed>
+
+				    <h3>搜索</h3>
+					<div id="chito_search">
+<form accept-charset="UTF-8" action="/posts" id="search_form" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>    <input id="s" name="s" size="10" type="text" value="" />
+    <input name="commit" type="submit" value="搜索" />
+</form></div>
+
+				    <h3>计数器</h3>
+					<div id='count' style='text-align:center;'>
+	19635
+</div>
+				    <h3>分类</h3>
+					    <ul id="category">
+	<li class="category">
+	        <a href="/categories/63254/posts">poj</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/19240/posts">未分类</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/19834/posts">IOI</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/19838/posts">随笔</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/20224/posts">NOI</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61009/posts">FZYZOJ</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61010/posts">Algorithm</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61199/posts">HDU</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61390/posts">math</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61442/posts">BZOJ</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61854/posts">APIO</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61866/posts">NOIP</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61933/posts">codevs</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/62320/posts">CodeForces</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/63217/posts">zerojudge</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/63355/posts">uvaoj</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/63403/posts">coci</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/63409/posts">NOI</a>
+	</li>
+    </ul>
+
+				    <h3>最新评论</h3>
+					<ul class="navlist">
+		<li>
+        <a href="/posts/207234.html#comment1111280">zzy7 : RP++</a>
+                </li>
+		<li>
+        <a href="/posts/207006.html#comment1101941">AireenYe : orzTon...</a>
+                </li>
+		<li>
+        <a href="/posts/206102.html#comment1045256">zhouyi : 球做domino</a>
+                </li>
+	
+</ul>	
+
+				    <h3>最新留言</h3>
+					<ul class="navlist">
+	
+</ul>	
+
+				    <h3>链接</h3>
+					<ul class="navlist">
+			    <li><a href="http://jiruyi910387714.is-programmer.com/" title="jiry_2">jiry_2</a></li>
+			    <li><a href="http://cnblogs.com/fateice" title="Fateice">fateice</a></li>
+			    <li><a href="http://www.cnblogs.com/zzqsblog" title="ZZQ">fjzzq2002</a></li>
+			    <li><a href="http://cnblogs.com/wuyuhan" title="- No Info -">wuyuhan</a></li>
+			    <li><a href="http://chouti.cnblogs.com" title="zhouyi">zhouyi</a></li>
+			    <li><a href="http://www.krydom.com/" title="krydom">krydom</a></li>
+</ul>	
+
+				    <h3>RSS</h3>
+					<div style="text-align:center;">
+    <a href="http://tonyfang.is-programmer.com/posts.rss"><img alt="RSS Link" src="/plugins/rss_icon_sidebar/images/feed_1.png?1375032041" /></a>
+</div>
+
+				    <h3>功能</h3>
+					<ul class="navlist">
+	<li><a href="http://tonyfang.is-programmer.com/add">注册</a></li>
+	    <li><a href="http://tonyfang.is-programmer.com/login">登录</a></li>
+	    <li><a href="/forgot_password">忘记密码？</a></li>
+	<li><a href="http://tonyfang.is-programmer.com/posts.rss"><abbr title='Really Simple Syndication'>文章 RSS</abbr></a></li>
+	<li><a href="http://tonyfang.is-programmer.com/comments.rss"><abbr title='Really Simple Syndication'>评论 RSS</abbr></a></li>
+	<li><a href="http://tonyfang.is-programmer.com/messages.rss"><abbr title='Really Simple Syndication'>留言 RSS</abbr></a></li>
+</ul>	
+
+    </div>
+    <br style="clear:both;" />
+  </div>
+<script src="/javascripts/jquery-ui-1.8.16.min.js?1375031774" type="text/javascript"></script>
+<script src="/javascripts/jquery.rails.js?1375031774" type="text/javascript"></script>
+<script src="/javascripts/blog.js?1375031774" type="text/javascript"></script>
+
+
+<script src="/plugins/auto_js_latex/javascripts/jquery.jslatex.packed.js?1375032041" type="text/javascript"></script>
+ <script type="text/javascript">
+                    function auto_js_latex(){
+                        try{
+                            $('#article_content').html($('#article_content').html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                        }catch(e){;}
+                        try{
+                            $('#comments').html($('#comments').html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                        }catch(e){;}
+                        try{
+                            $('.post_brief').each(function(index){
+                                $(this).html($(this).html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                            });
+                        }catch(e){;}
+                        $(".latex_eq").each(function(){
+                            var html = $(this).html();
+                            html = html.replace(/&nbsp;/g, " ").replace(/<br \/>/g, "");
+                            $(this).html(html);
+                        });
+                        $(".latex_eq").latex(); 
+                    }
+                    $(document).ready(auto_js_latex);
+                </script>
+  <script type="text/x-mathjax-config"> 
+                    MathJax.Hub.Config({
+                        tex2jax: {
+                            inlineMath: [['$','$'], ["\\(","\\)"]],
+                            processEscapes: true
+                            }
+                }); </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+ <script src="/plugins/syntaxhighlighter/javascripts/shCore.js?1375032041" type="text/javascript"></script>
+<script src="/plugins/syntaxhighlighter/javascripts/shBrushes.js?1375032041" type="text/javascript"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script><script src="/plugins/img_resize/javascripts/core.js?1375032041" type="text/javascript"></script>
+ <script type="text/javascript">
+                    function auto_resize_img(){
+                        img_resize_normal(400, "在新窗口打开");
+                    }
+                    $(document).ready(auto_resize_img);
+                    </script>
+
+  <div id="footer">
+    <hr />
+    <p><a href="http://s05.flagcounter.com/more/Yha"><img src="http://s05.flagcounter.com/count2/Yha/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+<br />
+Powered By <a style="font-size:12" href="http://tonyfang.is-programmer.com/" target="_top"><font style="font-size:12" color="#666666">TonyFang</font></a> 2000-2016
+</p>
+    <ul>
+      <li>
+        Styled with <a href="http://quotedprintable.com/pages/scribbish">scribbish</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

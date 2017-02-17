@@ -1,0 +1,1389 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>AC自动机 - 饶齐
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="如果你对Apache Cocoon有了解或者以涉足，你可能对在Cocoon中如何使用Java更好 的实现特定的逻辑有所疑惑。这篇文章将给您介绍如何使用XSP(Extensible Server Page) 和Action。同时还有示例和设计原则。 你可能听到了一些来自Apache的关于Cocoon的声音。现在，在经历了三年的发展后， Cocoon已经逐渐的从一个简单的实现XSL (Extensib" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/ink/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/u013480600/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+<body>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/u013480600">饶齐</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/u013480600?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/u013480600?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/u013480600/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "u013480600";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/u013480600";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://geek.csdn.net/news/detail/134790
+">
+<font color=blue>CSDN学院招募微信小程序讲师啦
+
+
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/274
+">
+<font color=red>程序员简历优化指南！ 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/PK.html">
+<font color=blue>【观点】移动原生App开发 PK HTML 5开发
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://bss.csdn.net/m/product/aliyun_essay/index
+">
+<font color=red>云端应用征文大赛，秀绝招，赢无人机！
+</font></a>
+
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=AC%e8%87%aa%e5%8a%a8%e6%9c%ba&u=http://blog.csdn.net/u013480600/article/details/44732429"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/u013480600/article/details/44732429">
+        <font color="red">[置顶]</font>
+        AC自动机            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/algorithm' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">algorithm</a><a href='http://www.csdn.net/tag/%e7%ae%97%e6%b3%95' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">算法</a><a href='http://www.csdn.net/tag/ACM' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">ACM</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2015-03-29 22:09</span>
+            <span class="link_view" title="阅读次数">844人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('AC%e8%87%aa%e5%8a%a8%e6%9c%ba','44732429');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(44732429,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('2921655','u013480600','top','44732429');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">算法总结<em>（21）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/u013480600/article/category/2921655"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2921655">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label  onclick="GetCategoryArticles('2179307','u013480600','top','44732429');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">数据结构--AC自动机<em>（14）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/u013480600/article/category/2179307"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2179307">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p align="center"><strong><span style="font-size:24px"><span style="color:red">AC</span><span style="color:red">自动机</span></span></strong></p>
+<p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 直接学AC自动机比较难理解，强烈建议先学完KMP和字典树并进行一定的练习后，对于失配指针和字典树构造有一定理解后再来学AC自动机的内容。有关AC自动机的详细介绍可见刘汝佳的《算法竞赛入门经典训练指南》P214.</span></p>
+<p><span style="font-size:18px">给你一个字典(<span style="color:#C00000">包含</span><span style="color:#C00000">n</span><span style="color:#C00000">个不重复的单词</span>)，然后给你一串连续的字符串文本(<span style="color:#C00000">长为</span><span style="color:#C00000">len</span>)，问你该文本里面的哪些位置正好出现了字典中的某一个或某几个单词？输出这些位置以及出现的单词。</span></p>
+<p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这个问题可以用n个单词的n次KMP算法来做(<strong><span style="color:#C00000">效率为</span><span style="color:#C00000">O(n*len*</span><span style="color:#C00000">单词平均长度</span><span style="color:#C00000">)</span></strong>)，也可以用1个字典树去匹配文本串的每个字母位置来做(<strong><span style="color:#C00000">效率为</span><span style="color:#C00000">O(len*</span><span style="color:#C00000">每次字典树遍历的平均深度</span><span style="color:#C00000">)</span></strong>)。上面两种解法效率都不高，如果用AC自动机来解决的话，<strong><span style="color:#C00000">效率将为线性</span><span style="color:#C00000">O(len)</span><span style="color:#C00000">时间复杂度。</span><span style="color:#C00000">(</span><span style="color:#C00000">上述</span><span style="color:#C00000">3</span><span style="color:#C00000">种时间效率并未把构建</span><span style="color:#C00000">KMP,</span><span style="color:#C00000">字典树以及</span><span style="color:#C00000">AC</span><span style="color:#C00000">自动机的时间算上</span><span style="color:#C00000">)</span></strong></span></p>
+<p><span style="font-size:18px"><strong><span style="color:#C00000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+</strong>KMP算法专门解决<strong><span style="color:red">长文本的单模板匹配问题</span></strong>，字典树专门解决<strong><span style="color:red">单个单词</span><span style="color:red">(</span><span style="color:red">短文本</span><span style="color:red">)</span><span style="color:red">多模板匹配问题</span></strong>。而AC自动机解决的是<strong><span style="color:red">长文本的多模板匹配问题</span></strong>。且AC自动机不但时间上具有优势，空间上也颇具优势。</span></p>
+<p><span style="font-size:18px">模板代码如下：</span></p>
+<p align="left"><span style="color:#804000"><span style="font-size:18px"></span></span></p>
+<pre name="code" class="cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+using namespace std;
+const int maxnode=11000;
+const int sigma_size=26;
+struct AC_Automata
+{
+    int ch[maxnode][sigma_size];
+    int val[maxnode];   // 每个字符串的结尾结点都有一个非0的val
+    int f[maxnode];     // fail函数
+    int last[maxnode];  // last[i]=j表j节点表示的单词是i节点单词的后缀，且j节点是单词节点
+    int sz;
+
+    //初始化0号根节点的相关信息
+    void init()
+    {
+        sz=1;
+        memset(ch[0],0,sizeof(ch[0]));
+        val[0]=0;
+    }
+
+    //insert负责构造ch与val数组
+    //插入字符串,v必须非0表示一个单词节点
+    void insert(char *s,int v)
+    {
+        int n=strlen(s),u=0;
+        for(int i=0; i&lt;n; i++)
+        {
+            int id=s[i]-&#39;a&#39;;
+            if(ch[u][id]==0)
+            {
+                ch[u][id]=sz;
+                memset(ch[sz],0,sizeof(ch[sz]));
+                val[sz++]=0;
+            }
+            u=ch[u][id];
+        }
+        val[u]=v;
+    }
+
+    //getFail函数负责构造f和last数组
+    void getFail()
+    {
+        queue&lt;int&gt; q;
+        last[0]=f[0]=0;
+        for(int i=0; i&lt;sigma_size; i++)
+        {
+            int u=ch[0][i];
+            if(u)
+            {
+                f[u]=last[u]=0;
+                q.push(u);
+            }
+        }
+
+        while(!q.empty())// 按BFS顺序计算fail
+        {
+            int r=q.front(); q.pop();
+            for(int i=0; i&lt;sigma_size; i++)
+            {
+                int u=ch[r][i];
+                if(u==0)continue;
+                q.push(u);
+
+                int v=f[r];
+                while(v &amp;&amp; ch[v][i]==0) v=f[v];
+                f[u]= ch[v][i];
+                last[u] =  val[f[u]]?f[u]:last[f[u]];
+            }
+        }
+    }
+
+    //递归打印与结点i后缀相同的前缀节点编号
+    //进入此函数前需保证val[i]&gt;0
+    void print(int i)
+    {
+        if(i)
+        {
+            printf(&quot;%d\n&quot;,i);
+            print(last[i]);
+        }
+    }
+
+    // 在s中找出 出现了哪几个模板单词
+    void find(char *s)
+    {
+        int n=strlen(s),j=0;
+        for(int i=0; i&lt;n; i++)
+        {
+            int id=s[i]-&#39;a&#39;;
+            while(j &amp;&amp; ch[j][id]==0) j=f[j];
+            j=ch[j][id];
+            if(val[j]) print(j);
+            else if(last[j]) print(last[j]);
+        }
+    }
+
+};
+AC_Automata ac;</pre><span style="font-size:18px"><br>
+</span>
+<p></p>
+<p><strong><span style="font-size:18px"><span style="color:red">AC</span><span style="color:red">自动机的基本应用</span></span></strong></p>
+<p><span style="font-size:18px">UVA 1449 Dominating Patterns(AC自动机)：注意输入中有重复单词输入的情况。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23288883"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">HDU 2222 Keywords Search(AC自动机)：给你一个文本和多个单词，问你出现了多少个单词。注意单词可能会重复。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23345221"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">HDU 2896 病毒侵袭(AC自动机)：AC自动机基本应用。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23345271"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告！</span></strong></span></p>
+<p><span style="font-size:18px">HDU 3065 病毒侵袭持续中(AC自动机)：AC自动机基本应用。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23345343"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">ZOJ 3430 Detect the Virus(AC自动机&#43;字符串转换)：本题麻烦在于匹配AC自动机之前需要先把64位编码转换为字符串。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23476655"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">ZOJ 3228 Searching the String(AC自动机)：相同模板串不可重叠如何求最大出现次数？<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23613499"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">&nbsp;</span></p>
+<p><strong><span style="font-size:18px"><span style="color:red">AC</span><span style="color:red">自动机</span><span style="color:red">&#43;DP</span></span></strong></p>
+<p><span style="font-size:18px">UVA 11468 Substring(AC自动机&#43;概率DP)：需要用改造后的AC自动机且注意概率dp的实现。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23294375"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">POJ 2778 DNA Sequence(AC自动机&#43;矩阵幂DP)：需要先用DP求出递推公式，然后找出递推矩阵，本题就是一个矩阵幂运算的题。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23467871"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">HDU 2243 考研路茫茫——单词情结(AC自动机&#43;矩阵幂)：POJ2778的加强版。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23523757"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">POJ 1625 Censored!(AC自动机&#43;DP)：类&#20284;POJ2778，不过不需要矩阵幂。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23529307"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">HDU 2825 Wireless Password(AC自动机&#43;状态压缩DP)：依然是生成字符串，但是这次要正好包含K个不同的模板单词。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23546883"><span style="color:#C00000">解题</span></a></span><span style="color:#C00000">报告</span><span style="color:#C00000">！</span></strong></span></p>
+<p><span style="font-size:18px">HDU 2296 Ring(AC自动机&#43;DP): 注意match数组的&#20540;。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23597033"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">HDU 2457 DNA repair(AC自动机&#43;DP)：很巧妙的DP定义。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23601777"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">HDU 3341 Lost's revenge(AC自动机&#43;DP)：另类的状态压缩DP题，以后记得这么压缩状态。<strong><span style="color:#C00000"><a target="_blank" target="_blank" href="http://blog.csdn.net/u013480600/article/details/23630929"><span style="color:#C00000">解题报告！</span></a></span></strong></span></p>
+<p><span style="font-size:18px">&nbsp;</span></p>
+<p><span style="font-size:18px">&nbsp;</span></p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.12-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" ArticleId="44732429" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/u013480600/article/details/44673031';">上一篇</span><a href="/u013480600/article/details/44673031" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">字典树Trie</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/u013480600/article/details/44763865';">下一篇</span><a href="/u013480600/article/details/44763865" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">后缀数组</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('2921655','u013480600','foot','44732429');">算法总结<em>（21）</em></span>
+                                </label>
+                                <label class="">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('2179307','u013480600','foot','44732429');">数据结构--AC自动机<em>（14）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('2921655', 'u013480600','foot','44732429');
+        });
+    </script>
+      
+</div>
+
+    <div>
+            <ins data-revive-zoneid="205" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+     </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/u013480600/svc/GetSuggestContent/44732429",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "44732429",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'AC自动机' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+<ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>    </div>  
+
+    <!-- 广告位开始 -->
+    <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '44732429';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/u013480600/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/u013480600" target="_blank">
+    <img src="http://avatar.csdn.net/6/2/4/1_u013480600.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/u013480600" class="user_name" target="_blank">u013480600</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=u013480600','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                       <div class="ico_expert"  onclick="javascript:location='http://blog.csdn.net/experts/rule.html'" title="CSDN认证专家" style="cursor:pointer;width:60px;height:60px;background:url('http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhuanjiamiddle.png') no-repeat" ></div>
+                <div id="bms_box">
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="4" >
+                                            </a>
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="1" >
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>446962次</span></li>
+    <li>积分：<span>11403</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog7.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：11403 </div>
+        </span>  </li>
+    <li>排名：<span>第1021名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>734篇</span></li>
+    <li>转载：<span>11篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>58条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/cplusplusprimer5.html" target="_blank"><img src="http://img.blog.csdn.net/20151123180221645" style="width:75px;height:75px;" /></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/cplusplusprimer5.html" target="_blank">C++ Primer 第5版学习总结</a>
+    <p>文章：14篇</p>
+    <span>阅读：10317</span>
+    </td>
+    </tr></table>
+    <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/acmforall.html" target="_blank"><img src="http://img.blog.csdn.net/20151123180020583" style="width:75px;height:75px;" /></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/acmforall.html" target="_blank">ACM算法竞赛入门经典题解</a>
+    <p>文章：50篇</p>
+    <span>阅读：32783</span>
+    </td>
+    </tr></table>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/u013480600/article/category/2917171" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C++Primer 学习总结</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2921655" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">算法总结</a><span>(22)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858327" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--题解汇总</a><span>(685)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2136401" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--STL应用</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858379" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--并查集</a><span>(27)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2133243" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--树的直径</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2094525" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--树状数组</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2129925" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--RMQ</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2138267" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--线段树</a><span>(24)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2167687" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--KMP</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2173255" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--字典树Trie</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2179307" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--AC自动机</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2198615" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--后缀数组</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2209159" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构-基于哈希值的LCP</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2211121" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--Treap</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2219131" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构--SplayTree</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2247941" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--BFS</a><span>(34)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2248309" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--DFS</a><span>(24)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2176455" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--欧拉图</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2331073" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--拓扑排序</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2333979" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--二分图判定</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2334287" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--无向图割顶与桥</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2335227" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--无向图双连通分量</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2339865" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--强连通分量</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2354453" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--2-SAT问题</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2386615" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--Floyd</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2374543" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--Dijkstra</a><span>(22)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2396487" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--BellmanFord_SPFA</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2403733" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--差分约束</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2407535" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--最小生成树</a><span>(25)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2489537" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--二分图最大匹配</a><span>(45)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2507829" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">图论--网络流</a><span>(28)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858385" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--二维几何基础</a><span>(40)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2586843" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--离散化</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2624875" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--线段相关</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2619539" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--点在多边形内</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2628141" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--凸包</a><span>(19)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2642867" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算几何--半平面交</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858323" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--贪心算法</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858335" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--简单题</a><span>(38)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858371" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--动态规划</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1862417" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--素数相关</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1858375" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--递推</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1881487" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--大数</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1894967" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--模拟</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1911353" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--轮廓线动态规划</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1895079" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--求余运算</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1919223" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--回溯法</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1998923" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--插头DP</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/1916309" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--状态压缩DP</a><span>(17)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2114101" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM--技巧题</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2195743" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ACM-数位DP</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2652765" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">动态规划--递推</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2160339" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">动态规划--01背包</a><span>(22)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2656071" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">动态规划--完全背包</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2668007" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">动态规划--多重背包</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/u013480600/article/category/2650821" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">动态规划--最长上升子序列</a><span>(14)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/u013480600/article/month/2015/04">2015年04月</a><span>(13)</span></li><li><a href="/u013480600/article/month/2015/03">2015年03月</a><span>(23)</span></li><li><a href="/u013480600/article/month/2014/11">2014年11月</a><span>(25)</span></li><li><a href="/u013480600/article/month/2014/10">2014年10月</a><span>(73)</span></li><li><a href="/u013480600/article/month/2014/09">2014年09月</a><span>(70)</span></li><li><a href="/u013480600/article/month/2014/08">2014年08月</a><span>(62)</span></li><li><a href="/u013480600/article/month/2014/07">2014年07月</a><span>(89)</span></li><li><a href="/u013480600/article/month/2014/06">2014年06月</a><span>(61)</span></li><li><a href="/u013480600/article/month/2014/05">2014年05月</a><span>(53)</span></li><li><a href="/u013480600/article/month/2014/04">2014年04月</a><span>(107)</span></li><li><a href="/u013480600/article/month/2014/03">2014年03月</a><span>(97)</span></li><li><a href="/u013480600/article/month/2014/02">2014年02月</a><span>(27)</span></li><li><a href="/u013480600/article/month/2014/01">2014年01月</a><span>(45)</span></li>
+</div>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/u013480600/article/details/24302341#comments">POJ 1442 Black Box(Treap)</a>
+    <p style="margin:0px;"><a href="/u013480600" class="user_name">u013480600</a>:
+@qq_34120518:应该不会的, 我本地测试过没问题才提交的. 不过比较久了, 具体的情况我也...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/24302341#comments">POJ 1442 Black Box(Treap)</a>
+    <p style="margin:0px;"><a href="/qq_34120518" class="user_name">qq_34120518</a>:
+会不会是因为重载的是小于号而比较用的是大于号，所以系统会认为是比较两个指针的地址值而报错，而且我觉得...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/39028693#comments">POJ 2135 Farm Tour(最小费用最大流)</a>
+    <p style="margin:0px;"><a href="/stcllxzture" class="user_name">stcllxzture</a>:
+博主解释的很好，但是代码错了，反边是要加的，而且答案里不用*2
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/23974119#comments">SPOJ 687. Repeats(后缀数组)</a>
+    <p style="margin:0px;"><a href="/windthenrain" class="user_name">windthenrain</a>:
+写的灰常好啊！！！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/44086859#comments">C++ Primer学习总结 第3章 字符串，向量和数组</a>
+    <p style="margin:0px;"><a href="/qq_35728408" class="user_name">qq_35728408</a>:
+我最近也学到了这里，e...还没总结。遇到一个问题http://q.cnblogs.com/q/84...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/22548393#comments">HDU 1542 Atlantis(线段树:扫描线)</a>
+    <p style="margin:0px;"><a href="/Yif__" class="user_name">Yif__</a>:
+你前面已经说了cnt一定是大于等于0的，为什么在程序里还要判断等于-1的情况，我不太理解你说的“如果...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/39500427#comments">POJ 2002 Squares(已知平面n点枚举正方形)</a>
+    <p style="margin:0px;"><a href="/sinat_18349559" class="user_name">sinat_18349559</a>:
+这个做法不对。我加入了25个点，然后算法给出答案是50。我给的点是： a = {{0,0},{0,1...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/44086759#comments">C++ Primer学习总结 第1-2章 变量和基本类型</a>
+    <p style="margin:0px;"><a href="/tzkone" class="user_name">tzkone</a>:
+针对您的4个归纳“4. const变量是仅在当前文件内有效的,那么我们如何定义且使用全局const呢...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/31782327#comments">HDU 3749 Financial Crisis(点-双连通分量)</a>
+    <p style="margin:0px;"><a href="/with_passion" class="user_name">with_passion</a>:
+写的很好~~
+    </p>
+    </li>
+    <li>
+   
+         <a href="/u013480600/article/details/40376143#comments">UVA 12563 Jin Ge Jin Qu hao(01背包变形:两个条件最优化)</a>
+    <p style="margin:0px;"><a href="/czkct" class="user_name">czkct</a>:
+写得很棒！！！
+    </p>
+    </li>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/u013480600/article/details/18424467" title="Windows7下如何安装networkx">Windows7下如何安装networkx</a><span>(1684)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/30728513" title="HDU 3342 Legal or Not(简单拓扑排序判定)">HDU 3342 Legal or Not(简单拓扑排序判定)</a><span>(1609)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40376143" title="UVA 12563 Jin Ge Jin Qu hao(01背包变形:两个条件最优化)">UVA 12563 Jin Ge Jin Qu hao(01背包变形:两个条件最优化)</a><span>(1606)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/19499899" title="POJ2411 轮廓线动态规划典型例题">POJ2411 轮廓线动态规划典型例题</a><span>(1407)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/25486071" title="POJ 3984 迷宫问题(BFS:迷宫最短路径且输出路径)">POJ 3984 迷宫问题(BFS:迷宫最短路径且输出路径)</a><span>(1386)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/45066957" title="BFS学习总结">BFS学习总结</a><span>(1321)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/32140501" title="HDU 3639 Hawk-and-Chicken(强连通分量+缩点)">HDU 3639 Hawk-and-Chicken(强连通分量+缩点)</a><span>(1302)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40477769" title="HDU 1284 钱币兑换问题(完全背包:入门题)">HDU 1284 钱币兑换问题(完全背包:入门题)</a><span>(1232)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40453097" title="POJ 2063 Investment(完全背包)">POJ 2063 Investment(完全背包)</a><span>(1217)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/23062113" title="HDU 3068 最长回文(manacher算法:回文字串)">HDU 3068 最长回文(manacher算法:回文字串)</a><span>(1155)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/u013480600/article/details/44646517" title="KMP算法">KMP算法</a><span>(9)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40508727" title="HDU 1248 寒冰王座(完全背包:入门题)">HDU 1248 寒冰王座(完全背包:入门题)</a><span>(7)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/44131453" title="并查集">并查集</a><span>(6)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/36389993" title="HDU 3715 Go Deeper(2-SAT)">HDU 3715 Go Deeper(2-SAT)</a><span>(4)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/24302341" title="POJ 1442 Black Box(Treap)">POJ 1442 Black Box(Treap)</a><span>(4)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40376143" title="UVA 12563 Jin Ge Jin Qu hao(01背包变形:两个条件最优化)">UVA 12563 Jin Ge Jin Qu hao(01背包变形:两个条件最优化)</a><span>(3)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/23122503" title="UVA 11732 strcmp() Anyone?(字典树Trie)">UVA 11732 strcmp() Anyone?(字典树Trie)</a><span>(2)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/41120083" title="POJ 3978 Primes(求范围素数个数)">POJ 3978 Primes(求范围素数个数)</a><span>(2)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40216949" title="POJ 2451 Uyuw&#39;s Concert(半平面交求面积)">POJ 2451 Uyuw&#39;s Concert(半平面交求面积)</a><span>(2)</span>
+</li>
+<li>
+<a href="/u013480600/article/details/40433021" title="UVA 10465 Homer Simpson(完全背包: 二维目标条件)">UVA 10465 Homer Simpson(完全背包: 二维目标条件)</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/laoyang360/article/details/53843771" target="_blank">* 而立之年——三线城市程序员的年终告白</a></li>
+<li><a href="http://blog.csdn.net/sdkfjksf/article/details/54380659" 
+target="_blank">* Java集合框架中隐藏的设计套路</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54092364" 
+target="_blank">* Python脚本下载今日头条视频(附加Android版本辅助下载器)</a></li>
+<li><a href="http://blog.csdn.net/caowenbin/article/details/54406716" target="_blank">* 人工智能的冷思考</a></li>
+<li><a href="http://blog.csdn.net/it_talk/article/details/54346566" 
+target="_blank">* React Native 实战系列教程之热更新原理分析与实现</a></li>
+
+
+</ul></ul>
+</div>
+
+
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="190" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+                    <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=2276961"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>
+      <script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8"></script>
+
+     <link rel="stylesheet" href="http://static.blog.csdn.net/css/fa.css" />
+
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" />
+    </div>
+</body>
+</html>   
+ 
