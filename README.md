@@ -7,7 +7,7 @@ Year One, Accelerated Bachelor Programme
 NOIP -> FJOI -> ACM Regional
 
 ID for various Online Judging Websites::
-Codeforces: ccs
-UVaOJ ACM_LA: ccs1997
-BZOJ: ccs1997
+Codeforces: ccs;
+UVaOJ ACM_LA: ccs1997;
+BZOJ: ccs1997;
 //POJ ZOJ HDU:
