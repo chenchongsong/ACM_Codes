@@ -1,3 +1,0 @@
-/Users/ccs/Desktop/C++/test_Project/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/ccs/Desktop/C++/test_Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/ccs/Desktop/C++/test_Project/cmake-build-debug/CMakeFiles/test_Project.dir

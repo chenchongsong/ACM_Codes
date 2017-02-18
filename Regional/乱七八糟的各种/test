@@ -1,6 +1,0 @@
-#include <iostrea>
-int main()
-{
-    cout<< end;
-    return 0;
-}
