@@ -4,7 +4,6 @@
 // dp[i][j] = max(dp[i+1][j], dp[i][j-1], (s[i]==s[j])*(dp[i+1][j-1]+2) )
 
 #include <cstdio>
-//#include <algorithm>
 #include <iostream>
 #include <cstring>
 #define maxn 1010
@@ -34,7 +33,6 @@ int main() {
 				}
 				else dp[i][j] = MAX(dp[i+1][j], dp[i][j-1]);
 			}
-
 		}
 		cout << dp[1][n].ans << endl;
 	}
