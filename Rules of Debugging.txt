@@ -1,0 +1,9 @@
+# ACM_Codes
+Chen Chongsong
+
+1. Declare a larger array
+2. Clear arrays and variables at the beginning of every test case
+3. Long long
+
+
+
