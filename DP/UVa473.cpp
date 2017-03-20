@@ -1,6 +1,7 @@
 // dp[disk][j] 前disk张唱片 前j首歌
 // 每次枚举一个i 意思是把第i~j首歌写进 第disk张唱片
 // dp[disk][j] = max{ dp[disk-1][i-1]+seg[i][j]}
+// O(n^2*(t+m))
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
