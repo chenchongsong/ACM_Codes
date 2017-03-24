@@ -20,8 +20,7 @@ int main() {
 		for (int i=1; i<=n; i++) scanf("%d", &a[i].p);
 		for (int i=1; i<=n; i++) scanf("%d", &a[i].s);
 		sort(a+1, a+n+1);
-		
-		
+
 		memset(dp, 128+63, sizeof(dp));//fill (dp, dp+maxn, -999999999);
 		dp[0] = 0;
 		a[0].s = a[0].t = 0;
@@ -41,4 +40,3 @@ int main() {
 	}
 	return 0;
 }
-
