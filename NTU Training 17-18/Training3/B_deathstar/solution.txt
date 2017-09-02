@@ -1,0 +1,11 @@
+solution: Since mij = ai & aj
+
+Let ai = mi1 | mi2 | mi3 | … | min
+
+这是最小解 也是一种可行解
+
+为什么是最小解： 因为对于ai 它必须具有 mi1的所有为1的bit 也必须具有所有迷mi2的所有为1的bit …
+
+
+为什么是可行解： 因为按照这种解法 对于每一个mij 有如下性质：
+ai具有 mij中所有为1的bit 并且 aj也具有 mij中所有为1的bit
