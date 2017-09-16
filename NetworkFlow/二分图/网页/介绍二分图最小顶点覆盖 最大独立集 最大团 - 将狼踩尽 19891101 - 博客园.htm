@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://www.cnblogs.com/jianglangcaijin/p/6035945.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二分图的最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/bundle-ChinaHeart.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/bundle-ChinaHeart-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jianglangcaijin/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jianglangcaijin/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/jianglangcaijin/wlwmanifest.xml">
+<script src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'jianglangcaijin', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/jianglangcaijin/"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/jianglangcaijin/">Only the Strong Survive</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<!--done-->
+			<ul id="navList">
+				<li></li>
+				<li><a id="MyLinks1_SpaceLink" class="menu" href="http://home.cnblogs.com/">园子</a></li>
+				<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/jianglangcaijin/">首页</a></li>
+				<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+				<li></li>
+				<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+				<li>
+				</li>
+			</ul>
+
+
+		<div class="clear"></div>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔- 879&nbsp;
+文章- 1&nbsp;
+评论- 28&nbsp;
+</div>			
+						
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="topicList">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/jianglangcaijin/p/6035945.html">二分图的最小顶点覆盖 最大独立集 最大团</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><strong>二分图的最小顶点覆盖</strong></p>
+<p>定义：假如选了一个点就相当于覆盖了以它为端点的所有边。最小顶点覆盖就是选择最少的点来覆盖所有的边。</p>
+<p>方法：最小顶点覆盖等于二分图的最大匹配。</p>
+<p>我们用二分图来构造最小顶点覆盖。</p>
+<p><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/361759-20161106185013252-117208349.png" alt=""></p>
+<p>对于上面这个二分图，顶点分为左右两个集合，X集合包含1,2,3,4，Y集合包含5,6,7,8,9.假如现在我们已经找到一个最大匹配M，就是上面的红线所标注的M={(1,7),(2,5),(4,8)}。我们作如下定义：（1）定义1、2、4、5、7、8为已经匹配过的点，其他点为未匹配的点；（2）定义(4,8)、(1,7)、(2,5)为已匹配的边，其他边为未匹配的边。</p>
+<p>下面我们从Y集合中找出未匹配的点，就是上面标记的6和9。每次我们从右边选出一个未匹配的点，从该点出发， 做一条未匹配边-&gt;匹配边-&gt;未匹配边-&gt;……-&gt;匹配边（注意最后以匹配边结尾），并且标记用到的点，得到下图：</p>
+<p><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/361759-20161106185045174-573976858.png" alt=""></p>
+<p>其中紫色的边为我们刚才画的边，其中标记的点有2、4、5、6、8、9。 上图的两条路为：（1）9-&gt;4-&gt;8-&gt;2-&gt;5&nbsp;（2）6-&gt;2-&gt;5。这两条路都是未匹配边-&gt;匹配边-&gt;未匹配边-&gt;……-&gt;匹配边。（注意如果一个右侧未匹配点有多条边，那么这样的从该点开始的路径就有多条，上面的6和9都只有一条边，所以从每个点开始的这样的路径只有一条）。</p>
+<p>现在我们将左侧标记的点2、4和右侧未标记的点7选出组成集合S， 那个S就是一个最小顶点覆盖集，就是S集合可以覆盖所有的边。下面证明：</p>
+<p>（1）|S|=M，即最小顶点覆盖等于二分图最大匹配：左边标记的点全都为匹配边的顶点，因为我们构造路径的时候左边的点向右找的边都是最大匹配的边；右边未标记的点也为二分图最大匹配边的顶点。而且左边标记的加上有边未标记的正好是最大匹配的数目。</p>
+<p>（2）S能覆盖所有的边。所有的边可以分为下面三种情况：a、左端点标记、右端点标记；这些边一定被左侧标记的点覆盖，比如上面的2,4；b、右端点未标记；这些边一定被右侧未标记的点覆盖，比如上面的7；c、左端点未标记、右端点标记。</p>
+<p>下面我们证明c这种边压根就不会存在：若c是最大匹配中的边，由于右端点不可能是一条路径的起点（因为我们的起点都是从Y集合中未匹配的点开始的），于是右端点的标记只能是在构造中从左边连过来，这是左端点必定被标记了，这时c就转化成了a；若c属于未匹配边，那么左端点必定是一个匹配点，那么c的右端点必定是一条路径的起始点，因此c的左端点也会成为一条路径的第二个点而被标记，这时c也就成了a。所以c这种边肯定是不存在的。</p>
+<p>（3）S是最小的顶点集：因为最大匹配为M，而|S|=M，所以如果S中的点再少，那么连M个匹配的边都不能覆盖。</p>
+<p>&nbsp;</p>
+<p><strong>二分图的最大独立集</strong></p>
+<p>定义：选出一些顶点使得这些顶点两两不相邻，则这些点构成的集合称为独立集。找出一个包含顶点数最多的独立集称为最大独立集。</p>
+<p>方法：最大独立集=所有顶点数-最小顶点覆盖</p>
+<p><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/361759-20161106185133846-1899337148.png" alt=""></p>
+<p>&nbsp;</p>
+<p>在上面这个图中最小顶点覆盖=3，即2,4,7构成最小顶点覆盖，则其他点6个构成最大独立集。且其他点不可能相连。假设其他点相连则这条边必定没有被2,4,7 覆盖，与2,4,7是最小顶点覆盖矛盾。因此其他点之间必定没有边。而2,4,7是最小顶点覆盖，所谓最小就是不能再小了，因此我们的独立集就是最大了。</p>
+<p><strong>二分图的最大团</strong></p>
+<p>定义：对于一般图来说，团是一个顶点集合，且由该顶点集合诱导的子图是一个完全图，简单说，就是选出一些顶点，这些顶点两两之间都有边。最大团就是使得选出的这个顶点集合最大。对于二分图来说，我们默认为左边的所有点之间都有边，右边的所有顶点之间都有边。那么，实际上，我们是要在左边找到一个顶点子集X，在右边找到一个顶点子集Y，使得X中每个顶点和Y中每个顶点之间都有边。</p>
+<p>方法：二分图的最大团=补图的最大独立集。</p>
+<p>补图的定义是：对于二分图中左边一点x和右边一点y，若x和y之间有边，那么在补图中没有，否则有。</p>
+<p>这个方法很好理解，因为最大独立集是两两不相邻，所以最大独立集的补图两两相邻。</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/jianglangcaijin/category/898265.html" target="_blank">016算法学习</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6035945,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;9612da22-f727-e111-b988-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jianglangcaijin/" target="_blank"><img src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/u361759.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jianglangcaijin/">将狼踩尽 19891101</a><br>
+            <a href="http://home.cnblogs.com/u/jianglangcaijin/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/jianglangcaijin/followers">粉丝 - 74</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;9612da22-f727-e111-b988-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6035945,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6035945,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/jianglangcaijin/p/6035937.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/jianglangcaijin/p/6035937.html" title="发布于2016-11-06 18:48">后缀数组：倍增法和DC3的简单理解</a><br><a href="http://www.cnblogs.com/jianglangcaijin/p/6035950.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/jianglangcaijin/p/6035950.html" title="发布于2016-11-06 18:56">图的最大匹配算法</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-11-06 18:52</span> <a href="http://www.cnblogs.com/jianglangcaijin/">将狼踩尽 19891101</a> 阅读(<span id="post_view_count">770</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6035945" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/jianglangcaijin/p/6035945.html#" onclick="AddToWz(6035945);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=104771,cb_entryId=6035945,cb_blogApp=currentBlogApp,cb_blogUserGuid='9612da22-f727-e111-b988-842b2b196315',cb_entryCreatedDate='2016/11/6 18:52:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/jianglangcaijin/p/6035945.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/jianglangcaijin/p/6035945.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.436876.436876.436876" target="_blank">【推荐】腾讯云上实验室 1小时搭建人工智能应用</a><br><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank">【推荐】可嵌入您系统的“在线Excel”！SpreadJS 纯前端表格控件</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://www.mtyun.com/promote/ab6dceaa-8a4f-45b4-9946-e2fe5564266a/" target="_blank"><img width="300" height="250" src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/24442-20170906183359226-1435856414.jpg" alt="美团云0907"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/578369/" target="_blank">李笑来，那个一顿饭点8条鲈鱼的人</a><br> ·  <a href="http://news.cnblogs.com/n/578368/" target="_blank">周鸿祎：我做天使投资时如何选择创业者</a><br> ·  <a href="http://news.cnblogs.com/n/578367/" target="_blank">《我的世界》手游iOS首发，树立标杆开启国内沙盒游戏元年</a><br> ·  <a href="http://news.cnblogs.com/n/578366/" target="_blank">0：3被AlphaGO剃光头 柯洁发布复盘视频</a><br> ·  <a href="http://news.cnblogs.com/n/578365/" target="_blank">微信上线“博物官”小程序：扫一扫就知晓艺术品</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./介绍二分图最小顶点覆盖 最大独立集 最大团 - 将狼踩尽 19891101 - 博客园_files/24442-20170908132742304-1045119416.gif" alt="极光0908"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2014-11-06 <a href="http://www.cnblogs.com/jianglangcaijin/p/4079924.html">bzoj 3234: [Ahoi2013]立方体</a><br>2014-11-06 <a href="http://www.cnblogs.com/jianglangcaijin/p/4079548.html">BZOJ 3241: [Noi2013]书法家</a><br></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: topicList 文章列表容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/08/01&#39;);return false;">&lt;</a></td><td align="center">2017年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/10/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/jianglangcaijin/archive/2017/09/03.html"><u>3</u></a></td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center"><a href="http://www.cnblogs.com/jianglangcaijin/archive/2017/09/11.html"><u>11</u></a></td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalTodayDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/jianglangcaijin/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/jianglangcaijin/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/jianglangcaijin/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/jianglangcaijin/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/jianglangcaijin/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/jianglangcaijin/p/6035945.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/jianglangcaijin/category/898251.html">001ACM-ICPC-HDU(171)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/jianglangcaijin/category/898252.html">002ACM-ICPC-POJ(88)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/jianglangcaijin/category/898253.html">003ACM-ICPC-SGU(76)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/jianglangcaijin/category/898254.html">004ACM-ICPC-codeforce(32)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/jianglangcaijin/category/898255.html">005ACM-ICPC-topcoder(54)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/jianglangcaijin/category/898256.html">006ACM-ICPC-Lightoj(62)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/jianglangcaijin/category/898257.html">007ACM-ICPC-bzoj(215)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/jianglangcaijin/category/1005884.html">008ACM-ICPC-leetcode(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/jianglangcaijin/category/898258.html">009ACM-ICPC-其他OJ(101)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/jianglangcaijin/category/898259.html">010数学-高等数学&amp;概率&amp;矩阵(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/jianglangcaijin/category/898260.html">011机器学习(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/jianglangcaijin/category/898268.html">012编译原理和操作系统(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/jianglangcaijin/category/898262.html">013数学-具体数学(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/jianglangcaijin/category/898266.html">014图形学(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/jianglangcaijin/category/898267.html">015编程语言&amp;工具(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/jianglangcaijin/category/898265.html">016算法学习(41)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3799803.html#3783553">1. Re:BZOJ 2768 冠军调查（最小割）</a></li>
+        <li class="recent_comment_body">你的代码无法通过这组数据，如果边（u,v），u和v值相同，也应该要连边。<br>5 4<br>0 0 1 1 1<br>1 2<br>1 3<br>1 4<br>1 5</li>
+        <li class="recent_comment_author">--heaplax</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/archive/2012/09/30/2709398.html#3768181">2. Re:HDU 4418 Time travel（高斯消元）</a></li>
+        <li class="recent_comment_body">博主，您的思路给了我很大的帮助啦啦啦！同时，我发现您的代码有些不妥之处：在您的方程组建立函数中，"a[ i ][ j ]=1 ;"一句有问题，问题在于这是直接赋值，但是经过测试我发现数据中会存在走k步......</li>
+        <li class="recent_comment_author">--大米饼</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3446839.html#3758765">3. Re:Lucas定理学习小记</a></li>
+        <li class="recent_comment_body">同问。<br>请问如果逆元不存在怎么办？</li>
+        <li class="recent_comment_author">--Hany01</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3799494.html#3672070">4. Re:BZOJ 2306 幸福路径（DP）</a></li>
+        <li class="recent_comment_body">@free-loop我很菜...</li>
+        <li class="recent_comment_author">--将狼踩尽 19891101</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3799494.html#3672023">5. Re:BZOJ 2306 幸福路径（DP）</a></li>
+        <li class="recent_comment_body">博主强强强。看着你的博客长大的</li>
+        <li class="recent_comment_author">--free-loop</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/archive/2012/10/27/2742400.html#3536741">6. Re:LightOJ 1274 Beating the Dataset（期望）</a></li>
+        <li class="recent_comment_body">博主好强</li>
+        <li class="recent_comment_author">--知る奇迹に</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3799752.html#3515454">7. Re:CF 321B Ciel and Duel(费用流)</a></li>
+        <li class="recent_comment_body">%%%</li>
+        <li class="recent_comment_author">--TenderRun</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/archive/2013/01/26/2878133.html#3507935">8. Re:SGU 294 He's Circles (polay计数)</a></li>
+        <li class="recent_comment_body">枚举n的约数d时，为什么是要乘以 n/d 的欧拉函数？还没想明白</li>
+        <li class="recent_comment_author">--Gavin's_Blog</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3446839.html#3244340">9. Re:Lucas定理学习小记</a></li>
+        <li class="recent_comment_body">reverse（y,p^t），如果y对p^t的逆元不存在怎么办？比如：y==p^x,x&lt;t</li>
+        <li class="recent_comment_author">--yuyanggo</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jianglangcaijin/p/3456816.html#3130752">10. Re:BZOJ 1494 生成树计数（生成树计数-矩阵）</a></li>
+        <li class="recent_comment_body">请问您是怎么对连通性的情况进行记录的？ ，没有看懂 dfs 里做的事情。</li>
+        <li class="recent_comment_author">--lixintong</li>
+</ul>
+</div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

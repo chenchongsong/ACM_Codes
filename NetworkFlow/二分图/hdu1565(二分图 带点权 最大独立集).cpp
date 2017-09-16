@@ -105,8 +105,8 @@ int main()
                 }  
                 else addedge((i-1)*n+j,t,ma[i][j]);  
             }  
-        int ans=Dinic(s,t);  
-        printf("%d\n",sum-ans);  
+        int ans=Dinic(s,t); // ans 为最小点权覆盖 （最小割）
+        printf("%d\n",sum-ans);  // sum-ans 为最大点权独立集
     }  
     return 0;  
 }  
