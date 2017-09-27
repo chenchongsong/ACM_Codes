@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="334 132 371 555" width="371pt" height="555pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata> Produced by OmniGraffle 7.3.1 
+    <dc:date>2017-09-05 09:32:05 +0000</dc:date>
+  </metadata>
+  <defs>
+    <font-face font-family="Times" font-size="19" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="460.9375" cap-height="675.78125" ascent="750" descent="-250" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Times-Roman"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Songti SC" font-size="30" panose-1="2 1 6 0 4 1 1 1 1 1" units-per-em="1000" underline-position="-133" underline-thickness="20" slope="0" x-height="446" cap-height="695" ascent="1059.9976" descent="-339.99634" font-weight="500">
+      <font-face-src>
+        <font-face-name name="STSongti-SC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Times" font-size="30" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="460.9375" cap-height="675.78125" ascent="750" descent="-250" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Times-Roman"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Songti SC" font-size="23" panose-1="2 1 6 0 4 1 1 1 1 1" units-per-em="1000" underline-position="-133" underline-thickness="20" slope="0" x-height="446" cap-height="695" ascent="1059.9976" descent="-339.99634" font-weight="500">
+      <font-face-src>
+        <font-face-name name="STSongti-SC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Times" font-size="23" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="460.9375" cap-height="675.78125" ascent="750" descent="-250" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Times-Roman"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Songti SC" font-size="14" panose-1="2 1 6 0 4 1 1 1 1 1" units-per-em="1000" underline-position="-133" underline-thickness="20" slope="0" x-height="446" cap-height="695" ascent="1059.9976" descent="-339.99634" font-weight="500">
+      <font-face-src>
+        <font-face-name name="STSongti-SC-Regular"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Times" font-size="16" units-per-em="1000" underline-position="-75.68359" underline-thickness="49.316406" slope="0" x-height="460.9375" cap-height="675.78125" ascent="750" descent="-250" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Times-Roman"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <rect fill="white" width="878" height="718"/>
+    <g>
+      <title>Layer 1</title>
+      <ellipse cx="540.0408" cy="207.90414" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="540.0408" cy="207.90414" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="576.7691" cy="279.06896" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="279.06896" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 267.56896)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">b</tspan>
+      </text>
+      <ellipse cx="576.7691" cy="338.285" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="338.285" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 326.785)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <ellipse cx="576.7691" cy="393.70517" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="393.70517" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 382.20517)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <ellipse cx="576.7691" cy="449.5049" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="449.5049" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 438.0049)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <ellipse cx="653.1332" cy="279.06896" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="653.1332" cy="279.06896" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(647.7006 267.56896)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <ellipse cx="653.1332" cy="339.0442" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="653.1332" cy="339.0442" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(647.7006 327.5442)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <ellipse cx="690.5382" cy="394.91247" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="690.5382" cy="394.91247" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(685.1055 383.41247)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <line x1="546.04314" y1="219.5343" x2="570.76674" y2="267.4388" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="576.7691" y1="292.16482" x2="576.7691" y2="325.18915" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="576.7691" y1="351.38088" x2="576.7691" y2="380.6093" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="576.7691" y1="406.80103" x2="576.7691" y2="436.40905" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="551.09376" y1="214.85936" x2="642.0803" y2="272.11374" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="653.1332" y1="292.16482" x2="653.1332" y2="325.94833" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="660.4108" y1="349.91407" x2="683.2606" y2="384.0426" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(334.6265 132.94278)" fill="black">
+        <tspan font-family="Songti SC" font-size="30" font-weight="500" x=".07373047" y="32" textLength="60">后缀</tspan>
+        <tspan font-family="Times" font-size="30" font-weight="500" x="60.07373" y="32" textLength="18.325195">T</tspan>
+        <tspan font-family="Times" font-size="30" font-weight="500" x="77.35889" y="32" textLength="136.56738">rie(banana)</tspan>
+      </text>
+      <text transform="translate(427.7294 653.46114)" fill="black">
+        <tspan font-family="Songti SC" font-size="23" font-weight="500" x=".1616211" y="24" textLength="69">在后缀</tspan>
+        <tspan font-family="Times" font-size="23" font-weight="500" x="69.16162" y="24" textLength="14.049316">T</tspan>
+        <tspan font-family="Times" font-size="23" font-weight="500" x="82.41357" y="24" textLength="24.257812">rie</tspan>
+        <tspan font-family="Songti SC" font-size="23" font-weight="500" x="106.67139" y="24" textLength="69">中查找</tspan>
+        <tspan font-family="Times" font-size="23" font-weight="500" x="175.67139" y="24" textLength="49.16699"> anan</tspan>
+      </text>
+      <ellipse cx="576.7691" cy="505.30465" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="505.30465" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 493.80465)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <ellipse cx="576.7691" cy="561.1044" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="561.1044" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 549.6044)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <line x1="576.7691" y1="462.6008" x2="576.7691" y2="492.2088" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="576.7691" y1="518.4005" x2="576.7691" y2="548.00853" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="451.0408" cy="279.06896" rx="13.040814" ry="13.095879" fill="#e2e2e2"/>
+      <ellipse cx="451.0408" cy="279.06896" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(445.60816 267.56896)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <ellipse cx="402.0408" cy="339.0442" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="402.0408" cy="339.0442" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(396.60816 327.5442)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <ellipse cx="500.40494" cy="339.0442" rx="13.040814" ry="13.095879" fill="#e2e2e2"/>
+      <ellipse cx="500.40494" cy="339.0442" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(494.9723 327.5442)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <ellipse cx="500.40494" cy="394.46435" rx="13.040814" ry="13.095879" fill="#e2e2e2"/>
+      <ellipse cx="500.40494" cy="394.46435" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(494.9723 382.96435)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <ellipse cx="459" cy="450.2641" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="459" cy="450.2641" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(453.56737 438.7641)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <ellipse cx="540.0408" cy="450.2641" rx="13.040814" ry="13.095879" fill="#e2e2e2"/>
+      <ellipse cx="540.0408" cy="450.2641" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(534.60816 438.7641)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">n</tspan>
+      </text>
+      <ellipse cx="540.0408" cy="505.30465" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="540.0408" cy="505.30465" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(534.60816 493.80465)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <line x1="529.83806" y1="216.0623" x2="461.2435" y2="270.9108" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="442.76857" y1="289.19404" x2="410.313" y2="328.9191" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="459.34956" y1="289.16374" x2="492.09617" y2="328.9494" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="500.40494" y1="352.14006" x2="500.40494" y2="381.3685" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="507.97915" y1="405.1274" x2="532.4666" y2="439.60104" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="540.0408" y1="463.35996" x2="540.0408" y2="492.2088" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="492.6119" y1="404.96674" x2="466.79306" y2="439.7617" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="690.5382" cy="450.7122" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="690.5382" cy="450.7122" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(685.1055 439.2122)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x="1.216082" y="18" textLength="8.433105">a</tspan>
+      </text>
+      <line x1="690.5382" y1="408.00833" x2="690.5382" y2="437.61635" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="576.7691" cy="616.90414" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="576.7691" cy="616.90414" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(571.33645 605.40414)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <ellipse cx="690.5382" cy="505.7528" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="690.5382" cy="505.7528" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(685.1055 494.2528)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <line x1="690.5382" y1="463.8081" x2="690.5382" y2="492.6569" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="576.7691" y1="574.20026" x2="576.7691" y2="603.8083" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="540.0408" cy="561.1044" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="540.0408" cy="561.1044" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(534.60816 549.6044)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <line x1="540.0408" y1="518.4005" x2="540.0408" y2="548.00853" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="360.5408" cy="279.06896" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="360.5408" cy="279.06896" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(355.10816 267.56896)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <line x1="527.908" y1="212.71433" x2="372.6736" y2="274.25877" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <ellipse cx="633.6536" cy="394.46435" rx="13.040814" ry="13.095879" fill="white"/>
+      <ellipse cx="633.6536" cy="394.46435" rx="13.040814" ry="13.095879" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(628.221 382.96435)" fill="black">
+        <tspan font-family="Times" font-size="19" font-weight="500" x=".6826347" y="18" textLength="9.5">$</tspan>
+      </text>
+      <line x1="648.7916" y1="351.3962" x2="637.9952" y2="382.11234" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <text transform="translate(533 197)" fill="black">
+        <tspan font-family="Songti SC" font-size="14" font-weight="500" x="0" y="15" textLength="14">根</tspan>
+      </text>
+      <text transform="translate(455 462.35995)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">3</tspan>
+      </text>
+      <text transform="translate(398 352)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">5</tspan>
+      </text>
+      <text transform="translate(536.0408 572.20026)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">1</tspan>
+      </text>
+      <text transform="translate(572.7691 628)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">0</tspan>
+      </text>
+      <text transform="translate(686.5382 517.4481)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">4</tspan>
+      </text>
+      <text transform="translate(629.6536 407.5)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">2</tspan>
+      </text>
+      <text transform="translate(356.5408 292.1648)" fill="black">
+        <tspan font-family="Times" font-size="16" font-weight="500" x="0" y="15" textLength="8">7</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
