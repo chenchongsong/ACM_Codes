@@ -3,3 +3,7 @@
 multiset STL::insert erase upperbound find
 
 (带花树)
+
+topo sort
+Suffix array
+Ac machine
