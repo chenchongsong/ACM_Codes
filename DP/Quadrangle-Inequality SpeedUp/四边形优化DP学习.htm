@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://www.cnblogs.com/Jstyle-continue/p/6358334.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>四边形优化DP学习 - Jstyle - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./四边形优化DP学习_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./四边形优化DP学习_files/style2.css">
+<link type="text/css" rel="stylesheet" href="./四边形优化DP学习_files/329736.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./四边形优化DP学习_files/bundle-BOOK-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Jstyle-continue/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Jstyle-continue/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Jstyle-continue/wlwmanifest.xml">
+<script src="./四边形优化DP学习_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Jstyle-continue', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./四边形优化DP学习_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<script type="text/javascript">
+	try {
+		if (screen.availWidth > 1200) {
+			document.getElementById("MainCss").href = '/Skins/BOOK/style2.css';
+		}
+	} catch (e) { }
+</script>
+
+<div id="header">
+<div id="HeaderTitle">
+<div id="Title">
+<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Jstyle-continue/">Jstyle - 急功近利不可成，踏踏实实才是真</a>
+</div>
+<div id="subTitle"></div>
+</div>
+</div>
+
+<div id="main">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/Jstyle-continue/p/6358334.html">四边形优化DP学习</a>
+		</h2>
+		<div id="cnblogs_post_body"><p>转自：http://www.cnblogs.com/hadilo/p/5800306.html</p>
+<p>在动态规划中，经常遇到形如下式的状态转移方程：</p>
+<p>　　　　m(i,j)=min{m(i,k-1),m(k,j)}+w(i,j)(i≤k≤j)（min也可以改为max）</p>
+<p>　　上述的m(i,j)表示区间[i,j]上的某个最优值。w(i,j)表示在转移时需要额外付出的代价。该方程的时间复杂度为O(N<sup>3</sup>)</p>
+<p>&nbsp;　　</p>
+<p>　　下面我们通过四边形不等式来优化上述方程，首先介绍什么是“区间包含的单调性”和“四边形不等式”</p>
+<p>　　　　1、区间包含的单调性：如果对于 i≤i'&lt;j≤j'，有 w(i',j)≤w(i,j')，那么说明w具有区间包含的单调性。（可以形象理解为如果小区间包含于大区间中，那么小区间的w值不超过大区间的w值）</p>
+<p>　　　　2、四边形不等式：如果对于 i≤i'&lt;j≤j'，有 w(i,j)+w(i',j')≤w(i',j)+w(i,j')，我们称函数w满足四边形不等式。（可以形象理解为两个交错区间的w的和不超过小区间与大区间的w的和）</p>
+<p>&nbsp;</p>
+<p>　　下面给出两个定理：</p>
+<p>　　　　1、如果上述的 w 函数同时满足区间包含单调性和四边形不等式性质，那么函数 m 也满足四边形不等式性质</p>
+<p>　　　　　 &nbsp;我们再定义 s(i,j) 表示 m(i,j) 取得最优值时对应的下标（即 i≤k≤j 时，k 处的 w 值最大，则 s(i,j)=k）。此时有如下定理</p>
+<p>　　　　2、假如 m(i,j) 满足四边形不等式，那么 s(i,j) 单调，即 s(i,j)≤s(i,j+1)≤s(i+1,j+1)。</p>
+<p>&nbsp;</p>
+<p>　　好了，有了上述的两个定理后，我们发现如果w函数满足区间包含单调性和四边形不等式性质，那么有 s(i,j-1)≤s(i,j)≤s(i+1,j) 。</p>
+<p>　　即原来的状态转移方程可以改写为下式：</p>
+<p>　　　　　m(i,j)=min{m(i,k-1),m(k,j)}+w(i,j)(s(i,j-1)≤k≤s(i+1,j))（min也可以改为max）</p>
+<p>　　由于这个状态转移方程枚举的是区间长度 L=j-i，而 s(i,j-1) 和 s(i+1,j) 的长度为 L-1，是之前已经计算过的，可以直接调用。</p>
+<p>　　不仅如此，区间的长度最多有n个，对于固定的长度 L，不同的状态也有 n 个，故时间复杂度为 O(N^2)，而原来的时间复杂度为 O(N^3)，实现了优化！</p>
+<p>　　今后只需要根据方程的形式以及 w 函数是否满足两条性质即可考虑使用四边形不等式来优化了。</p>
+<p>&nbsp;</p>
+<p>　　以上描述状态用 m(i,j)，后文用的 dp[i][j]，所代表含意是相同的，特此说明。</p>
+<p>　　以石子合并问题为例。</p>
+<p>　　例如有６堆石子，每堆石子数依次为３ ４ ６ ５ ４ ２</p>
+<p>　　因为是相邻石子合并，所以不能用贪心（每次取最小的两堆合并），只能用动归。（注意：环形石子的话，必须要考虑最后一堆和第一堆的合并。）</p>
+<p>　　例如：一个合并石子的方案：</p>
+<p>　　　　第一次合并 ３ ４ ６ ５ ４ ２ -&gt;７</p>
+<p>　　　　第二次合并 ７ ６ ５ ４ ２ -&gt;１３</p>
+<p>　　　　第三次合并 １３ ５ ４ ２ -&gt;６</p>
+<p>　　　　第四次合并 １３ ５ ６ -&gt;１１</p>
+<p>　　　　第五次合并 １３ １１ -&gt;２４</p>
+<p>　　总得分＝７＋６＋１１＋１３＋２４＝６１ 显然，比贪心法得出的合并方案（得分：62）更优。</p>
+<p>　　</p>
+<p>　　动归分析类似矩阵连乘等问题，得出递推方程：</p>
+<p>　　　　设 dp[i][j] 表示第 i 到第 j 堆石子合并的最优值，sum[i][j] 表示第 i 到第 j 堆石子的总数量。</p>
+<p>　　　　（可以在计算开始先做一遍求所有的 sum[i]，表示求出所有第1堆到第i堆的总数量。则 sum[i][j]=sum[j]-sum[i]。这样计算比较快。）</p>
+<p>　　那么就有状态转移公式：</p>
+<p>　　　　　　<img src="./四边形优化DP学习_files/999549-20160823172503698-1035912752.jpg" alt=""></p>
+<p>　　　　这里 i&lt;=k&lt;j</p>
+<p>　　普通解法需要 O（n^3）。下面使用四边形不等式进行优化。</p>
+<p>　　首先判断是否符合区间单调性和四边形不等式。</p>
+<p>　　　　&nbsp;i &nbsp;i' &nbsp; &nbsp;j &nbsp; &nbsp;j'</p>
+<p>　　　　3 4 6 5 4 2</p>
+<p>　　单调性：</p>
+<p>　　　　w[i',j] = 4+6+5=15 w[i,j'] =3+4+6+5+4+2=24</p>
+<p>　　故w[i',j] &lt;= w[i,j'] 满足单调性</p>
+<p>　　四边形不等式：</p>
+<p>　　　　w[i,j] + w[i',j'] = (3+4+6+5) + (4+6+5+4+2) = 18+21 = 39</p>
+<p>　　　　w[i',j] + w[i,j'] = (4+6+5) + (3+4+6+5+4+2) = 15 + 24 = 39</p>
+<p>　　　　故 w[i,j] + w[i',j'] &lt;= w[i',j] + w[i,j']</p>
+<p>　　故石子合并可利用四边形不等式进行优化。</p>
+<p>&nbsp;</p>
+<p>　　利用四边形不等式，将原递推方程的状态转移数量进行压缩（即缩小了k的取值范围）。</p>
+<p>　　令 s[i][j]=min{k | dp[i][j] = dp[i][k-1] + dp[k][j] + w[i][j]}，即计算出 dp[i][j] 时的最优的 k 值（本例中寻优为取最小）</p>
+<p>　　也可以称为最优决策时的 k 值。由于决策 s 具有单调性，因此状态转移方程中的 k 的取值范围可修改为 :</p>
+<p>　　　　s[i,j-1] &lt;= s[i,j] &lt;= s[i+1,j]</p>
+<p>　　　　边界：s[i,i] = i</p>
+<p>　　因为 s[i,j] 的值在 m[i,j] 取得最优值时，保存和更新，因此 s[i,j-1] 和 s[i+1,j] 都在计算 dp[i][j-1] 以及 dp[i+1][j] 的时候已经计算出来了。</p>
+<p>　　因此，s[i][j] 即 k 的取值范围很容易确定。</p>
+<p>　　根据改进后的状态方程，以及 s[i][j] 的定义方程，可以很快的计算出所有状态的值。计算过程可以如下表所示（类似于矩阵连乘的打表）。</p>
+<p>　　状态表（如果是环形石子合并，需要打2n*2n的表）</p>
+<p>　　　　3 4 6 5 4 2</p>
+<p>　　<img src="./四边形优化DP学习_files/999549-20160823172523089-2061002391.jpg" alt=""></p>
+<p>　　例如：</p>
+<p>　　　　计算dp[1][3]，由于s[1][2]=1，s[2][3]=2，则k值的取值范围是1&lt;=k&lt;=2</p>
+<p>　　　　则，dp[1][3]=min{dp(1,1)+dp(2,3)+13, dp(1,2)+dp(3,3)+13}=min{10+13, 7+13}=20，将其填到状态表。同时，由于取最优值的k等于2，则将其填到s表。</p>
+<p>　　　　同理，可以计算其他状态表和s表中的值。</p>
+<p>　　　　　　dp[2][4]=min{dp(2,2)+dp(3,4)+15, dp(2,3)+dp(4,4)+15}=min{11+15, 10+15}=25</p>
+<p>　　　　　　k=3</p>
+<p>　　　　从表中可以看出，当计算dp[2][5]的时候，由于s[ i,j-1]=s[ 2,4]=3，s[ i+1,j]=s[3,5]=3，此时k的取值范围已经限定为只有一个，大幅缩短了寻找最优解的时间。</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/Jstyle-continue/category/941726.html" target="_blank">------【动态规划】</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6358334,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;a7339697-1adb-e611-845c-ac853d9f53ac&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./四边形优化DP学习_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./四边形优化DP学习_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Jstyle-continue/" target="_blank"><img src="./四边形优化DP学习_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Jstyle-continue/">Jstyle</a><br>
+            <a href="http://home.cnblogs.com/u/Jstyle-continue/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/Jstyle-continue/followers">粉丝 - 1</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;a7339697-1adb-e611-845c-ac853d9f53ac&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6358334,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(6358334,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/Jstyle-continue/p/6351915.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/Jstyle-continue/p/6351915.html" title="发布于2017-01-26 21:45">codeforces 760E or 759C 【线段树维护后缀和】</a><br><a href="http://www.cnblogs.com/Jstyle-continue/p/6358339.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/Jstyle-continue/p/6358339.html" title="发布于2017-01-30 20:33">斜率优化DP学习</a><br></div>
+</div>
+
+
+		<p class="postfoot">
+			posted on <span id="post-date">2017-01-30 20:28</span> <a href="http://www.cnblogs.com/Jstyle-continue/">Jstyle</a> 阅读(<span id="post_view_count">148</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6358334" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/Jstyle-continue/p/6358334.html#" onclick="AddToWz(6358334);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=329736,cb_entryId=6358334,cb_blogApp=currentBlogApp,cb_blogUserGuid='a7339697-1adb-e611-845c-ac853d9f53ac',cb_entryCreatedDate='2017/1/30 20:28:00';loadViewCount(cb_entryId);</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/Jstyle-continue/p/6358334.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/Jstyle-continue/p/6358334.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【推荐】报表开发有捷径：快速设计轻松集成，数据可视化和交互</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://www.mtyun.com/promote/69f73a72-f46d-4103-88e5-94ed2f81259d/" target="_blank"><img width="300" height="250" src="./四边形优化DP学习_files/24442-20170921101521025-1845913848.jpg" alt="美团云0921"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/579458/" target="_blank">从零到5000亿美元，Facebook持续增长13年背后的三个秘密</a><br> ·  <a href="http://news.cnblogs.com/n/579473/" target="_blank">被抄袭团队回应阿里：道歉避重就轻，法庭上见</a><br> ·  <a href="http://news.cnblogs.com/n/579478/" target="_blank">机器人中的逗逼们！盘点那些看起来无用但有趣的机器人</a><br> ·  <a href="http://news.cnblogs.com/n/579477/" target="_blank">甲骨文购并，升阳陨落？</a><br> ·  <a href="http://news.cnblogs.com/n/579476/" target="_blank">苹果在GitHub上公布macOS和iOS内核源码</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/22446/" target="_blank"><img width="468" height="60" src="./四边形优化DP学习_files/24442-20171001085719794-417760373.jpg" alt="阿里云1001"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © Jstyle
+</p>
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/09/01&#39;);return false;">&lt;</a></td><td align="center">2017年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td></tr><tr><td class="CalTodayDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td class="CalWeekendDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center">28</td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li><a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a></li>
+			<li><a id="blog_nav_myhome" href="http://www.cnblogs.com/Jstyle-continue/">首页</a></li>
+			<li><a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+			<li><a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/Jstyle">联系</a></li>
+			<li><a id="blog_nav_rss" href="http://www.cnblogs.com/Jstyle-continue/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/Jstyle-continue/rss"><img src="./四边形优化DP学习_files/xml.gif" alt="订阅"></a>
+			</li><li><a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div id="blog_stats">
+<h3>统计</h3>
+	<ul>
+		<li>随笔 - 154
+		</li><li>文章 - 0
+		</li><li>评论 - 0
+		</li><li>引用 - 0
+	</li>
+</ul></div>
+		
+<h3>公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/Jstyle-continue/">Jstyle</a><br>园龄：<a href="http://home.cnblogs.com/u/Jstyle-continue/" title="入园时间：2017-01-15">8个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/Jstyle-continue/followers/">1</a><br>关注：<a href="http://home.cnblogs.com/u/Jstyle-continue/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;a7339697-1adb-e611-845c-ac853d9f53ac&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+
+		<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/Jstyle-continue/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/Jstyle-continue/category/941738.html">【51NOD】(3)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/Jstyle-continue/category/941704.html">【BZOJ】(6)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/Jstyle-continue/category/941705.html">【Codeforces】(18)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/Jstyle-continue/category/941700.html">【HDU】(43)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/Jstyle-continue/category/941702.html">【POJ】(9)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/Jstyle-continue/category/941707.html">【SPOJ】(3)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/Jstyle-continue/category/941706.html">【USACO】(26)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/Jstyle-continue/category/941708.html">【UVA】(9)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/Jstyle-continue/category/941726.html">------【动态规划】(22)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/Jstyle-continue/category/941722.html">------【基本算法】(52)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/Jstyle-continue/category/941729.html">------【计算几何】(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/Jstyle-continue/category/941727.html">------【数据结构】(21)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/Jstyle-continue/category/941728.html">------【数学】(7)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/Jstyle-continue/category/941725.html">------【搜索】(19)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/Jstyle-continue/category/941724.html">------【图论】(21)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/Jstyle-continue/archive/2017/04.html">2017年4月 (2)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/Jstyle-continue/archive/2017/02.html">2017年2月 (11)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/Jstyle-continue/archive/2017/01.html">2017年1月 (16)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/12.html">2016年12月 (1)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/09.html">2016年9月 (1)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/07.html">2016年7月 (22)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/06.html">2016年6月 (7)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/05.html">2016年5月 (31)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/04.html">2016年4月 (60)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/Jstyle-continue/archive/2016/02.html">2016年2月 (3)</a> </li>
+			
+				</ul>
+			
+	</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" style="display: none;">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"></div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/Jstyle-continue/p/6662413.html">1. 2016-2017 ACM-ICPC Pacific Northwest Regional Contest (Div. 2) 【部分题解】(332)</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/p/6358334.html">2. 四边形优化DP学习(149)</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/p/6715379.html">3. 2015-2016 ACM-ICPC Pacific Northwest Regional Contest (Div. 2)(140)</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/p/6379673.html">4. codeforces - 766B【三角形判断】(76)</a></li><li><a href="http://www.cnblogs.com/Jstyle-continue/p/6375642.html">5. HDU 6012【离散化+扫描线】(69)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap" style="display: none;">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap" style="display: none;">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+			
+			
+			
+			
+			 
+
+	
+
+
+
+</body></html>

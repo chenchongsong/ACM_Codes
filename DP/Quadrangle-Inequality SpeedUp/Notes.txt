@@ -1,0 +1,21 @@
+Notes:
+
+why can be optimised from N^3 to N^2？
+
+因为 求所有的dp[i][j] (j-i == L (fixed)) 只要O(N)
+
+assume k1 = s[i][j-1], k2 = s[i+1][j], k3 = s[i+2][j+1] k4=... (length = L-1)
+then we have k1 <= k2 <= k3 <= k4 <= .. <= N;
+
+to calculate dp[i][j]: we iterate from k1 to k2
+to calculate dp[i+1][j+1]: iterate from k2 to k3
+to calcualte dp[i+2][j+2]: iterate from k3 to k4
+...
+
+in total we only need to iterate N times, before getting the results of
+all dp[i+k][j+k] (j+k <= N).
+
+Qed.
+
+
+
