@@ -20,7 +20,7 @@ bool cmpSA(int *y,int a,int b,int k, int n) {
 void buildSA(const string& str, int n, int m) {
 
     for(int i = 0; i < m; i++) cnt[i] = 0;
-    for(int i = 0; i < n; i++) ++cnt[rk1[i]=(int)s[i]];
+    for(int i = 0; i < n; i++) ++cnt[rk1[i]=(int)str[i]];
     for(int i = 1; i < m; i++) cnt[i] += cnt[i-1];
     for(int i = n-1; i >= 0; i--) sa[--cnt[rk1[i]]]=i;
 
