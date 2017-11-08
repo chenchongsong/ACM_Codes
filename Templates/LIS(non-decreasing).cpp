@@ -16,7 +16,6 @@ int main()
 	}
 	int Ans = 0;
 	
-// strictly increasing
 for (int i=2;i<=N+1;i++) g[i]=INF;
 for (int i=1;i<=N;i++)
 {
