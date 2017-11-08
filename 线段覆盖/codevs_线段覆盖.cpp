@@ -9,7 +9,7 @@ typedef long long ll;
 struct Lines {ll l,r,v;} lines[MAXN];
 bool cmp(Line a, Line b) {return a.r < b.r;}
 
-int find(int x)  //二分 
+int find(int x)  //二分 找出第一个右端点 小于 当前线段x左端点的 线段
 {
     int l = 0, r = x, mid = 0;
     while( r-l > 1)

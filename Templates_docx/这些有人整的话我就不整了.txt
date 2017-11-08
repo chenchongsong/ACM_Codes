@@ -1,10 +1,14 @@
 这些有人整的话我就不整了：
 toposort
-Segment tree
-Fenwick tree
 LCA
-(Persistent segment tree)
 二分图线性匹配
 cut
 bridge
 prime number generator
+
+
+这些就放弃了：
+(Persistent segment tree)
+(Dijkstra + Heap)
+(带花树)
+(K-D树)
