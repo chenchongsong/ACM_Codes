@@ -23,6 +23,8 @@ multiset<int>::iterator itlow, itup, it;
 itlow=myset.lower_bound (30);
 itup=myset.upper_bound (60);
 myset.erase(itlow,itup);// 10 20 70 80 90
+// cout >> *it;
+// map<int,int>::iterator it    cout >> it->first >> it->second
 printf("size == %d\n", (int)myset.size());
 myset.erase(10);
 //20 70 80 90
