@@ -1,3 +1,11 @@
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <queue>
+#define max_nodes 510
+using namespace std;
+
+// typedef vector<int>::iterator vec_it;
 int source;         // 源点 s
 int sink;           // 汇点 t
 int p[max_nodes];   // 可增广路上的上一条弧的编号
@@ -31,8 +39,8 @@ void bfs()
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (iterator_t ix = G[u].begin(); ix != G[u].end(); ++ix) {
-            Edge &e = edges[(*ix)^1];        //因为从汇点开始 用反向边
+        for (auto it : G[u]) {
+            Edge &e = edges[it^1];        //因为从汇点开始 用反向边
             if (!visited[e.to]) {
                 visited[e.to] = true;
                 d[e.to] = d[u] + 1;
@@ -40,7 +48,7 @@ void bfs()
             }
         }
     }
-    return；
+    return;
 }
 
 // 找到一条增广路 增广
@@ -102,12 +110,12 @@ int max_flow()
         	// remark: u的邻接边不一定都是允许弧
         	// 所以更新到u邻接边的距离+1是新的剩余网络中的允许弧
             int m = num_nodes-1; //默认u的距离是最大值(从剩余网络中排除)
-            for (iterator_t ix = G[u].begin(); ix != G[u].end(); ++ix)
-                if (edges[*ix].cap > edges[*ix].flow) 
-                    m = min(m, d[edges[*ix].to]);
+            for (auto it : G[u])
+                if (edges[it].cap > edges[it].flow) 
+                    m = min(m, d[edges[it].to]);
             if (--num[d[u]] == 0)   // gap 优化
             	break;				// 如果和t距离d[u]的所有点都没了 s和t一定断开了 直接退出 			  
-            d[u] = m+1
+            d[u] = m+1;
             num[d[u]]++;
             cur[u] = 0;
             if (u != source)
@@ -115,4 +123,8 @@ int max_flow()
         }
     }
     return flow;
+}
+
+int main() {
+    return 0;
 }
