@@ -3,13 +3,9 @@ toposort
 rmq
 LCA
 二分图线性匹配
-cut
-bridge
-prime number generator
-
+(Dijjkstra)
 
 这些就放弃了：
 (Persistent segment tree)
-(Dijkstra + Heap)
 (带花树)
 (K-D树)
