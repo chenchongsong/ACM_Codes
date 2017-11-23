@@ -1,11 +1,9 @@
 这些有人整的话我就不整了：
-toposort
-rmq
-LCA
-二分图线性匹配
-(Dijjkstra)
+(树状数组 线段树)
+FFT
 
 这些就放弃了：
 (Persistent segment tree)
+(Dijjkstra)
 (带花树)
 (K-D树)
