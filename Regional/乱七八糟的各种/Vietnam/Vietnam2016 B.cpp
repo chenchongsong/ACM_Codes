@@ -45,8 +45,8 @@ int main()
 			}
 
 		}
-		for (long long i=1;i<=N;i++)
-			printf("v[%lld]---%lld %lld\n",i,V[i], preH[i]);
+		// for (long long i=1;i<=N;i++)
+		// 	printf("v[%lld]---%lld %lld\n",i,V[i], preH[i]);
 
 
 		scanf("%lld", &Q);

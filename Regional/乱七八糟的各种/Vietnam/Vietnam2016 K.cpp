@@ -23,21 +23,33 @@ int main()
 				for (int k=1;k<i;k++)
 				{
 					f[i][j] = max(f[i][j], f[k][j]);
-					if (i >= j*2 && N*3-i >= j) f[i][j] = max(f[i][j], f[k][j-1]+A[i]);
+					// if (i >= j*2 && N*3-i >= j)
+					if (i >= j*2 && N*3-i >= 1+(N-j)*2)
+						f[i][j] = max(f[i][j], f[k][j-1]+A[i]);
 				}
-		for (int i=1;i<=N*3;i++)
-		{
-			for (int j=1;j<=N;j++)
-				printf("%d %d::  %d\n",i,j,f[i][j]);
-		}
+		// for (int i=1;i<=N*3;i++)
+		// {
+		// 	for (int j=1;j<=N;j++)
+		// 		printf("%d %d::  %d\n",i,j,f[i][j]);
+		// }
 		printf("%d\n", f[N*3][N]);
 	}
 	return 0;
 }
 /*
-2
+1
 3
 4 5 6
 7 8 9
 1 2 3
+
+1
+3
+1 1 1
+4 4 4
+5 5 5
+
+should be 13
+
 */
+
