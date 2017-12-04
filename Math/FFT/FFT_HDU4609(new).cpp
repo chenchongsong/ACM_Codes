@@ -77,7 +77,7 @@ int main()
         for (int i=0;i<len_tmp;i++)
             x[i] = complex(num[i],0);
         for (int i=len_tmp;i<len;i++)
-            x[i] = complex(0,0);        
+            x[i] = complex(0,0);       
         
         fft(x, len, 1);//DFT
         for(int i = 0;i < len;i++)
@@ -100,12 +100,14 @@ int main()
         for (int i=0;i<=len;i++)
             sum[i] = sum[i-1]+num[i];
 
+        // Cnt应为 a[i]>=a[j] && a[i]>=a[k] 的(i,j,k)组合的数量
+
         LL Cnt = 0;
         for (int i=0; i<N;i++)
         {
             Cnt += sum[len]-sum[a[i]];
             //此时已加上所有 aj+ak > ai 的情况
-            //然而有重复 为了保证不重复 我们每次只应加上aj<ai && ak<ai 的情况
+            //然而有重复 为了保证不重复 我们每次只应加上aj<=ai && ak<=ai 的情况
             
             Cnt -= (N-1); //扣除一个取本身，另外一个取其他 (because:a[i]+other>a[i] 故而属于多加的部分 应扣除)
             Cnt -= (LL) (N-1-i) * i; //扣除一个取大，一个取小的 (because:一大一小加起来肯定比ai大)
