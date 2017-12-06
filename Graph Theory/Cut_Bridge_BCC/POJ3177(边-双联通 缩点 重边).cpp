@@ -25,8 +25,6 @@ struct Edge{
 	Edge(int a, int b, int c){from=a;to=b;isbridge=c;}
 };
 
-int g[5050][5050];
-
 vector<int> G[MAXN];
 vector<Edge> edges;
 
