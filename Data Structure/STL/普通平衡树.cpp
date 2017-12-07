@@ -6,7 +6,7 @@ using namespace std;
 
 int n;
 vector<int> tree;
-int find(int x) {
+int FIND(int x) {
     return lower_bound(tree.begin(),tree.end(),x)-tree.begin()+1;
 }
 int main() {
@@ -18,7 +18,7 @@ int main() {
 		switch(opt) {
 			case 1:tree.insert(upper_bound(tree.begin(),tree.end(),x),x);break;
             case 2:tree.erase(lower_bound(tree.begin(),tree.end(),x));break;
-            case 3:printf("%d\n",find(x));break;
+            case 3:printf("%d\n",FIND(x));break;
             case 4:printf("%d\n",tree[x-1]);break;
             case 5:printf("%d\n",*--lower_bound(tree.begin(),tree.end(),x));break;
             case 6:printf("%d\n",*upper_bound(tree.begin(),tree.end(),x));break;
