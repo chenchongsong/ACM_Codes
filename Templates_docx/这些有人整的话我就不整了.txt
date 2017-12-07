@@ -1,6 +1,5 @@
 这些有人整的话我就不整了：
 (树状数组 线段树)
-FFT
 
 这些就放弃了：
 (Persistent segment tree)

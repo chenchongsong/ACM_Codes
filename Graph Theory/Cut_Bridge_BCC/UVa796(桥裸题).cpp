@@ -1,10 +1,13 @@
-#include<cstdio>
-#include<algorithm>
-#include<vector>
-#include<stack>
-#include<cstring>
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <vector>
+#include <stack>
+#include <cstring>
 using namespace std;
-#define MAXN 110
+#define MAXN 100011
+#define ms(x) memset(x, 0, sizeof(x))
+
 struct Edge{
 	int u,v;
 	bool operator < (const Edge& lhs) const
@@ -20,8 +23,7 @@ stack<Edge>s;//保存在当前bcc中的边,割顶的bccno无意义,因为存在�
 void dfs(int u, int fa) {
 	low[u] = pre[u] = ++dfs_clock;
 	int child=0;
-	for (int i=0; i < G[u].size(); i++) {
-		int v = G[u][i];
+	for (auto v : G[u]) {
 		Edge e = {u,v};
 		if (!pre[v]) {
 		//not visited yet
@@ -31,9 +33,8 @@ void dfs(int u, int fa) {
 			low[u] = min(low[u], low[v]);
 			if (low[v] >= pre[u]) {
 			//if cut, bcc find
-				Edge e1 = {min(u,v),max(u,v)};
 				if (low[v] > pre[u])
-					bridge.push_back(e1);
+					bridge.push_back((Edge){min(u,v),max(u,v)});
 				iscut[u] = 1;
 				bcc[++bcc_cnt].clear();
 				while(1) {
@@ -60,45 +61,58 @@ void dfs(int u, int fa) {
 		iscut[u] = 0;
 }
 
-int n, m;
 void Clear() {
-	for (int i=1; i<=n; i++)
-		G[i].clear(),
-		bcc[i].clear();
-	bridge.clear();
 	while (!s.empty()) s.pop();
-	memset(low, 0, sizeof(low));
-	memset(pre, 0, sizeof(pre));
-	memset(iscut, 0, sizeof(iscut));
-	memset(bccno, 0, sizeof(bccno));
-	dfs_clock=0, bcc_cnt=0;
+	for (int i=0; i<MAXN; i++) {
+		G[i].clear();
+		bcc[i].clear();
+	}
+	bridge.clear();
+	ms(low);
+	ms(pre);
+	ms(iscut);
+	ms(bccno);
+	dfs_clock = bcc_cnt = 0;
 }
-
-
 int main() {
-	while (1) {
-		int i,a,b;
-		char ch;
-		scanf("%d",&n);
-		if (n == 0) break;
-
+	int n;
+	while (scanf("%d", &n) != EOF) {
 		Clear();
-		while (scanf("%d", &a) == 1 && a) {
-			while((ch=getchar())!='\n') {
-				scanf("%d", &b);
+		int a, b, num;
+		for (int i=0; i<n; i++) {
+			scanf("%d (%d)", &a, &num);
+			while (num--) {
+				cin >> b;
+				if (b <= a) continue;
 				G[a].push_back(b);
 				G[b].push_back(a);
-			} 
+			}
+
 		}
-		for(i=1; i<=n; i++)
+		for(int i = 0; i < n; i++)
 			if(!pre[i])
-				dfs(i,-1);
-		int cnt_cut = 0;
-		for (int i=1; i<=n; i++) {
-			cnt_cut += iscut[i];
-		}
-		printf("%d\n", cnt_cut);
+				dfs(i, -1);
+		cout << bridge.size() << " critical links" << endl;
+		sort(bridge.begin(), bridge.end());
+		for (auto e: bridge)
+			printf("%d - %d\n",e.u, e.v);
+		puts("");
 
 	}
 	return 0;
 }
+
+/*
+
+8
+0 (1) 1
+1 (3) 2 0 3
+2 (2) 1 3
+3 (3) 1 2 4
+4 (1) 3
+7 (1) 6
+6 (1) 7
+5 (0)
+0
+
+*/

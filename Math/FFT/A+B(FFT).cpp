@@ -1,45 +1,75 @@
-#include <cstdio>
 #include <algorithm>
 #include <cstring>
+#include <string.h>
+#include <iostream>
+#include <list>
+#include <map>
+#include <set>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
+#include <cstdio>
 #include <cmath>
+
+#define LL long long
+#define N 200005
+#define INF 0x3ffffff
+
 using namespace std;
+
 const double PI = acos(-1.0);
-struct complex //复数结构体
+
+
+struct Complex // 复数
 {
     double r,i;
-    complex(double _r = 0.0,double _i = 0.0)
-    {r = _r; i = _i;}
-    complex operator +(const complex &b)
-    {return complex(r+b.r,i+b.i);}
-    complex operator -(const complex &b)
-    {return complex(r-b.r,i-b.i);}
-    complex operator *(const complex &b)
-    {return complex(r*b.r-i*b.i,r*b.i+i*b.r);}
+    Complex(double _r = 0,double _i = 0)
+    {
+        r = _r; i = _i;
+    }
+    Complex operator +(const Complex &b)
+    {
+        return Complex(r+b.r,i+b.i);
+    }
+    Complex operator -(const Complex &b)
+    {
+        return Complex(r-b.r,i-b.i);
+    }
+    Complex operator *(const Complex &b)
+    {
+        return Complex(r*b.r-i*b.i,r*b.i+i*b.r);
+    }
 };
-void change(complex y[],int len)  //进行FFT和IFFT前的反转变换 位置i和 （i二进制反转后位置）互换 len必须去2的幂
+
+void change(Complex y[],int len) // 二进制平摊反转置换 O(logn)  
 {
     int i,j,k;
-    for(i = 1, j = len/2;i < len-1; i++)
+    for(i = 1, j = len/2;i < len-1;i++)
     {
-        if(i < j)swap(y[i],y[j]); //交换互为小标反转的元素，i<j保证交换一次
-        k = len/2;                //i做正常的+1，j左反转类型的+1,始终保持i和j是反转的
-        while( j >= k) {j -= k;k /= 2;}
-        if(j < k) j += k;
+        if(i < j)swap(y[i],y[j]); 
+        k = len/2;
+        while( j >= k)
+        {
+            j -= k;
+            k /= 2;
+        }
+        if(j < k)j += k;
     }
 }
-void fft(complex y[],int len,int on) //on==-1 IDFT
+void fft(Complex y[],int len,int on) //DFT和FFT
 {
     change(y,len);
-    for(int h = 2; h <= len; h <<= 1)
+    for(int h = 2;h <= len;h <<= 1)
     {
-        complex wn(cos(-on*2*PI/h),sin(-on*2*PI/h));
-        for(int j = 0;j < len;j+=h)
+        Complex wn(cos(-on*2*PI/h),sin(-on*2*PI/h));
+        for(int j = 0;j < len;j += h)
         {
-            complex w(1,0);
+            Complex w(1,0);
             for(int k = j;k < j+h/2;k++)
             {
-                complex u = y[k];
-                complex t = w*y[k+h/2];
+                Complex u = y[k];
+                Complex t = w*y[k+h/2];
                 y[k] = u+t;
                 y[k+h/2] = u-t;
                 w = w*wn;
@@ -47,64 +77,104 @@ void fft(complex y[],int len,int on) //on==-1 IDFT
         }
     }
     if(on == -1)
-        for(int i = 0;i < len;i++) y[i].r /= len;
+        for(int i = 0;i < len;i++)
+            y[i].r /= len;
 }
 
 
-const int MAXN = 800080;
-const int offset = 50000;
-int a[MAXN/4];
-complex x[MAXN];
-typedef long long LL;
-LL num[MAXN];
+const int M =50000;          // a数组所有元素+M，使a[i]>=0
+const int MAXN = 800040;
+
+Complex x1[MAXN];
+int a[MAXN/4];                //原数组
+long long num[MAXN];     //利用FFT得到的数组
+long long tt[MAXN];        //统计数组每个元素出现个数
+
 int main()
 {
-    int N, Cnt0 = 0;
-    LL Cnt = 0;
-    scanf("%d", &N);
+    int n=0;                   // n表示除了0之外数组元素个数
+    int tot;
+    scanf("%d",&tot);
+    memset(num,0,sizeof(num));
+    memset(tt,0,sizeof(tt));
 
-        
-        memset(num, 0, sizeof(num));
-        for (int i = 0;i < N; i++)
+    int cnt0=0;             //cnt0 统计0的个数
+    int aa;
+
+    for(int i = 0;i < tot;i++)
         {
-            scanf("%d", &a[i]);
-            Cnt0 += (a[i]==0);
-            a[i] += offset;
-            num[a[i]]++;
+            scanf("%d",&aa);
+            if(aa==0) {cnt0++;continue;}  //先把0全删掉，最后特殊考虑0
+            else a[n]=aa;  
+            num[a[n]+M]++;
+            tt[a[n]+M]++;
+            n++;
         }
 
-        sort(a, a+N);
-        int len_tmp = a[N-1]+1, len = 1;
-        while ( len < len_tmp*2 ) len <<= 1;
+    sort(a,a+n);
+    int len1 = a[n-1]+M+1;
+    int len = 1;
 
-        for (int i=0;i<len_tmp;i++)
-            x[i] = complex(num[i],0);
-        for (int i=len_tmp;i<len;i++)
-            x[i] = complex(0,0);
+    while( len < 2*len1 ) len <<= 1;
+
+    for(int i = 0;i < len1;i++){
+         x1[i] = Complex(num[i],0);
+    }
+    for(int i = len1;i < len;i++){
+         x1[i] =Complex(0,0);
+    }
+    fft(x1,len,1);
+
+    for(int i = 0;i < len;i++){
+        x1[i] = x1[i]*x1[i];
+    }
+    fft(x1,len,-1);
+
+    for(int i = 0;i < len;i++){
+         num[i] = (long long)(x1[i].r+0.5);
+    }
+
+    len = 2*(a[n-1]+M);
         
-        fft(x, len, 1);//DFT
-        for(int i = 0;i < len;i++)
-            x[i] = x[i]*x[i];
-        fft(x, len, -1);//IDFT
+    for(int i = 0;i < n;i++) //删掉ai+ai的情况
+           num[a[i]+a[i]+2*M]--;
+/*
+   for(int i = 0;i < len;i++){
+            if(num[i]) cout<<i-2*M<<' '<<num[i]<<endl;
+    }
+*/
+    long long ret= 0;
 
-        for (int i = 0;i < len;i++)
-            num[i] = (LL)(x[i].r+0.5);
-        len = 2 * a[N-1];
+    int l=a[n-1]+M;
 
-        for (int i=0;i<N;i++)
-            num[a[i]*2]--;
+    for(int i = 0;i <=l; i++)   //ai,aj,ak都不为0的情况
+        {
+            if(tt[i]) ret+=(long long)(num[i+M]*tt[i]);
+        }
 
-        //printf("len==%d\n", len);
-        //for (int i=offset*2;i<=offset*2+10;i++)
-            //printf("%d----%lld\n",i,num[i]);
+    ret+=(long long)(num[2*M]*cnt0);        // ai+aj=0的情况
 
+    if(cnt0!=0)
+        {
+            if(cnt0>=3) {                   //ai,aj,ak都为0的情况
+                long long tmp=1;
+                tmp*=(long long)(cnt0);
+                tmp*=(long long)(cnt0-1);
+                tmp*=(long long)(cnt0-2);
+                ret+=tmp;
+            }
+             for(int i = 0;i <=l; i++)
+                {
+                    if(tt[i]>=2){             // x+0=x的情况      
+                        long long tmp=(long long)cnt0;
+                        tmp*=(long long)(tt[i]);
+                        tmp*=(long long)(tt[i]-1);
+                        ret+=tmp*2;
+                    }
+                }
+        }
 
-        for (int i=0; i<N;i++)
-            Cnt += (LL)num[a[i]+offset];
+    printf("%lld\n",ret);
 
-        //扣除带0的特殊情况
-        Cnt -= (LL)Cnt0 * (N-1) * 2LL;// 0+xi=xi && xi+0=xi
-        
-        printf("%lld\n", Cnt);
     return 0;
 }

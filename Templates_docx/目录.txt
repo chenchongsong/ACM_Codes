@@ -1,0 +1,25 @@
+tab default 0.5cm
+
+1. General
+
+快速读入
+LIS
+DP四边形优化
+状态压缩
+统计逆序对
+
+2. Data Structure
+
+STL example
+DSU 并查集
+RMQ
+树状数组（缺）
+线段树（缺）
+莫队算法
+
+
+
+
+
+
+
