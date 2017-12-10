@@ -1,0 +1,154 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <iostream>
+#include <string>
+#define ll long long
+using namespace std;
+
+ll n, m;
+ll op, qL, qR, v; // 每次update或query前 都必须clarify
+ll _sum, _min, _max;
+
+const ll maxnode = 1<<17;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
+
+struct IntervalTree{
+    ll addv[maxnode*4],setv[maxnode*4];
+    ll sumv[maxnode*4],minv[maxnode*4],maxv[maxnode*4];
+
+    void maintain(ll o, ll L, ll R){
+        ll lc = o*2, rc = o*2+1;
+        if(L < R){
+            sumv[o] = sumv[lc] + sumv[rc];
+            maxv[o] = max(maxv[lc], maxv[rc]);
+            minv[o] = min(minv[lc], minv[rc]);
+        }
+        if(setv[o] >= 0){
+            minv[o] = maxv[o] = setv[o];
+            sumv[o] = setv[o] * (R-L+1);
+        }
+        if(addv[o]){
+            minv[o] += addv[o];
+            maxv[o] += addv[o];
+            sumv[o] += addv[o] * (R-L+1);
+        }
+    }
+    void pushdown(ll o){
+        ll lc = o*2, rc = o*2+1;
+        if(setv[o] >= 0){
+            setv[lc] = setv[rc] = setv[o];
+            addv[lc] = addv[rc] = 0;
+            setv[o] = -1;
+        }
+        if(addv[o]){
+            addv[lc] += addv[o]; /// wrong answer
+            addv[rc] += addv[o]; /// wrong answer
+            addv[o] = 0;
+        }
+    }
+    void update(ll o, ll L, ll R){
+        ll lc = o*2, rc = o*2+1;
+        if(qL <= L && qR >= R){
+            if(op == 2) { // set
+                setv[o] = v;
+                addv[o] = 0;
+            } // op == 1 : Add
+            else{
+                addv[o] += v;
+            }
+        }
+        else{
+            pushdown(o);
+            ll M = L + (R-L)/2;
+            if(qL <= M) update(lc, L, M);
+            else maintain(lc, L, M);
+            if(qR > M) update(rc, M+1, R);
+            else maintain(rc, M+1, R);
+        }
+        maintain(o, L, R); /// wrong answer;
+    }
+    void query(ll o, ll L, ll R, ll add){
+        if(setv[o] >= 0){
+            ll v = setv[o] + addv[o] + add;
+            _sum += v * (min(R, qR)-max(L, qL)+1); /// wrong answer
+            _max = max(_max, v);
+            _min = min(_min, v);
+        }
+        else if(qL <= L && qR >= R){
+            _sum += sumv[o] + add*(R-L+1); /// wrong answer
+            _max = max(_max, maxv[o]+add); /// wrong answer
+            _min = min(_min, minv[o]+add); /// wrong answer
+        }
+        else{
+            ll lc = o*2, rc = o*2+1;
+            ll M = L + (R-L)/2;
+            if(qL <= M) query(lc, L, M, add+addv[o]);
+            if(qR > M) query(rc, M+1, R, add+addv[o]);
+        }
+    } 
+} tree;
+
+int main(){
+    scanf("%lld%lld",&n,&m);
+
+    memset(&tree, 0, sizeof(tree));
+    memset(tree.setv, -1, sizeof(tree.setv));
+    tree.setv[1] = 0;/// wrong answer point
+
+    for (int i=1; i<=n; i++) {
+        scanf("%lld", &v);
+        qL = qR = i;
+        op = 1;
+        tree.update(1, 1, n);
+    }
+
+    while(m--){
+        string s;
+        cin >> s;
+        // scanf("%d%d%d%d%d",&op,&x1,&qL,&x2,&qR);
+        if (s == "add") {
+            scanf("%lld%lld%lld",&qL,&qR,&v);
+            op = 1;
+            tree.update(1, 1, n);
+        }
+        if (s == "set") {
+            scanf("%lld%lld%lld",&qL,&qR,&v);
+            op = 2;
+            tree.update(1, 1, n);
+        }
+        if (s == "sum") {
+            scanf("%lld%lld",&qL,&qR);
+            _sum = 0; _max = -INF; _min = INF;
+            tree.query(1, 1, n, 0);
+            printf("%lld\n", _sum);
+        }
+        if (s == "max") {
+            scanf("%lld%lld",&qL,&qR);
+            _sum = 0; _max = -INF; _min = INF;
+            tree.query(1, 1, n, 0);
+            printf("%lld\n", _max);
+        }
+        if (s == "min") {
+            scanf("%lld%lld",&qL,&qR);
+            _sum = 0; _max = -INF; _min = INF;
+            tree.query(1, 1, n, 0);
+            printf("%lld\n", _min);
+        }
+    }
+
+    return 0;
+}
+
+/*
+
+10 6
+3 9 2 8 1 7 5 0 4 6
+add 4 9 4
+set 2 6 2
+add 3 8 2
+sum 2 10
+max 1 7
+min 3 6
+
+*/
