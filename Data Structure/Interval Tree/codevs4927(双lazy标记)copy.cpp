@@ -14,10 +14,11 @@ const ll maxnode = 1<<17;
 const ll INF = 0x3f3f3f3f3f3f3f3f;
 
 struct IntervalTree{
-    ll addv[maxnode*4],setv[maxnode*4];
-    ll sumv[maxnode*4],minv[maxnode*4],maxv[maxnode*4];
+ll addv[maxnode*4],setv[maxnode*4];
+ll sumv[maxnode*4],minv[maxnode*4];
+ll maxv[maxnode*4];
 
-    void maintain(ll o, ll L, ll R){
+void maintain(ll o, ll L, ll R){
         ll lc = o*2, rc = o*2+1;
         if(L < R){
             sumv[o] = sumv[lc] + sumv[rc];
@@ -25,6 +26,7 @@ struct IntervalTree{
             minv[o] = min(minv[lc], minv[rc]);
         }
         if(setv[o] >= 0){
+//when set included
             minv[o] = maxv[o] = setv[o];
             sumv[o] = setv[o] * (R-L+1);
         }
@@ -33,8 +35,8 @@ struct IntervalTree{
             maxv[o] += addv[o];
             sumv[o] += addv[o] * (R-L+1);
         }
-    }
-    void pushdown(ll o){
+}
+void pushdown(ll o){  // when set
         ll lc = o*2, rc = o*2+1;
         if(setv[o] >= 0){
             setv[lc] = setv[rc] = setv[o];
@@ -42,8 +44,8 @@ struct IntervalTree{
             setv[o] = -1;
         }
         if(addv[o]){
-            addv[lc] += addv[o]; /// wrong answer
-            addv[rc] += addv[o]; /// wrong answer
+            addv[lc] += addv[o];
+            addv[rc] += addv[o];
             addv[o] = 0;
         }
     }
@@ -53,34 +55,36 @@ struct IntervalTree{
             if(op == 2) { // set
                 setv[o] = v;
                 addv[o] = 0;
-            } // op == 1 : Add
-            else{
+            } 
+            else { //op==1 :Add
                 addv[o] += v;
             }
         }
         else{
-            pushdown(o);
+            pushdown(o);  //when set
             ll M = L + (R-L)/2;
             if(qL <= M) update(lc, L, M);
-            else maintain(lc, L, M);
+            else maintain(lc, L, M); //when set
             if(qR > M) update(rc, M+1, R);
-            else maintain(rc, M+1, R);
+            else maintain(rc, M+1, R);//when set
         }
         maintain(o, L, R);
     }
     void query(ll o, ll L, ll R, ll add){
-        if(setv[o] >= 0){
+//只需要set时可以删去第四个参数
+        if(setv[o] >= 0){ // when set included
             ll v = setv[o] + addv[o] + add;
             _sum += v * (min(R, qR)-max(L, qL)+1);
             _max = max(_max, v);
             _min = min(_min, v);
         }
         else if(qL <= L && qR >= R){
+//当前区间完全包含于询问中
             _sum += sumv[o] + add*(R-L+1);
             _max = max(_max, maxv[o]+add);
-            _min = min(_min, minv[o]+add); /// wrong answer
+            _min = min(_min, minv[o]+add);
         }
-        else{
+        else{ // 递归统计 累加参数add
             ll lc = o*2, rc = o*2+1;
             ll M = L + (R-L)/2;
             if(qL <= M) query(lc, L, M, add+addv[o]);
@@ -89,6 +93,7 @@ struct IntervalTree{
     } 
 } tree;
 
+
 int main(){
     scanf("%lld%lld",&n,&m);
 
@@ -96,7 +101,7 @@ int main(){
     memset(tree.setv, -1, sizeof(tree.setv));
     tree.setv[1] = 0;/// wrong answer point
 
-    for (int i=1; i<=n; i++) {
+    for (ll i=1; i<=n; i++) {
         scanf("%lld", &v);
         qL = qR = i;
         op = 1;

@@ -1,10 +1,12 @@
 int n, m; // index 1~n 一共m次操作
 int op, qL, qR, v; // 每次update或query前 都必须clarify
+// 对于set: v >= 0 !!!
 int _sum, _min, _max; // 每次query前都要init
 
 const int maxnode = 1<<17;
 const int INF = 0x3f3f3f3f;
 
+// 只要set不要add时 所有"add""addv[]"删去即可 (或视作0)
 struct IntervalTree{
 	int addv[maxnode*4],setv[maxnode*4];
 	int sumv[maxnode*4],minv[maxnode*4],maxv[maxnode*4];
@@ -16,7 +18,7 @@ struct IntervalTree{
 			maxv[o] = max(maxv[lc], maxv[rc]);
 			minv[o] = min(minv[lc], minv[rc]);
 		}
-		if(setv[o] >= 0){
+		if(setv[o] >= 0){ //only when set included
 			minv[o] = maxv[o] = setv[o];
 			sumv[o] = setv[o] * (R-L+1);
 		}
@@ -26,7 +28,7 @@ struct IntervalTree{
 			sumv[o] += addv[o] * (R-L+1);
 		}
 	}
-	void pushdown(int o){
+	void pushdown(int o){ //only when set included
 		int lc = o*2, rc = o*2+1;
 		if(setv[o] >= 0){
 			setv[lc] = setv[rc] = setv[o];
@@ -34,8 +36,8 @@ struct IntervalTree{
 			setv[o] = -1;
 		}
 		if(addv[o]){
-			addv[lc] += addv[o]; /// wrong answer
-			addv[rc] += addv[o]; /// wrong answer
+			addv[lc] += addv[o];
+			addv[rc] += addv[o];
 			addv[o] = 0;
 		}
 	}
@@ -45,34 +47,34 @@ struct IntervalTree{
 			if(op == 2) { // set
 				setv[o] = v;
 				addv[o] = 0;
-			} // op == 1 : Add
-			else{
+			} 
+			else { //op==1 :Add
 				addv[o] += v;
 			}
 		}
 		else{
-			pushdown(o);
+			pushdown(o); //only when set included
 			int M = L + (R-L)/2;
 			if(qL <= M) update(lc, L, M);
-			else maintain(lc, L, M);
+			else maintain(lc, L, M); //only when set included
 			if(qR > M) update(rc, M+1, R);
-			else maintain(rc, M+1, R);
+			else maintain(rc, M+1, R); //only when set included
 		}
 		maintain(o, L, R);
 	}
-	void query(int o, int L, int R, int add){
-		if(setv[o] >= 0){
+	void query(int o, int L, int R, int add){ //只需要set时可以删去第四个参数
+		if(setv[o] >= 0){ // only when set included
 			int v = setv[o] + addv[o] + add;
 			_sum += v * (min(R, qR)-max(L, qL)+1);
 			_max = max(_max, v);
 			_min = min(_min, v);
 		}
-		else if(qL <= L && qR >= R){
+		else if(qL <= L && qR >= R){ //当前区间完全包含于询问中
 			_sum += sumv[o] + add*(R-L+1);
 			_max = max(_max, maxv[o]+add);
 			_min = min(_min, minv[o]+add);
 		}
-		else{
+		else{ // 递归统计 累加参数add
 			int lc = o*2, rc = o*2+1;
 			int M = L + (R-L)/2;
 			if(qL <= M) query(lc, L, M, add+addv[o]);
