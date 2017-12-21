@@ -20,6 +20,7 @@ ll maxv[maxnode*4];
 
 void maintain(ll o, ll L, ll R){
         ll lc = o*2, rc = o*2+1;
+        sumv[o] = maxv[o] = minv[o] = 0;
         if(L < R){
             sumv[o] = sumv[lc] + sumv[rc];
             maxv[o] = max(maxv[lc], maxv[rc]);
@@ -96,10 +97,7 @@ void pushdown(ll o){  // when set
 
 int main(){
     scanf("%lld%lld",&n,&m);
-
     memset(&tree, 0, sizeof(tree));
-    memset(tree.setv, -1, sizeof(tree.setv));
-    tree.setv[1] = 0;/// wrong answer point
 
     for (ll i=1; i<=n; i++) {
         scanf("%lld", &v);
@@ -111,7 +109,6 @@ int main(){
     while(m--){
         string s;
         cin >> s;
-        // scanf("%d%d%d%d%d",&op,&x1,&qL,&x2,&qR);
         if (s == "add") {
             scanf("%lld%lld%lld",&qL,&qR,&v);
             op = 1;
@@ -141,7 +138,6 @@ int main(){
             printf("%lld\n", _min);
         }
     }
-
     return 0;
 }
 
@@ -155,5 +151,11 @@ add 3 8 2
 sum 2 10
 max 1 7
 min 3 6
+
+3 100
+0 0 0
+add 2 3 10
+add 2 3 -10
+sum 1 3
 
 */

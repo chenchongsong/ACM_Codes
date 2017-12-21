@@ -33,7 +33,7 @@ struct IntervalTree{
 
     void maintain(ll o, ll L, ll R) { // update sumv[]
         ll lc = o*2, rc = o*2+1;
-        sumv[o] = 0; // important !
+        // sumv[o] = 0; // important !
         if (L < R) // if having children
             sumv[o] = (sumv[lc] + sumv[rc]) % MOD;
         for (int k=0; k<4; k++)
